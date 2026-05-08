@@ -126,6 +126,77 @@ button:hover {
   background-color: #b91c1c;
 }
 
+.cmj-panel {
+  margin-top: 30px;
+  background-color: #1e293b;
+  padding: 24px;
+  border-radius: 18px;
+  border: 1px solid #334155;
+}
+
+.cmj-panel h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.fps-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.fps-area label {
+  color: #cbd5e1;
+}
+
+.fps-area input {
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background-color: #0f172a;
+  color: white;
+  font-size: 18px;
+}
+
+.cmj-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+}
+
+.cmj-buttons button:nth-child(1) {
+  background-color: #16a34a;
+}
+
+.cmj-buttons button:nth-child(1):hover {
+  background-color: #15803d;
+}
+
+.cmj-buttons button:nth-child(2) {
+  background-color: #9333ea;
+}
+
+.cmj-buttons button:nth-child(2):hover {
+  background-color: #7e22ce;
+}
+
+.cmj-buttons button:nth-child(3) {
+  background-color: #dc2626;
+}
+
+.cmj-buttons button:nth-child(3):hover {
+  background-color: #b91c1c;
+}
+
+.cmj-results {
+  margin-top: 20px;
+  background-color: #0f172a;
+  padding: 18px;
+  border-radius: 14px;
+  line-height: 2;
+}
+
 .info-box {
   margin-top: 25px;
   background-color: #1e293b;

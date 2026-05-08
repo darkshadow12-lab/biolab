@@ -19,10 +19,70 @@ const pointTwo = document.getElementById("pointTwo");
 const unlockBtn = document.getElementById("unlockBtn");
 const lockInfo = document.getElementById("lockInfo");
 
-const frameTime = 1 / 30;
+const fpsInput = document.getElementById("fpsInput");
+const takeOffBtn = document.getElementById("takeOffBtn");
+const landingBtn = document.getElementById("landingBtn");
+const resetCmjBtn = document.getElementById("resetCmjBtn");
+
+const currentFrameInfo = document.getElementById("currentFrameInfo");
+const takeOffFrameInfo = document.getElementById("takeOffFrameInfo");
+const landingFrameInfo = document.getElementById("landingFrameInfo");
+const frameDifferenceInfo = document.getElementById("frameDifferenceInfo");
+const flightTimeInfo = document.getElementById("flightTimeInfo");
+const jumpHeightInfo = document.getElementById("jumpHeightInfo");
 
 let selectedPointCount = 0;
 let isSelectionLocked = false;
+
+let takeOffFrame = null;
+let landingFrame = null;
+
+function getFPS() {
+  const fps = Number(fpsInput.value);
+
+  if (!fps || fps <= 0) {
+    return 30;
+  }
+
+  return fps;
+}
+
+function getFrameTime() {
+  return 1 / getFPS();
+}
+
+function getCurrentFrame() {
+  return Math.round(video.currentTime * getFPS());
+}
+
+function updateCurrentFrameInfo() {
+  currentFrameInfo.textContent = getCurrentFrame();
+}
+
+function calculateCMJ() {
+  if (takeOffFrame === null || landingFrame === null) {
+    return;
+  }
+
+  const frameDifference = landingFrame - takeOffFrame;
+
+  if (frameDifference <= 0) {
+    frameDifferenceInfo.textContent = "Hatalı";
+    flightTimeInfo.textContent = "-";
+    jumpHeightInfo.textContent = "-";
+    return;
+  }
+
+  const flightTime = frameDifference / getFPS();
+
+  const jumpHeightMeter = 9.81 * Math.pow(flightTime, 2) / 8;
+
+  const jumpHeightCm = jumpHeightMeter * 100;
+
+  frameDifferenceInfo.textContent = frameDifference;
+  flightTimeInfo.textContent = flightTime.toFixed(3);
+  jumpHeightInfo.textContent = jumpHeightCm.toFixed(2);
+}
 
 videoInput.addEventListener("change", function () {
   const file = videoInput.files[0];
@@ -30,6 +90,16 @@ videoInput.addEventListener("change", function () {
   if (file) {
     const videoURL = URL.createObjectURL(file);
     video.src = videoURL;
+
+    takeOffFrame = null;
+    landingFrame = null;
+
+    takeOffFrameInfo.textContent = "-";
+    landingFrameInfo.textContent = "-";
+    frameDifferenceInfo.textContent = "-";
+    flightTimeInfo.textContent = "-";
+    jumpHeightInfo.textContent = "-";
+    currentFrameInfo.textContent = "0";
   }
 });
 
@@ -53,16 +123,24 @@ slowSpeedBtn.addEventListener("click", function () {
 
 prevFrameBtn.addEventListener("click", function () {
   video.pause();
-  video.currentTime = Math.max(0, video.currentTime - frameTime);
+  video.currentTime = Math.max(0, video.currentTime - getFrameTime());
+  updateCurrentFrameInfo();
 });
 
 nextFrameBtn.addEventListener("click", function () {
   video.pause();
-  video.currentTime = Math.min(video.duration, video.currentTime + frameTime);
+  video.currentTime = Math.min(video.duration, video.currentTime + getFrameTime());
+  updateCurrentFrameInfo();
 });
 
 video.addEventListener("timeupdate", function () {
   timeInfo.textContent = video.currentTime.toFixed(2);
+  updateCurrentFrameInfo();
+});
+
+fpsInput.addEventListener("input", function () {
+  updateCurrentFrameInfo();
+  calculateCMJ();
 });
 
 function getVideoCoordinates(event) {
@@ -122,4 +200,35 @@ unlockBtn.addEventListener("click", function () {
   pointTwo.value = "0, 0";
 
   lockInfo.textContent = "Açık";
+});
+
+takeOffBtn.addEventListener("click", function () {
+  video.pause();
+
+  takeOffFrame = getCurrentFrame();
+
+  takeOffFrameInfo.textContent = takeOffFrame;
+
+  calculateCMJ();
+});
+
+landingBtn.addEventListener("click", function () {
+  video.pause();
+
+  landingFrame = getCurrentFrame();
+
+  landingFrameInfo.textContent = landingFrame;
+
+  calculateCMJ();
+});
+
+resetCmjBtn.addEventListener("click", function () {
+  takeOffFrame = null;
+  landingFrame = null;
+
+  takeOffFrameInfo.textContent = "-";
+  landingFrameInfo.textContent = "-";
+  frameDifferenceInfo.textContent = "-";
+  flightTimeInfo.textContent = "-";
+  jumpHeightInfo.textContent = "-";
 });
