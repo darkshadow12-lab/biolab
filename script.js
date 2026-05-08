@@ -16,8 +16,12 @@ const speedInfo = document.getElementById("speedInfo");
 
 const timeInfo = document.getElementById("timeInfo");
 
+const xCoordinate = document.getElementById("xCoordinate");
 
-// Ortalama 30 FPS varsayımı
+const yCoordinate = document.getElementById("yCoordinate");
+
+
+// Ortalama 30 FPS
 const frameTime = 1 / 30;
 
 
@@ -83,14 +87,48 @@ nextFrameBtn.addEventListener("click", function () {
   video.pause();
 
   video.currentTime =
-    Math.min(video.duration,
-      video.currentTime + frameTime);
+    Math.min(
+      video.duration,
+      video.currentTime + frameTime
+    );
 });
 
 
-// Süre bilgisini güncelle
+// Süre bilgisi
 video.addEventListener("timeupdate", function () {
 
   timeInfo.textContent =
     video.currentTime.toFixed(2);
+});
+
+
+// Mouse koordinatı
+video.addEventListener("mousemove", function (event) {
+
+  const rect = video.getBoundingClientRect();
+
+  const x = Math.round(
+    (event.clientX - rect.left)
+    *
+    (video.videoWidth / rect.width)
+  );
+
+  const y = Math.round(
+    (event.clientY - rect.top)
+    *
+    (video.videoHeight / rect.height)
+  );
+
+  xCoordinate.value = x;
+
+  yCoordinate.value = y;
+});
+
+
+// Mouse çıkınca sıfırla
+video.addEventListener("mouseleave", function () {
+
+  xCoordinate.value = 0;
+
+  yCoordinate.value = 0;
 });

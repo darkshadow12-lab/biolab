@@ -90,6 +90,35 @@ button:hover {
   transform: scale(1.03);
 }
 
+.coordinate-box {
+  margin-top: 20px;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 12px;
+}
+
+.coordinate-box input {
+
+  width: 100px;
+
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background-color: #1e293b;
+
+  color: white;
+
+  text-align: center;
+
+  font-size: 18px;
+}
+
 .info-box {
   margin-top: 25px;
 

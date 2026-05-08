@@ -1,12 +1,14 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Biyomekanik Video Analiz</title>
 
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
   <div class="app">
@@ -18,15 +20,19 @@
     </p>
 
     <div class="upload-area">
+
       <input
         type="file"
         id="videoInput"
         accept="video/*"
       />
+
     </div>
 
     <div class="video-wrapper">
+
       <video id="video" controls></video>
+
     </div>
 
     <div class="controls">
@@ -50,6 +56,24 @@
       <button id="nextFrameBtn">
         Kare İleri →
       </button>
+
+    </div>
+
+    <div class="coordinate-box">
+
+      <input
+        type="text"
+        id="xCoordinate"
+        value="0"
+        readonly
+      />
+
+      <input
+        type="text"
+        id="yCoordinate"
+        value="0"
+        readonly
+      />
 
     </div>
 
