@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0f172a;
+  color: white;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.app {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  padding-top: 40px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #cbd5e1;
+  margin-bottom: 30px;
+}
+
+.upload-area {
+  background-color: #1e293b;
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+input[type="file"] {
+  color: white;
+}
+
+.video-wrapper {
+  width: 100%;
+  background: black;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid #334155;
+}
+
+video {
+  width: 100%;
+  max-height: 600px;
+  display: block;
+}
+
+.controls {
+  margin-top: 25px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(160px, 1fr));
+
+  gap: 15px;
+}
+
+button {
+  padding: 15px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background-color: #2563eb;
+
+  color: white;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+  transform: scale(1.03);
+}
+
+.info-box {
+  margin-top: 25px;
+
+  background-color: #1e293b;
+
+  padding: 20px;
+
+  border-radius: 16px;
+
+  line-height: 2;
+}

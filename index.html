@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biyomekanik Video Analiz</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <h1>Biyomekanik Video Analiz</h1>
+
+    <p class="subtitle">
+      Video yükle, yavaşlat, durdur ve kare kare analiz et.
+    </p>
+
+    <div class="upload-area">
+      <input
+        type="file"
+        id="videoInput"
+        accept="video/*"
+      />
+    </div>
+
+    <div class="video-wrapper">
+      <video id="video" controls></video>
+    </div>
+
+    <div class="controls">
+
+      <button id="playPauseBtn">
+        Oynat / Durdur
+      </button>
+
+      <button id="normalSpeedBtn">
+        Normal Hız
+      </button>
+
+      <button id="slowSpeedBtn">
+        0.25x Hız
+      </button>
+
+      <button id="prevFrameBtn">
+        ← Kare Geri
+      </button>
+
+      <button id="nextFrameBtn">
+        Kare İleri →
+      </button>
+
+    </div>
+
+    <div class="info-box">
+
+      <p>
+        Oynatma Hızı:
+        <span id="speedInfo">1x</span>
+      </p>
+
+      <p>
+        Video Süresi:
+        <span id="timeInfo">0.00</span> sn
+      </p>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
