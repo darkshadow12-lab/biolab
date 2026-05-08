@@ -25,6 +25,8 @@ const currentFrameInfo = document.getElementById("currentFrameInfo");
 const frameDifferenceInfo = document.getElementById("frameDifferenceInfo");
 const flightTimeInfo = document.getElementById("flightTimeInfo");
 const jumpHeightInfo = document.getElementById("jumpHeightInfo");
+const errorRangeInfo = document.getElementById("errorRangeInfo");
+const reliabilityInfo = document.getElementById("reliabilityInfo");
 
 const unlockBtn = document.getElementById("unlockBtn");
 const lockInfo = document.getElementById("lockInfo");
@@ -71,28 +73,63 @@ function getVideoCoordinates(event) {
   return { x, y };
 }
 
+function calculateJumpHeightCm(flightTime) {
+  const gravity = 9.81;
+  const jumpHeightMeter = gravity * Math.pow(flightTime, 2) / 8;
+  return jumpHeightMeter * 100;
+}
+
+function getReliabilityText(fps) {
+  if (fps < 60) {
+    return "Düşük-Orta";
+  }
+
+  if (fps >= 60 && fps < 120) {
+    return "İyi";
+  }
+
+  if (fps >= 120 && fps < 240) {
+    return "Çok İyi";
+  }
+
+  return "Üst Düzey";
+}
+
 function calculateCMJ() {
   if (takeOffFrame === null || landingFrame === null) {
     return;
   }
 
+  const fps = getFPS();
   const frameDifference = landingFrame - takeOffFrame;
 
   if (frameDifference <= 0) {
     frameDifferenceInfo.textContent = "Hatalı";
     flightTimeInfo.textContent = "-";
     jumpHeightInfo.textContent = "-";
+    errorRangeInfo.textContent = "-";
+    reliabilityInfo.textContent = getReliabilityText(fps);
     return;
   }
 
-  const flightTime = frameDifference / getFPS();
+  const flightTime = frameDifference / fps;
+  const jumpHeightCm = calculateJumpHeightCm(flightTime);
 
-  const jumpHeightMeter = 9.81 * Math.pow(flightTime, 2) / 8;
-  const jumpHeightCm = jumpHeightMeter * 100;
+  const minFrameDifference = Math.max(1, frameDifference - 1);
+  const maxFrameDifference = frameDifference + 1;
+
+  const minFlightTime = minFrameDifference / fps;
+  const maxFlightTime = maxFrameDifference / fps;
+
+  const minJumpHeightCm = calculateJumpHeightCm(minFlightTime);
+  const maxJumpHeightCm = calculateJumpHeightCm(maxFlightTime);
 
   frameDifferenceInfo.textContent = frameDifference;
   flightTimeInfo.textContent = flightTime.toFixed(3);
   jumpHeightInfo.textContent = jumpHeightCm.toFixed(2);
+  errorRangeInfo.textContent =
+    `${minJumpHeightCm.toFixed(2)} - ${maxJumpHeightCm.toFixed(2)} cm`;
+  reliabilityInfo.textContent = getReliabilityText(fps);
 }
 
 function resetSelections() {
@@ -111,6 +148,8 @@ function resetSelections() {
   frameDifferenceInfo.textContent = "-";
   flightTimeInfo.textContent = "-";
   jumpHeightInfo.textContent = "-";
+  errorRangeInfo.textContent = "-";
+  reliabilityInfo.textContent = getReliabilityText(getFPS());
 
   lockInfo.textContent = "Take-off seç";
 }
@@ -217,8 +256,11 @@ video.addEventListener("click", function (event) {
 fpsInput.addEventListener("input", function () {
   updateCurrentFrameInfo();
   calculateCMJ();
+  reliabilityInfo.textContent = getReliabilityText(getFPS());
 });
 
 unlockBtn.addEventListener("click", function () {
   resetSelections();
 });
+
+reliabilityInfo.textContent = getReliabilityText(getFPS());

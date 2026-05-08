@@ -16,7 +16,7 @@
     <h1>CMJ Biyomekanik Video Analiz</h1>
 
     <p class="subtitle">
-      Shift + tıklama ile take-off ve landing anlarını seç, sistem sıçrama yüksekliğini hesaplasın.
+      Shift + tıklama ile take-off ve landing anlarını seç, sistem sıçrama yüksekliğini bilimsel hata aralığıyla hesaplasın.
     </p>
 
     <div class="upload-area">
@@ -43,6 +43,15 @@
     <div class="cmj-panel">
 
       <h2>Countermovement Jump Analizi</h2>
+
+      <div class="science-note">
+        <p>
+          <strong>Take-off:</strong> Ayakların yerle temasının tamamen kesildiği ilk kare.
+        </p>
+        <p>
+          <strong>Landing:</strong> Ayakların tekrar yere temas ettiği ilk kare.
+        </p>
+      </div>
 
       <div class="fps-area">
         <label for="fpsInput">Video FPS</label>
@@ -74,7 +83,18 @@
         <p>Frame Farkı: <span id="frameDifferenceInfo">-</span></p>
         <p>Uçuş Süresi: <span id="flightTimeInfo">-</span> sn</p>
         <p>Sıçrama Yüksekliği: <span id="jumpHeightInfo">-</span> cm</p>
+        <p>±1 Frame Hata Aralığı: <span id="errorRangeInfo">-</span></p>
+        <p>Ölçüm Güvenilirliği: <span id="reliabilityInfo">-</span></p>
         <p>Seçim Durumu: <span id="lockInfo">Take-off seç</span></p>
+      </div>
+
+      <div class="formula-box">
+        <p>
+          Hesaplama: h = g × t² / 8
+        </p>
+        <p>
+          g = 9.81 m/s², t = uçuş süresi
+        </p>
       </div>
 
     </div>
