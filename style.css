@@ -16,6 +16,7 @@ body {
   max-width: 1000px;
   margin: auto;
   padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 h1 {
@@ -58,30 +59,19 @@ video {
 
 .controls {
   margin-top: 25px;
-
   display: grid;
-
-  grid-template-columns:
-    repeat(auto-fit, minmax(160px, 1fr));
-
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 15px;
 }
 
 button {
   padding: 15px;
-
   border: none;
-
   border-radius: 14px;
-
   background-color: #2563eb;
-
   color: white;
-
   font-size: 16px;
-
   cursor: pointer;
-
   transition: 0.2s;
 }
 
@@ -92,41 +82,54 @@ button:hover {
 
 .coordinate-box {
   margin-top: 20px;
-
   display: flex;
-
   justify-content: center;
-
   gap: 12px;
 }
 
 .coordinate-box input {
-
   width: 100px;
-
   padding: 12px;
-
   border: none;
-
   border-radius: 12px;
-
   background-color: #1e293b;
-
   color: white;
-
   text-align: center;
-
   font-size: 18px;
+}
+
+.marker-area {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.marker-box input {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #334155;
+  border-radius: 14px;
+  background-color: #1e293b;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+}
+
+.unlock-btn {
+  width: 100%;
+  margin-top: 15px;
+  background-color: #dc2626;
+}
+
+.unlock-btn:hover {
+  background-color: #b91c1c;
 }
 
 .info-box {
   margin-top: 25px;
-
   background-color: #1e293b;
-
   padding: 20px;
-
   border-radius: 16px;
-
   line-height: 2;
 }

@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
@@ -20,75 +20,44 @@
     </p>
 
     <div class="upload-area">
-
-      <input
-        type="file"
-        id="videoInput"
-        accept="video/*"
-      />
-
+      <input type="file" id="videoInput" accept="video/*" />
     </div>
 
     <div class="video-wrapper">
-
       <video id="video" controls></video>
-
     </div>
 
     <div class="controls">
-
-      <button id="playPauseBtn">
-        Oynat / Durdur
-      </button>
-
-      <button id="normalSpeedBtn">
-        Normal Hız
-      </button>
-
-      <button id="slowSpeedBtn">
-        0.25x Hız
-      </button>
-
-      <button id="prevFrameBtn">
-        ← Kare Geri
-      </button>
-
-      <button id="nextFrameBtn">
-        Kare İleri →
-      </button>
-
+      <button id="playPauseBtn">Oynat / Durdur</button>
+      <button id="normalSpeedBtn">Normal Hız</button>
+      <button id="slowSpeedBtn">0.25x Hız</button>
+      <button id="prevFrameBtn">← Kare Geri</button>
+      <button id="nextFrameBtn">Kare İleri →</button>
     </div>
 
     <div class="coordinate-box">
-
-      <input
-        type="text"
-        id="xCoordinate"
-        value="0"
-        readonly
-      />
-
-      <input
-        type="text"
-        id="yCoordinate"
-        value="0"
-        readonly
-      />
-
+      <input type="text" id="xCoordinate" value="0" readonly />
+      <input type="text" id="yCoordinate" value="0" readonly />
     </div>
 
+    <div class="marker-area">
+      <div class="marker-box">
+        <input type="text" id="pointOne" value="0, 0" readonly />
+      </div>
+
+      <div class="marker-box">
+        <input type="text" id="pointTwo" value="0, 0" readonly />
+      </div>
+    </div>
+
+    <button id="unlockBtn" class="unlock-btn">
+      Kilidi Kaldır
+    </button>
+
     <div class="info-box">
-
-      <p>
-        Oynatma Hızı:
-        <span id="speedInfo">1x</span>
-      </p>
-
-      <p>
-        Video Süresi:
-        <span id="timeInfo">0.00</span> sn
-      </p>
-
+      <p>Oynatma Hızı: <span id="speedInfo">1x</span></p>
+      <p>Video Süresi: <span id="timeInfo">0.00</span> sn</p>
+      <p>Seçim Durumu: <span id="lockInfo">Açık</span></p>
     </div>
 
   </div>
