@@ -16,7 +16,7 @@
     <h1>CMJ Biyomekanik Video Analiz</h1>
 
     <p class="subtitle">
-      Video yükle, kare kare ilerle, take-off ve landing frame seçerek sıçrama yüksekliğini hesapla.
+      Shift + tıklama ile take-off ve landing anlarını seç, sistem sıçrama yüksekliğini hesaplasın.
     </p>
 
     <div class="upload-area">
@@ -40,20 +40,6 @@
       <input type="text" id="yCoordinate" value="0" readonly />
     </div>
 
-    <div class="marker-area">
-      <div class="marker-box">
-        <input type="text" id="pointOne" value="0, 0" readonly />
-      </div>
-
-      <div class="marker-box">
-        <input type="text" id="pointTwo" value="0, 0" readonly />
-      </div>
-    </div>
-
-    <button id="unlockBtn" class="unlock-btn">
-      Nokta Kilidini Kaldır
-    </button>
-
     <div class="cmj-panel">
 
       <h2>Countermovement Jump Analizi</h2>
@@ -63,19 +49,32 @@
         <input type="number" id="fpsInput" value="30" min="1" />
       </div>
 
-      <div class="cmj-buttons">
-        <button id="takeOffBtn">Take-off Frame Seç</button>
-        <button id="landingBtn">Landing Frame Seç</button>
-        <button id="resetCmjBtn">CMJ Sıfırla</button>
+      <div class="marker-area">
+
+        <div class="marker-card">
+          <h3>Take-off</h3>
+          <input type="text" id="takeOffPoint" value="0, 0" readonly />
+          <p>Frame: <span id="takeOffFrameInfo">-</span></p>
+        </div>
+
+        <div class="marker-card">
+          <h3>Landing</h3>
+          <input type="text" id="landingPoint" value="0, 0" readonly />
+          <p>Frame: <span id="landingFrameInfo">-</span></p>
+        </div>
+
       </div>
+
+      <button id="unlockBtn" class="unlock-btn">
+        Seçimleri Sıfırla / Kilidi Kaldır
+      </button>
 
       <div class="cmj-results">
         <p>Mevcut Frame: <span id="currentFrameInfo">0</span></p>
-        <p>Take-off Frame: <span id="takeOffFrameInfo">-</span></p>
-        <p>Landing Frame: <span id="landingFrameInfo">-</span></p>
         <p>Frame Farkı: <span id="frameDifferenceInfo">-</span></p>
         <p>Uçuş Süresi: <span id="flightTimeInfo">-</span> sn</p>
         <p>Sıçrama Yüksekliği: <span id="jumpHeightInfo">-</span> cm</p>
+        <p>Seçim Durumu: <span id="lockInfo">Take-off seç</span></p>
       </div>
 
     </div>
@@ -83,7 +82,6 @@
     <div class="info-box">
       <p>Oynatma Hızı: <span id="speedInfo">1x</span></p>
       <p>Video Süresi: <span id="timeInfo">0.00</span> sn</p>
-      <p>Nokta Seçim Durumu: <span id="lockInfo">Açık</span></p>
     </div>
 
   </div>
