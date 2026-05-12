@@ -5,8 +5,8 @@
 }
 
 body {
-  background: #0b0f14;
-  color: #f3f4f6;
+  background: #f4f6f8;
+  color: #111827;
   font-family: Arial, sans-serif;
   min-height: 100vh;
 }
@@ -31,7 +31,7 @@ body {
 }
 
 .header p {
-  color: #9ca3af;
+  color: #6b7280;
   font-size: 15px;
 }
 
@@ -39,11 +39,20 @@ body {
 .upload-area,
 .selection-panel,
 .results {
-  background: #121821;
-  border: 1px solid #1f2937;
-  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+  border-radius: 24px;
+
   padding: 22px;
+
   margin-bottom: 18px;
+
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
 .protocol h2 {
@@ -52,7 +61,7 @@ body {
 }
 
 .protocol p {
-  color: #9ca3af;
+  color: #6b7280;
   line-height: 1.7;
   margin-bottom: 6px;
 }
@@ -62,15 +71,22 @@ body {
 }
 
 input[type="file"] {
-  color: #f3f4f6;
+  color: #111827;
 }
 
 .video-section {
-  background: #121821;
-  border: 1px solid #1f2937;
-  border-radius: 24px;
+  background: white;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 28px;
+
   overflow: hidden;
+
   margin-bottom: 20px;
+
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
 video {
@@ -82,12 +98,12 @@ video {
 
 .timeline-area {
   padding: 16px 18px;
-  background: #121821;
+  background: white;
 }
 
 #timeline {
   width: 100%;
-  accent-color: #e5e7eb;
+  accent-color: #9ca3af;
   cursor: pointer;
 }
 
@@ -101,44 +117,67 @@ video {
 
 .controls {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(120px, 1fr));
+
   gap: 12px;
+
   margin-bottom: 20px;
 }
 
 button {
   padding: 14px;
-  border: 1px solid #273244;
-  border-radius: 16px;
-  background: #151c26;
-  color: #f3f4f6;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.7);
+
+  backdrop-filter: blur(8px);
+
+  color: #111827;
+
   font-size: 14px;
+
   cursor: pointer;
+
   transition: 0.2s;
+
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.03);
 }
 
 button:hover {
-  background: #1c2633;
+  background: white;
   transform: translateY(-1px);
 }
 
 .selection-status {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
-  background: #0d131b;
-  border: 1px solid #1f2937;
+
+  background: rgba(255, 255, 255, 0.7);
+
+  border: 1px solid #e5e7eb;
+
   padding: 14px 16px;
-  border-radius: 16px;
+
+  border-radius: 18px;
+
   margin-bottom: 16px;
 }
 
 .selection-status span {
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .selection-status strong {
-  color: #f3f4f6;
+  color: #111827;
 }
 
 .marker-area {
@@ -148,9 +187,12 @@ button:hover {
 }
 
 .marker-card {
-  background: #0d131b;
-  border: 1px solid #1f2937;
-  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.65);
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 20px;
+
   padding: 18px;
 }
 
@@ -160,7 +202,7 @@ button:hover {
 }
 
 .marker-card p {
-  color: #9ca3af;
+  color: #6b7280;
   line-height: 1.8;
 }
 
@@ -170,24 +212,39 @@ button:hover {
 }
 
 .result-main {
-  background: #0d131b;
-  border: 1px solid #1f2937;
-  border-radius: 24px;
-  padding: 34px 20px;
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.85),
+    rgba(248,250,252,0.95)
+  );
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 28px;
+
+  padding: 38px 20px;
+
   text-align: center;
+
   margin-bottom: 18px;
+
+  box-shadow:
+    0 6px 24px rgba(0,0,0,0.04);
 }
 
 .result-main span {
   display: block;
-  color: #9ca3af;
+  color: #6b7280;
   margin-bottom: 10px;
 }
 
 .result-main strong {
   display: block;
-  font-size: 68px;
+
+  font-size: 72px;
+
   font-weight: 700;
+
   letter-spacing: -3px;
 }
 
@@ -203,25 +260,36 @@ button:hover {
 }
 
 .result-grid p {
-  background: #0d131b;
-  border: 1px solid #1f2937;
-  border-radius: 16px;
+  background: rgba(255,255,255,0.7);
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 18px;
+
   padding: 16px;
-  color: #9ca3af;
+
+  color: #6b7280;
 }
 
 .result-grid strong {
-  color: #f3f4f6;
+  color: #111827;
 }
 
 .method-note {
   margin-top: 18px;
-  background: #0d131b;
-  border: 1px solid #1f2937;
-  border-radius: 18px;
+
+  background: rgba(255,255,255,0.65);
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 20px;
+
   padding: 18px;
+
   color: #6b7280;
+
   line-height: 1.7;
+
   font-size: 14px;
 }
 
