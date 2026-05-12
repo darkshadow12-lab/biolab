@@ -11,14 +11,6 @@ const slowSpeedBtn = document.getElementById("slowSpeedBtn");
 const prevFrameBtn = document.getElementById("prevFrameBtn");
 const nextFrameBtn = document.getElementById("nextFrameBtn");
 
-const speedInfo = document.getElementById("speedInfo");
-const timeInfo = document.getElementById("timeInfo");
-
-const xCoordinate = document.getElementById("xCoordinate");
-const yCoordinate = document.getElementById("yCoordinate");
-
-const fpsInput = document.getElementById("fpsInput");
-
 const takeOffPoint = document.getElementById("takeOffPoint");
 const landingPoint = document.getElementById("landingPoint");
 
@@ -30,10 +22,12 @@ const frameDifferenceInfo = document.getElementById("frameDifferenceInfo");
 const flightTimeInfo = document.getElementById("flightTimeInfo");
 const jumpHeightInfo = document.getElementById("jumpHeightInfo");
 const errorRangeInfo = document.getElementById("errorRangeInfo");
-const reliabilityInfo = document.getElementById("reliabilityInfo");
 
 const unlockBtn = document.getElementById("unlockBtn");
 const lockInfo = document.getElementById("lockInfo");
+
+const FPS = 60;
+const GRAVITY = 9.81;
 
 let selectionStep = 0;
 let isSelectionLocked = false;
@@ -41,22 +35,12 @@ let isSelectionLocked = false;
 let takeOffFrame = null;
 let landingFrame = null;
 
-function getFPS() {
-  const fps = Number(fpsInput.value);
-
-  if (!fps || fps <= 0) {
-    return 30;
-  }
-
-  return fps;
-}
-
 function getFrameTime() {
-  return 1 / getFPS();
+  return 1 / FPS;
 }
 
 function getCurrentFrame() {
-  return Math.round(video.currentTime * getFPS());
+  return Math.round(video.currentTime * FPS);
 }
 
 function formatTime(seconds) {
@@ -79,9 +63,8 @@ function updateTimeline() {
     return;
   }
 
-  const progress = (video.currentTime / video.duration) * 1000;
+  timeline.value = (video.currentTime / video.duration) * 1000;
 
-  timeline.value = progress;
   currentTimeDisplay.textContent = formatTime(video.currentTime);
   durationDisplay.textContent = formatTime(video.duration);
 }
@@ -101,25 +84,9 @@ function getVideoCoordinates(event) {
 }
 
 function calculateJumpHeightCm(flightTime) {
-  const gravity = 9.81;
-  const jumpHeightMeter = gravity * Math.pow(flightTime, 2) / 8;
+  const jumpHeightMeter = GRAVITY * Math.pow(flightTime, 2) / 8;
+
   return jumpHeightMeter * 100;
-}
-
-function getReliabilityText(fps) {
-  if (fps < 60) {
-    return "Düşük-Orta";
-  }
-
-  if (fps >= 60 && fps < 120) {
-    return "İyi";
-  }
-
-  if (fps >= 120 && fps < 240) {
-    return "Çok İyi";
-  }
-
-  return "Üst Düzey";
 }
 
 function calculateCMJ() {
@@ -127,7 +94,6 @@ function calculateCMJ() {
     return;
   }
 
-  const fps = getFPS();
   const frameDifference = landingFrame - takeOffFrame;
 
   if (frameDifference <= 0) {
@@ -135,18 +101,17 @@ function calculateCMJ() {
     flightTimeInfo.textContent = "-";
     jumpHeightInfo.textContent = "-";
     errorRangeInfo.textContent = "-";
-    reliabilityInfo.textContent = getReliabilityText(fps);
     return;
   }
 
-  const flightTime = frameDifference / fps;
+  const flightTime = frameDifference / FPS;
   const jumpHeightCm = calculateJumpHeightCm(flightTime);
 
   const minFrameDifference = Math.max(1, frameDifference - 1);
   const maxFrameDifference = frameDifference + 1;
 
-  const minFlightTime = minFrameDifference / fps;
-  const maxFlightTime = maxFrameDifference / fps;
+  const minFlightTime = minFrameDifference / FPS;
+  const maxFlightTime = maxFrameDifference / FPS;
 
   const minJumpHeightCm = calculateJumpHeightCm(minFlightTime);
   const maxJumpHeightCm = calculateJumpHeightCm(maxFlightTime);
@@ -154,9 +119,9 @@ function calculateCMJ() {
   frameDifferenceInfo.textContent = frameDifference;
   flightTimeInfo.textContent = flightTime.toFixed(3);
   jumpHeightInfo.textContent = jumpHeightCm.toFixed(2);
+
   errorRangeInfo.textContent =
     `${minJumpHeightCm.toFixed(2)} - ${maxJumpHeightCm.toFixed(2)} cm`;
-  reliabilityInfo.textContent = getReliabilityText(fps);
 }
 
 function resetSelections() {
@@ -166,8 +131,8 @@ function resetSelections() {
   takeOffFrame = null;
   landingFrame = null;
 
-  takeOffPoint.value = "0, 0";
-  landingPoint.value = "0, 0";
+  takeOffPoint.textContent = "0, 0";
+  landingPoint.textContent = "0, 0";
 
   takeOffFrameInfo.textContent = "-";
   landingFrameInfo.textContent = "-";
@@ -176,7 +141,6 @@ function resetSelections() {
   flightTimeInfo.textContent = "-";
   jumpHeightInfo.textContent = "-";
   errorRangeInfo.textContent = "-";
-  reliabilityInfo.textContent = getReliabilityText(getFPS());
 
   lockInfo.textContent = "Take-off seç";
 }
@@ -186,15 +150,15 @@ videoInput.addEventListener("change", function () {
 
   if (file) {
     const videoURL = URL.createObjectURL(file);
+
     video.src = videoURL;
 
     resetSelections();
 
     currentFrameInfo.textContent = "0";
-    timeInfo.textContent = "0.00";
-    timeline.value = 0;
     currentTimeDisplay.textContent = "0.00 sn";
     durationDisplay.textContent = "0.00 sn";
+    timeline.value = 0;
   }
 });
 
@@ -207,9 +171,8 @@ timeline.addEventListener("input", function () {
     return;
   }
 
-  const selectedTime = (Number(timeline.value) / 1000) * video.duration;
+  video.currentTime = (Number(timeline.value) / 1000) * video.duration;
 
-  video.currentTime = selectedTime;
   updateTimeline();
   updateCurrentFrameInfo();
 });
@@ -222,54 +185,41 @@ playPauseBtn.addEventListener("click", function () {
   }
 });
 
-normalSpeedBtn.addEventListener("click", function () {
-  video.playbackRate = 1;
-  speedInfo.textContent = "1x";
-});
-
 slowSpeedBtn.addEventListener("click", function () {
   video.playbackRate = 0.25;
-  speedInfo.textContent = "0.25x";
+});
+
+normalSpeedBtn.addEventListener("click", function () {
+  video.playbackRate = 1;
 });
 
 prevFrameBtn.addEventListener("click", function () {
   video.pause();
-  video.currentTime = Math.max(0, video.currentTime - getFrameTime());
+
+  video.currentTime =
+    Math.max(0, video.currentTime - getFrameTime());
+
   updateCurrentFrameInfo();
   updateTimeline();
 });
 
 nextFrameBtn.addEventListener("click", function () {
   video.pause();
-  video.currentTime = Math.min(video.duration, video.currentTime + getFrameTime());
+
+  video.currentTime =
+    Math.min(video.duration, video.currentTime + getFrameTime());
+
   updateCurrentFrameInfo();
   updateTimeline();
 });
 
 video.addEventListener("timeupdate", function () {
-  timeInfo.textContent = video.currentTime.toFixed(2);
   updateCurrentFrameInfo();
   updateTimeline();
 });
 
-video.addEventListener("mousemove", function (event) {
-  const coordinates = getVideoCoordinates(event);
-
-  xCoordinate.value = coordinates.x;
-  yCoordinate.value = coordinates.y;
-});
-
-video.addEventListener("mouseleave", function () {
-  xCoordinate.value = 0;
-  yCoordinate.value = 0;
-});
-
 video.addEventListener("click", function (event) {
-  if (!event.shiftKey) {
-    return;
-  }
-
-  if (isSelectionLocked) {
+  if (!event.shiftKey || isSelectionLocked) {
     return;
   }
 
@@ -280,7 +230,7 @@ video.addEventListener("click", function (event) {
   const currentFrame = getCurrentFrame();
 
   if (selectionStep === 0) {
-    takeOffPoint.value = coordinateText;
+    takeOffPoint.textContent = coordinateText;
     takeOffFrame = currentFrame;
     takeOffFrameInfo.textContent = takeOffFrame;
 
@@ -291,7 +241,7 @@ video.addEventListener("click", function (event) {
   }
 
   if (selectionStep === 1) {
-    landingPoint.value = coordinateText;
+    landingPoint.textContent = coordinateText;
     landingFrame = currentFrame;
     landingFrameInfo.textContent = landingFrame;
 
@@ -303,14 +253,6 @@ video.addEventListener("click", function (event) {
   }
 });
 
-fpsInput.addEventListener("input", function () {
-  updateCurrentFrameInfo();
-  calculateCMJ();
-  reliabilityInfo.textContent = getReliabilityText(getFPS());
-});
-
 unlockBtn.addEventListener("click", function () {
   resetSelections();
 });
-
-reliabilityInfo.textContent = getReliabilityText(getFPS());

@@ -3,102 +3,106 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CMJ Biyomekanik Video Analiz</title>
+
+  <title>CMJ Video Analiz</title>
+
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <div class="app">
 
-    <h1>CMJ Biyomekanik Video Analiz</h1>
+  <main class="app">
 
-    <p class="subtitle">
-      Shift + tıklama ile take-off ve landing anlarını seç, sistem sıçrama yüksekliğini bilimsel hata aralığıyla hesaplasın.
-    </p>
+    <header class="header">
+      <h1>CMJ Video Analiz</h1>
+      <p>60 FPS video ile flight-time tabanlı sıçrama yüksekliği hesaplama.</p>
+    </header>
 
-    <div class="upload-area">
+    <section class="protocol">
+      <h2>Test Protokolü</h2>
+      <p>Video 60 FPS olmalı. Kamera sabit, sagittal düzlemde ve zemine paralel konumlandırılmalı.</p>
+      <p><strong>Take-off:</strong> Ayakların yerden tamamen ayrıldığı ilk kare.</p>
+      <p><strong>Landing:</strong> Ayakların yere ilk temas ettiği kare.</p>
+    </section>
+
+    <section class="upload-area">
       <input type="file" id="videoInput" accept="video/*" />
-    </div>
+    </section>
 
-    <div class="video-wrapper">
+    <section class="video-section">
       <video id="video"></video>
-    </div>
 
-    <div class="timeline-area">
-      <input type="range" id="timeline" value="0" min="0" max="1000" step="1" />
-      <div class="timeline-time">
-        <span id="currentTimeDisplay">0.00 sn</span>
-        <span id="durationDisplay">0.00 sn</span>
+      <div class="timeline-area">
+        <input type="range" id="timeline" value="0" min="0" max="1000" step="1" />
+
+        <div class="time-row">
+          <span id="currentTimeDisplay">0.00 sn</span>
+          <span id="durationDisplay">0.00 sn</span>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="controls">
+    <section class="controls">
       <button id="playPauseBtn">Oynat / Durdur</button>
-      <button id="normalSpeedBtn">Normal Hız</button>
-      <button id="slowSpeedBtn">0.25x Hız</button>
-      <button id="prevFrameBtn">← Kare Geri</button>
-      <button id="nextFrameBtn">Kare İleri →</button>
-    </div>
+      <button id="slowSpeedBtn">0.25x</button>
+      <button id="normalSpeedBtn">1x</button>
+      <button id="prevFrameBtn">← Kare</button>
+      <button id="nextFrameBtn">Kare →</button>
+    </section>
 
-    <div class="coordinate-box">
-      <input type="text" id="xCoordinate" value="0" readonly />
-      <input type="text" id="yCoordinate" value="0" readonly />
-    </div>
+    <section class="selection-panel">
 
-    <div class="cmj-panel">
-      <h2>Countermovement Jump Analizi</h2>
-
-      <div class="science-note">
-        <p><strong>Take-off:</strong> Ayakların yerle temasının tamamen kesildiği ilk kare.</p>
-        <p><strong>Landing:</strong> Ayakların tekrar yere temas ettiği ilk kare.</p>
-      </div>
-
-      <div class="fps-area">
-        <label for="fpsInput">Video FPS</label>
-        <input type="number" id="fpsInput" value="30" min="1" />
+      <div class="selection-status">
+        <span>Seçim:</span>
+        <strong id="lockInfo">Take-off seç</strong>
       </div>
 
       <div class="marker-area">
+
         <div class="marker-card">
           <h3>Take-off</h3>
-          <input type="text" id="takeOffPoint" value="0, 0" readonly />
+          <p>Koordinat: <span id="takeOffPoint">0, 0</span></p>
           <p>Frame: <span id="takeOffFrameInfo">-</span></p>
         </div>
 
         <div class="marker-card">
           <h3>Landing</h3>
-          <input type="text" id="landingPoint" value="0, 0" readonly />
+          <p>Koordinat: <span id="landingPoint">0, 0</span></p>
           <p>Frame: <span id="landingFrameInfo">-</span></p>
         </div>
+
       </div>
 
-      <button id="unlockBtn" class="unlock-btn">
-        Seçimleri Sıfırla / Kilidi Kaldır
-      </button>
+      <button id="unlockBtn" class="reset-btn">Seçimleri Sıfırla</button>
 
-      <div class="cmj-results">
-        <p>Mevcut Frame: <span id="currentFrameInfo">0</span></p>
-        <p>Frame Farkı: <span id="frameDifferenceInfo">-</span></p>
-        <p>Uçuş Süresi: <span id="flightTimeInfo">-</span> sn</p>
-        <p>Sıçrama Yüksekliği: <span id="jumpHeightInfo">-</span> cm</p>
-        <p>±1 Frame Hata Aralığı: <span id="errorRangeInfo">-</span></p>
-        <p>Ölçüm Güvenilirliği: <span id="reliabilityInfo">-</span></p>
-        <p>Seçim Durumu: <span id="lockInfo">Take-off seç</span></p>
+    </section>
+
+    <section class="results">
+
+      <div class="result-main">
+        <span>Sıçrama Yüksekliği</span>
+        <strong id="jumpHeightInfo">-</strong>
+        <small>cm</small>
       </div>
 
-      <div class="formula-box">
-        <p>Hesaplama: h = g × t² / 8</p>
-        <p>g = 9.81 m/s², t = uçuş süresi</p>
+      <div class="result-grid">
+        <p>Frame: <strong id="currentFrameInfo">0</strong></p>
+        <p>Frame Farkı: <strong id="frameDifferenceInfo">-</strong></p>
+        <p>Uçuş Süresi: <strong id="flightTimeInfo">-</strong> sn</p>
+        <p>Hata Aralığı: <strong id="errorRangeInfo">-</strong></p>
       </div>
-    </div>
 
-    <div class="info-box">
-      <p>Oynatma Hızı: <span id="speedInfo">1x</span></p>
-      <p>Video Süresi: <span id="timeInfo">0.00</span> sn</p>
-    </div>
+      <div class="method-note">
+        <p>Yöntem: h = g × t² / 8</p>
+        <p>FPS sabit: 60 FPS</p>
+        <p>Bu sistem force plate değildir; 60 FPS video tabanlı saha tahmini üretir.</p>
+      </div>
 
-  </div>
+    </section>
+
+  </main>
 
   <script src="script.js"></script>
+
 </body>
 </html>

@@ -5,65 +5,82 @@
 }
 
 body {
-  background-color: #0f172a;
-  color: white;
+  background: #0f172a;
+  color: #f8fafc;
   font-family: Arial, sans-serif;
   min-height: 100vh;
 }
 
 .app {
-  width: 90%;
-  max-width: 1000px;
-  margin: auto;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  width: 92%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 36px 0;
 }
 
-h1 {
+.header {
   text-align: center;
-  font-size: 42px;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
 }
 
-.subtitle {
-  text-align: center;
+.header h1 {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.header p {
   color: #cbd5e1;
-  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.protocol,
+.upload-area,
+.selection-panel,
+.results {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 18px;
+}
+
+.protocol h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.protocol p {
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin-bottom: 6px;
 }
 
 .upload-area {
-  background-color: #1e293b;
-  padding: 20px;
-  border-radius: 16px;
-  margin-bottom: 25px;
   text-align: center;
 }
 
 input[type="file"] {
-  color: white;
+  color: #f8fafc;
 }
 
-.video-wrapper {
-  width: 100%;
-  background: black;
-  border-radius: 18px 18px 0 0;
+.video-section {
+  background: #020617;
+  border: 1px solid #334155;
+  border-radius: 18px;
   overflow: hidden;
-  border: 2px solid #334155;
-  border-bottom: none;
+  margin-bottom: 18px;
 }
 
 video {
   width: 100%;
-  max-height: 600px;
+  max-height: 560px;
   display: block;
+  background: black;
 }
 
 .timeline-area {
-  background-color: #1e293b;
-  border: 2px solid #334155;
-  border-top: none;
-  border-radius: 0 0 18px 18px;
-  padding: 16px;
+  background: #1e293b;
+  padding: 14px;
 }
 
 #timeline {
@@ -71,176 +88,136 @@ video {
   cursor: pointer;
 }
 
-.timeline-time {
+.time-row {
+  margin-top: 6px;
   display: flex;
   justify-content: space-between;
   color: #cbd5e1;
   font-size: 14px;
-  margin-top: 8px;
 }
 
 .controls {
-  margin-top: 25px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
 button {
-  padding: 15px;
+  padding: 13px;
   border: none;
-  border-radius: 14px;
-  background-color: #2563eb;
+  border-radius: 12px;
+  background: #2563eb;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
   transition: 0.2s;
 }
 
 button:hover {
-  background-color: #1d4ed8;
-  transform: scale(1.03);
+  background: #1d4ed8;
+  transform: translateY(-1px);
 }
 
-.coordinate-box {
-  margin-top: 20px;
+.selection-status {
   display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.coordinate-box input {
-  width: 100px;
-  padding: 12px;
-  border: none;
-  border-radius: 12px;
-  background-color: #1e293b;
-  color: white;
-  text-align: center;
-  font-size: 18px;
-}
-
-.cmj-panel {
-  margin-top: 30px;
-  background-color: #1e293b;
-  padding: 24px;
-  border-radius: 18px;
-  border: 1px solid #334155;
-}
-
-.cmj-panel h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.science-note {
-  background-color: #0f172a;
-  border-left: 4px solid #38bdf8;
-  padding: 16px;
-  border-radius: 12px;
-  color: #cbd5e1;
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-
-.fps-area {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.fps-area label {
-  color: #cbd5e1;
-}
-
-.fps-area input {
+  justify-content: space-between;
+  align-items: center;
+  background: #0f172a;
   padding: 14px;
-  border: none;
-  border-radius: 12px;
-  background-color: #0f172a;
-  color: white;
-  font-size: 18px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+}
+
+.selection-status span {
+  color: #cbd5e1;
 }
 
 .marker-area {
-  margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
 
 .marker-card {
-  background-color: #0f172a;
-  border: 2px solid #334155;
+  background: #0f172a;
   border-radius: 16px;
-  padding: 18px;
-  text-align: center;
+  padding: 16px;
 }
 
 .marker-card h3 {
-  margin-bottom: 12px;
-  color: #cbd5e1;
-}
-
-.marker-card input {
-  width: 100%;
-  padding: 16px;
-  border: none;
-  border-radius: 14px;
-  background-color: #1e293b;
-  color: white;
-  text-align: center;
-  font-size: 20px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .marker-card p {
-  color: #e5e7eb;
-}
-
-.unlock-btn {
-  width: 100%;
-  margin-top: 15px;
-  background-color: #dc2626;
-}
-
-.unlock-btn:hover {
-  background-color: #b91c1c;
-}
-
-.cmj-results {
-  margin-top: 20px;
-  background-color: #0f172a;
-  padding: 18px;
-  border-radius: 14px;
-  line-height: 2;
-}
-
-.formula-box {
-  margin-top: 20px;
-  background-color: #111827;
-  border: 1px solid #334155;
-  padding: 16px;
-  border-radius: 14px;
   color: #cbd5e1;
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
-.info-box {
-  margin-top: 25px;
-  background-color: #1e293b;
-  padding: 20px;
-  border-radius: 16px;
-  line-height: 2;
+.reset-btn {
+  width: 100%;
+  margin-top: 14px;
+  background: #dc2626;
+}
+
+.reset-btn:hover {
+  background: #b91c1c;
+}
+
+.result-main {
+  text-align: center;
+  background: #0f172a;
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.result-main span {
+  display: block;
+  color: #cbd5e1;
+  margin-bottom: 8px;
+}
+
+.result-main strong {
+  font-size: 52px;
+}
+
+.result-main small {
+  font-size: 20px;
+  color: #cbd5e1;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.result-grid p {
+  background: #0f172a;
+  border-radius: 12px;
+  padding: 12px;
+  color: #cbd5e1;
+}
+
+.result-grid strong {
+  color: #f8fafc;
+}
+
+.method-note {
+  margin-top: 16px;
+  color: #cbd5e1;
+  line-height: 1.6;
+  font-size: 14px;
 }
 
 @media (max-width: 700px) {
-  .marker-area {
-    grid-template-columns: 1fr;
+  .header h1 {
+    font-size: 30px;
   }
 
-  h1 {
-    font-size: 32px;
+  .marker-area,
+  .result-grid {
+    grid-template-columns: 1fr;
   }
 }
