@@ -40,9 +40,9 @@ body {
 .upload-area,
 .selection-panel,
 .results {
-  background: #FFFFFF;
+  background: #F1F5F9;
 
-  border: 1px solid #E5E7EB;
+  border: 1px solid #CBD5E1;
 
   border-radius: 26px;
 
@@ -74,9 +74,9 @@ input[type="file"] {
 }
 
 .video-section {
-  background: #FFFFFF;
+  background: #F1F5F9;
 
-  border: 1px solid #E5E7EB;
+  border: 1px solid #CBD5E1;
 
   border-radius: 30px;
 
@@ -97,7 +97,7 @@ video {
 
 .timeline-area {
   padding: 16px 18px;
-  background: #FFFFFF;
+  background: #F1F5F9;
 }
 
 #timeline {
@@ -158,9 +158,9 @@ button:hover {
 
   align-items: center;
 
-  background: #F8FAFC;
+  background: #E2E8F0;
 
-  border: 1px solid #E5E7EB;
+  border: 1px solid #CBD5E1;
 
   padding: 14px 16px;
 
@@ -184,9 +184,9 @@ button:hover {
 }
 
 .marker-card {
-  background: #F8FAFC;
+  background: #E2E8F0;
 
-  border: 1px solid #E5E7EB;
+  border: 1px solid #CBD5E1;
 
   border-radius: 22px;
 
@@ -212,11 +212,11 @@ button:hover {
 .result-main {
   background: linear-gradient(
     145deg,
-    #FFFFFF,
-    #F8FAFC
+    #F1F5F9,
+    #E2E8F0
   );
 
-  border: 1px solid #E5E7EB;
+  border: 1px solid #CBD5E1;
 
   border-radius: 30px;
 
@@ -260,9 +260,9 @@ button:hover {
 }
 
 .result-grid p {
-  background: #F8FAFC;
+  background: #E2E8F0;
 
-  border: 1px solid #E5E7EB;
+  border: 1px solid #CBD5E1;
 
   border-radius: 18px;
 
@@ -278,9 +278,9 @@ button:hover {
 .method-note {
   margin-top: 18px;
 
-  background: #F8FAFC;
+  background: #E2E8F0;
 
-  border: 1px solid #E5E7EB;
+  border: 1px solid #CBD5E1;
 
   border-radius: 22px;
 
