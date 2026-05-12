@@ -5,8 +5,8 @@
 }
 
 body {
-  background: #1b2430;
-  color: #111827;
+  background: #1e293b;
+  color: #0f172a;
   font-family: Arial, sans-serif;
   min-height: 100vh;
 }
@@ -20,7 +20,7 @@ body {
 
 .header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
 .header h1 {
@@ -40,9 +40,9 @@ body {
 .upload-area,
 .selection-panel,
 .results {
-  background: rgba(255,255,255,0.92);
+  background: #f8fafc;
 
-  border: 1px solid rgba(255,255,255,0.6);
+  border: 1px solid #e2e8f0;
 
   border-radius: 24px;
 
@@ -51,7 +51,7 @@ body {
   margin-bottom: 18px;
 
   box-shadow:
-    0 8px 30px rgba(0,0,0,0.08);
+    0 10px 30px rgba(15, 23, 42, 0.12);
 }
 
 .protocol h2 {
@@ -60,7 +60,7 @@ body {
 }
 
 .protocol p {
-  color: #4b5563;
+  color: #475569;
   line-height: 1.7;
   margin-bottom: 6px;
 }
@@ -70,13 +70,13 @@ body {
 }
 
 input[type="file"] {
-  color: #111827;
+  color: #0f172a;
 }
 
 .video-section {
-  background: white;
+  background: #f8fafc;
 
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid #e2e8f0;
 
   border-radius: 28px;
 
@@ -85,7 +85,7 @@ input[type="file"] {
   margin-bottom: 20px;
 
   box-shadow:
-    0 8px 30px rgba(0,0,0,0.08);
+    0 10px 30px rgba(15, 23, 42, 0.12);
 }
 
 video {
@@ -97,7 +97,7 @@ video {
 
 .timeline-area {
   padding: 16px 18px;
-  background: white;
+  background: #f8fafc;
 }
 
 #timeline {
@@ -110,7 +110,7 @@ video {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
-  color: #6b7280;
+  color: #64748b;
   font-size: 13px;
 }
 
@@ -128,13 +128,13 @@ video {
 button {
   padding: 14px;
 
-  border: 1px solid #dbe4ee;
+  border: 1px solid #cbd5e1;
 
   border-radius: 18px;
 
-  background: rgba(255,255,255,0.95);
+  background: #334155;
 
-  color: #111827;
+  color: #f8fafc;
 
   font-size: 14px;
 
@@ -143,11 +143,11 @@ button {
   transition: 0.2s;
 
   box-shadow:
-    0 2px 10px rgba(0,0,0,0.04);
+    0 3px 10px rgba(15, 23, 42, 0.08);
 }
 
 button:hover {
-  background: white;
+  background: #475569;
   transform: translateY(-1px);
 }
 
@@ -158,9 +158,9 @@ button:hover {
 
   align-items: center;
 
-  background: #f8fafc;
+  background: #f1f5f9;
 
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e8f0;
 
   padding: 14px 16px;
 
@@ -170,11 +170,11 @@ button:hover {
 }
 
 .selection-status span {
-  color: #6b7280;
+  color: #64748b;
 }
 
 .selection-status strong {
-  color: #111827;
+  color: #0f172a;
 }
 
 .marker-area {
@@ -184,9 +184,9 @@ button:hover {
 }
 
 .marker-card {
-  background: #f8fafc;
+  background: #f1f5f9;
 
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e8f0;
 
   border-radius: 20px;
 
@@ -199,7 +199,7 @@ button:hover {
 }
 
 .marker-card p {
-  color: #4b5563;
+  color: #475569;
   line-height: 1.8;
 }
 
@@ -211,11 +211,11 @@ button:hover {
 .result-main {
   background: linear-gradient(
     145deg,
-    rgba(255,255,255,1),
-    rgba(248,250,252,0.95)
+    #ffffff,
+    #f1f5f9
   );
 
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e8f0;
 
   border-radius: 28px;
 
@@ -226,12 +226,12 @@ button:hover {
   margin-bottom: 18px;
 
   box-shadow:
-    0 8px 30px rgba(0,0,0,0.06);
+    0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
 .result-main span {
   display: block;
-  color: #6b7280;
+  color: #64748b;
   margin-bottom: 10px;
 }
 
@@ -244,11 +244,11 @@ button:hover {
 
   letter-spacing: -3px;
 
-  color: #111827;
+  color: #0f172a;
 }
 
 .result-main small {
-  color: #6b7280;
+  color: #64748b;
   font-size: 18px;
 }
 
@@ -259,33 +259,33 @@ button:hover {
 }
 
 .result-grid p {
-  background: #f8fafc;
+  background: #f1f5f9;
 
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e8f0;
 
   border-radius: 18px;
 
   padding: 16px;
 
-  color: #6b7280;
+  color: #64748b;
 }
 
 .result-grid strong {
-  color: #111827;
+  color: #0f172a;
 }
 
 .method-note {
   margin-top: 18px;
 
-  background: #f8fafc;
+  background: #f1f5f9;
 
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e8f0;
 
   border-radius: 20px;
 
   padding: 18px;
 
-  color: #4b5563;
+  color: #475569;
 
   line-height: 1.7;
 
