@@ -3,14 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>CMJ Biyomekanik Video Analiz</title>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-
   <div class="app">
 
     <h1>CMJ Biyomekanik Video Analiz</h1>
@@ -24,7 +21,15 @@
     </div>
 
     <div class="video-wrapper">
-      <video id="video" controls></video>
+      <video id="video"></video>
+    </div>
+
+    <div class="timeline-area">
+      <input type="range" id="timeline" value="0" min="0" max="1000" step="1" />
+      <div class="timeline-time">
+        <span id="currentTimeDisplay">0.00 sn</span>
+        <span id="durationDisplay">0.00 sn</span>
+      </div>
     </div>
 
     <div class="controls">
@@ -41,16 +46,11 @@
     </div>
 
     <div class="cmj-panel">
-
       <h2>Countermovement Jump Analizi</h2>
 
       <div class="science-note">
-        <p>
-          <strong>Take-off:</strong> Ayakların yerle temasının tamamen kesildiği ilk kare.
-        </p>
-        <p>
-          <strong>Landing:</strong> Ayakların tekrar yere temas ettiği ilk kare.
-        </p>
+        <p><strong>Take-off:</strong> Ayakların yerle temasının tamamen kesildiği ilk kare.</p>
+        <p><strong>Landing:</strong> Ayakların tekrar yere temas ettiği ilk kare.</p>
       </div>
 
       <div class="fps-area">
@@ -59,7 +59,6 @@
       </div>
 
       <div class="marker-area">
-
         <div class="marker-card">
           <h3>Take-off</h3>
           <input type="text" id="takeOffPoint" value="0, 0" readonly />
@@ -71,7 +70,6 @@
           <input type="text" id="landingPoint" value="0, 0" readonly />
           <p>Frame: <span id="landingFrameInfo">-</span></p>
         </div>
-
       </div>
 
       <button id="unlockBtn" class="unlock-btn">
@@ -89,14 +87,9 @@
       </div>
 
       <div class="formula-box">
-        <p>
-          Hesaplama: h = g × t² / 8
-        </p>
-        <p>
-          g = 9.81 m/s², t = uçuş süresi
-        </p>
+        <p>Hesaplama: h = g × t² / 8</p>
+        <p>g = 9.81 m/s², t = uçuş süresi</p>
       </div>
-
     </div>
 
     <div class="info-box">
@@ -107,6 +100,5 @@
   </div>
 
   <script src="script.js"></script>
-
 </body>
 </html>

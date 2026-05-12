@@ -46,15 +46,37 @@ input[type="file"] {
 .video-wrapper {
   width: 100%;
   background: black;
-  border-radius: 18px;
+  border-radius: 18px 18px 0 0;
   overflow: hidden;
   border: 2px solid #334155;
+  border-bottom: none;
 }
 
 video {
   width: 100%;
   max-height: 600px;
   display: block;
+}
+
+.timeline-area {
+  background-color: #1e293b;
+  border: 2px solid #334155;
+  border-top: none;
+  border-radius: 0 0 18px 18px;
+  padding: 16px;
+}
+
+#timeline {
+  width: 100%;
+  cursor: pointer;
+}
+
+.timeline-time {
+  display: flex;
+  justify-content: space-between;
+  color: #cbd5e1;
+  font-size: 14px;
+  margin-top: 8px;
 }
 
 .controls {

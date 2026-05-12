@@ -1,6 +1,10 @@
 const videoInput = document.getElementById("videoInput");
 const video = document.getElementById("video");
 
+const timeline = document.getElementById("timeline");
+const currentTimeDisplay = document.getElementById("currentTimeDisplay");
+const durationDisplay = document.getElementById("durationDisplay");
+
 const playPauseBtn = document.getElementById("playPauseBtn");
 const normalSpeedBtn = document.getElementById("normalSpeedBtn");
 const slowSpeedBtn = document.getElementById("slowSpeedBtn");
@@ -55,8 +59,31 @@ function getCurrentFrame() {
   return Math.round(video.currentTime * getFPS());
 }
 
+function formatTime(seconds) {
+  if (!seconds || isNaN(seconds)) {
+    return "0.00 sn";
+  }
+
+  return `${seconds.toFixed(2)} sn`;
+}
+
 function updateCurrentFrameInfo() {
   currentFrameInfo.textContent = getCurrentFrame();
+}
+
+function updateTimeline() {
+  if (!video.duration || isNaN(video.duration)) {
+    timeline.value = 0;
+    currentTimeDisplay.textContent = "0.00 sn";
+    durationDisplay.textContent = "0.00 sn";
+    return;
+  }
+
+  const progress = (video.currentTime / video.duration) * 1000;
+
+  timeline.value = progress;
+  currentTimeDisplay.textContent = formatTime(video.currentTime);
+  durationDisplay.textContent = formatTime(video.duration);
 }
 
 function getVideoCoordinates(event) {
@@ -162,9 +189,29 @@ videoInput.addEventListener("change", function () {
     video.src = videoURL;
 
     resetSelections();
+
     currentFrameInfo.textContent = "0";
     timeInfo.textContent = "0.00";
+    timeline.value = 0;
+    currentTimeDisplay.textContent = "0.00 sn";
+    durationDisplay.textContent = "0.00 sn";
   }
+});
+
+video.addEventListener("loadedmetadata", function () {
+  updateTimeline();
+});
+
+timeline.addEventListener("input", function () {
+  if (!video.duration || isNaN(video.duration)) {
+    return;
+  }
+
+  const selectedTime = (Number(timeline.value) / 1000) * video.duration;
+
+  video.currentTime = selectedTime;
+  updateTimeline();
+  updateCurrentFrameInfo();
 });
 
 playPauseBtn.addEventListener("click", function () {
@@ -189,17 +236,20 @@ prevFrameBtn.addEventListener("click", function () {
   video.pause();
   video.currentTime = Math.max(0, video.currentTime - getFrameTime());
   updateCurrentFrameInfo();
+  updateTimeline();
 });
 
 nextFrameBtn.addEventListener("click", function () {
   video.pause();
   video.currentTime = Math.min(video.duration, video.currentTime + getFrameTime());
   updateCurrentFrameInfo();
+  updateTimeline();
 });
 
 video.addEventListener("timeupdate", function () {
   timeInfo.textContent = video.currentTime.toFixed(2);
   updateCurrentFrameInfo();
+  updateTimeline();
 });
 
 video.addEventListener("mousemove", function (event) {
