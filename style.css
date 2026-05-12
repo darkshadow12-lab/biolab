@@ -5,8 +5,8 @@
 }
 
 body {
-  background: #F3EFE7;
-  color: #1F2933;
+  background: #0F172A;
+  color: #111827;
   font-family: Arial, sans-serif;
   min-height: 100vh;
 }
@@ -28,11 +28,11 @@ body {
   font-weight: 700;
   letter-spacing: -1px;
   margin-bottom: 10px;
-  color: #1F2933;
+  color: #F8FAFC;
 }
 
 .header p {
-  color: #6B6257;
+  color: #CBD5E1;
   font-size: 15px;
 }
 
@@ -40,9 +40,9 @@ body {
 .upload-area,
 .selection-panel,
 .results {
-  background: #FFFDF8;
+  background: #FFFFFF;
 
-  border: 1px solid #E9E1D3;
+  border: 1px solid #E5E7EB;
 
   border-radius: 26px;
 
@@ -51,7 +51,7 @@ body {
   margin-bottom: 18px;
 
   box-shadow:
-    0 10px 30px rgba(31, 41, 51, 0.06);
+    0 10px 30px rgba(0,0,0,0.10);
 }
 
 .protocol h2 {
@@ -60,7 +60,7 @@ body {
 }
 
 .protocol p {
-  color: #6B6257;
+  color: #475569;
   line-height: 1.7;
   margin-bottom: 6px;
 }
@@ -70,13 +70,13 @@ body {
 }
 
 input[type="file"] {
-  color: #1F2933;
+  color: #111827;
 }
 
 .video-section {
-  background: #FFFDF8;
+  background: #FFFFFF;
 
-  border: 1px solid #E9E1D3;
+  border: 1px solid #E5E7EB;
 
   border-radius: 30px;
 
@@ -85,24 +85,24 @@ input[type="file"] {
   margin-bottom: 20px;
 
   box-shadow:
-    0 10px 30px rgba(31, 41, 51, 0.06);
+    0 10px 30px rgba(0,0,0,0.10);
 }
 
 video {
   width: 100%;
   display: block;
-  background: #111827;
+  background: black;
   max-height: 560px;
 }
 
 .timeline-area {
   padding: 16px 18px;
-  background: #FFFDF8;
+  background: #FFFFFF;
 }
 
 #timeline {
   width: 100%;
-  accent-color: #C0843E;
+  accent-color: #DC2626;
   cursor: pointer;
 }
 
@@ -110,7 +110,7 @@ video {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
-  color: #6B6257;
+  color: #64748B;
   font-size: 13px;
 }
 
@@ -132,9 +132,9 @@ button {
 
   border-radius: 18px;
 
-  background: #2F3E34;
+  background: #DC2626;
 
-  color: #FFFDF8;
+  color: white;
 
   font-size: 14px;
 
@@ -143,11 +143,11 @@ button {
   transition: 0.2s;
 
   box-shadow:
-    0 4px 14px rgba(47, 62, 52, 0.12);
+    0 4px 14px rgba(220,38,38,0.20);
 }
 
 button:hover {
-  background: #3F5245;
+  background: #B91C1C;
   transform: translateY(-1px);
 }
 
@@ -158,9 +158,9 @@ button:hover {
 
   align-items: center;
 
-  background: #F8F4EC;
+  background: #F8FAFC;
 
-  border: 1px solid #E9E1D3;
+  border: 1px solid #E5E7EB;
 
   padding: 14px 16px;
 
@@ -170,11 +170,11 @@ button:hover {
 }
 
 .selection-status span {
-  color: #6B6257;
+  color: #64748B;
 }
 
 .selection-status strong {
-  color: #1F2933;
+  color: #111827;
 }
 
 .marker-area {
@@ -184,9 +184,9 @@ button:hover {
 }
 
 .marker-card {
-  background: #F8F4EC;
+  background: #F8FAFC;
 
-  border: 1px solid #E9E1D3;
+  border: 1px solid #E5E7EB;
 
   border-radius: 22px;
 
@@ -196,11 +196,11 @@ button:hover {
 .marker-card h3 {
   font-size: 16px;
   margin-bottom: 12px;
-  color: #1F2933;
+  color: #111827;
 }
 
 .marker-card p {
-  color: #6B6257;
+  color: #475569;
   line-height: 1.8;
 }
 
@@ -212,11 +212,11 @@ button:hover {
 .result-main {
   background: linear-gradient(
     145deg,
-    #FFFDF8,
-    #F6F0E5
+    #FFFFFF,
+    #F8FAFC
   );
 
-  border: 1px solid #E9E1D3;
+  border: 1px solid #E5E7EB;
 
   border-radius: 30px;
 
@@ -227,12 +227,12 @@ button:hover {
   margin-bottom: 18px;
 
   box-shadow:
-    0 12px 34px rgba(31, 41, 51, 0.08);
+    0 12px 34px rgba(0,0,0,0.08);
 }
 
 .result-main span {
   display: block;
-  color: #6B6257;
+  color: #64748B;
   margin-bottom: 10px;
 }
 
@@ -245,11 +245,11 @@ button:hover {
 
   letter-spacing: -4px;
 
-  color: #1F2933;
+  color: #111827;
 }
 
 .result-main small {
-  color: #C0843E;
+  color: #DC2626;
   font-size: 18px;
 }
 
@@ -260,33 +260,33 @@ button:hover {
 }
 
 .result-grid p {
-  background: #F8F4EC;
+  background: #F8FAFC;
 
-  border: 1px solid #E9E1D3;
+  border: 1px solid #E5E7EB;
 
   border-radius: 18px;
 
   padding: 16px;
 
-  color: #6B6257;
+  color: #64748B;
 }
 
 .result-grid strong {
-  color: #1F2933;
+  color: #111827;
 }
 
 .method-note {
   margin-top: 18px;
 
-  background: #F8F4EC;
+  background: #F8FAFC;
 
-  border: 1px solid #E9E1D3;
+  border: 1px solid #E5E7EB;
 
   border-radius: 22px;
 
   padding: 18px;
 
-  color: #6B6257;
+  color: #475569;
 
   line-height: 1.7;
 
