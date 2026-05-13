@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #0F172A;
+  background: #16202B;
   color: #111827;
   font-family: Arial, sans-serif;
   min-height: 100vh;
@@ -28,11 +28,11 @@ body {
   font-weight: 700;
   letter-spacing: -1px;
   margin-bottom: 10px;
-  color: #F8FAFC;
+  color: #E8EDF2;
 }
 
 .header p {
-  color: #CBD5E1;
+  color: #AEB8C4;
   font-size: 15px;
 }
 
@@ -40,9 +40,9 @@ body {
 .upload-area,
 .selection-panel,
 .results {
-  background: #F1F5F9;
+  background: #DCE3EA;
 
-  border: 1px solid #CBD5E1;
+  border: 1px solid #B8C2CC;
 
   border-radius: 26px;
 
@@ -51,7 +51,7 @@ body {
   margin-bottom: 18px;
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,0.10);
+    0 10px 30px rgba(0,0,0,0.12);
 }
 
 .protocol h2 {
@@ -60,7 +60,7 @@ body {
 }
 
 .protocol p {
-  color: #475569;
+  color: #4F5B67;
   line-height: 1.7;
   margin-bottom: 6px;
 }
@@ -74,9 +74,9 @@ input[type="file"] {
 }
 
 .video-section {
-  background: #F1F5F9;
+  background: #DCE3EA;
 
-  border: 1px solid #CBD5E1;
+  border: 1px solid #B8C2CC;
 
   border-radius: 30px;
 
@@ -85,7 +85,7 @@ input[type="file"] {
   margin-bottom: 20px;
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,0.10);
+    0 10px 30px rgba(0,0,0,0.12);
 }
 
 video {
@@ -97,12 +97,12 @@ video {
 
 .timeline-area {
   padding: 16px 18px;
-  background: #F1F5F9;
+  background: #DCE3EA;
 }
 
 #timeline {
   width: 100%;
-  accent-color: #DC2626;
+  accent-color: #C53030;
   cursor: pointer;
 }
 
@@ -132,9 +132,9 @@ button {
 
   border-radius: 18px;
 
-  background: #DC2626;
+  background: #C53030;
 
-  color: white;
+  color: #F8FAFC;
 
   font-size: 14px;
 
@@ -143,11 +143,11 @@ button {
   transition: 0.2s;
 
   box-shadow:
-    0 4px 14px rgba(220,38,38,0.20);
+    0 4px 14px rgba(197,48,48,0.18);
 }
 
 button:hover {
-  background: #B91C1C;
+  background: #9B2C2C;
   transform: translateY(-1px);
 }
 
@@ -158,9 +158,9 @@ button:hover {
 
   align-items: center;
 
-  background: #E2E8F0;
+  background: #C9D2DB;
 
-  border: 1px solid #CBD5E1;
+  border: 1px solid #B8C2CC;
 
   padding: 14px 16px;
 
@@ -170,7 +170,7 @@ button:hover {
 }
 
 .selection-status span {
-  color: #64748B;
+  color: #5B6773;
 }
 
 .selection-status strong {
@@ -184,9 +184,9 @@ button:hover {
 }
 
 .marker-card {
-  background: #E2E8F0;
+  background: #C9D2DB;
 
-  border: 1px solid #CBD5E1;
+  border: 1px solid #B8C2CC;
 
   border-radius: 22px;
 
@@ -200,7 +200,7 @@ button:hover {
 }
 
 .marker-card p {
-  color: #475569;
+  color: #4F5B67;
   line-height: 1.8;
 }
 
@@ -212,11 +212,11 @@ button:hover {
 .result-main {
   background: linear-gradient(
     145deg,
-    #F1F5F9,
-    #E2E8F0
+    #DCE3EA,
+    #C9D2DB
   );
 
-  border: 1px solid #CBD5E1;
+  border: 1px solid #B8C2CC;
 
   border-radius: 30px;
 
@@ -227,12 +227,12 @@ button:hover {
   margin-bottom: 18px;
 
   box-shadow:
-    0 12px 34px rgba(0,0,0,0.08);
+    0 12px 34px rgba(0,0,0,0.10);
 }
 
 .result-main span {
   display: block;
-  color: #64748B;
+  color: #5B6773;
   margin-bottom: 10px;
 }
 
@@ -249,7 +249,7 @@ button:hover {
 }
 
 .result-main small {
-  color: #DC2626;
+  color: #C53030;
   font-size: 18px;
 }
 
@@ -260,15 +260,15 @@ button:hover {
 }
 
 .result-grid p {
-  background: #E2E8F0;
+  background: #C9D2DB;
 
-  border: 1px solid #CBD5E1;
+  border: 1px solid #B8C2CC;
 
   border-radius: 18px;
 
   padding: 16px;
 
-  color: #64748B;
+  color: #5B6773;
 }
 
 .result-grid strong {
@@ -278,15 +278,15 @@ button:hover {
 .method-note {
   margin-top: 18px;
 
-  background: #E2E8F0;
+  background: #C9D2DB;
 
-  border: 1px solid #CBD5E1;
+  border: 1px solid #B8C2CC;
 
   border-radius: 22px;
 
   padding: 18px;
 
-  color: #475569;
+  color: #4F5B67;
 
   line-height: 1.7;
 
