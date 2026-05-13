@@ -13,7 +13,7 @@ body {
 }
 
 /* =========================
-   PIXEL DUCK
+   BACKGROUND DUCK
 ========================= */
 
 .background-duck-layer {
@@ -27,16 +27,29 @@ body {
 .pixel-duck,
 .rare-duck {
   position: absolute;
+
   width: 48px;
   height: 40px;
+
   image-rendering: pixelated;
+
   opacity: 0.88;
-  will-change: transform, opacity;
-  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.22));
+
+  will-change:
+    transform,
+    opacity;
+
+  filter:
+    drop-shadow(
+      0 8px 12px rgba(0,0,0,0.22)
+    );
 }
 
 .pixel-duck {
-  transform: translate(40px, 120px);
+
+  transform:
+    translate(40px, 120px);
+
   transition:
     transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1),
     opacity 0.8s ease,
@@ -44,15 +57,21 @@ body {
 }
 
 .duck-pixel,
-.rare-duck-pixel {
+.rare-duck-pixel,
+.intro-duck-pixel {
+
   position: absolute;
+
   width: 6px;
   height: 6px;
+
   left: 10px;
   top: 12px;
+
   background: transparent;
 
   box-shadow:
+
     18px 0 #FACC15,
     24px 0 #FACC15,
     30px 0 #FACC15,
@@ -90,80 +109,76 @@ body {
     30px 30px #EAB308,
     36px 30px #FACC15,
     42px 30px #FACC15,
-    48px 30px #FACC15,
-
-    6px 36px #FACC15,
-    12px 36px #FACC15,
-    18px 36px #FACC15,
-    24px 36px #FACC15,
-    30px 36px #FACC15,
-    36px 36px #FACC15,
-    42px 36px #FACC15,
-
-    12px 42px #FB923C,
-    18px 42px #FB923C,
-    30px 42px #FB923C,
-    36px 42px #FB923C;
+    48px 30px #FACC15;
 }
 
-.duck-pixel::after {
-  content: "Z";
-  position: absolute;
-  right: -50px;
-  top: -12px;
-  color: #DCE3EA;
-  font-size: 12px;
-  font-weight: bold;
-  opacity: 0;
-}
+/* =========================
+   DUCK STATES
+========================= */
 
 .pixel-duck.sleeping {
-  animation: duckSleep 2.4s infinite ease-in-out;
-}
-
-.pixel-duck.sleeping .duck-pixel::after {
-  animation: duckSleepZ 2.6s infinite ease-in-out;
+  animation:
+    duckSleep 2.4s infinite ease-in-out;
 }
 
 .pixel-duck.scared {
-  animation: duckScared 0.25s ease-in-out;
+  animation:
+    duckScared 0.25s ease-in-out;
 }
 
 .pixel-duck.panicRunning {
-  animation: duckRun 0.34s infinite alternate ease-in-out;
+  animation:
+    duckRun 0.34s infinite alternate ease-in-out;
 }
 
 .pixel-duck.idle {
-  animation: duckIdle 1.2s ease-in-out;
+  animation:
+    duckIdle 1.2s ease-in-out;
 }
 
 .pixel-duck.curious {
-  animation: duckCurious 1s ease-in-out;
+  animation:
+    duckCurious 1s ease-in-out;
 }
 
 .pixel-duck.grooming {
-  animation: duckGrooming 1.4s ease-in-out;
+  animation:
+    duckGrooming 1.4s ease-in-out;
 }
 
 .pixel-duck.hidden {
   opacity: 0;
+
   filter:
     blur(3px)
-    drop-shadow(0 8px 12px rgba(0,0,0,0.1));
+    drop-shadow(
+      0 8px 12px rgba(0,0,0,0.1)
+    );
 }
 
 .pixel-duck.returning {
   opacity: 0.55;
+
   filter:
     blur(1px)
-    drop-shadow(0 8px 12px rgba(0,0,0,0.18));
+    drop-shadow(
+      0 8px 12px rgba(0,0,0,0.18)
+    );
 }
 
+/* rare duck */
+
 .rare-duck {
+
   width: 38px;
   height: 32px;
+
   opacity: 0;
-  transform: translate(-80px, 75vh) scale(0.82);
+
+  transform:
+    translate(-80px, 75vh)
+    scale(0.82);
+
   transition:
     transform 1.2s ease,
     opacity 0.7s ease;
@@ -178,8 +193,14 @@ body {
   transform-origin: top left;
 }
 
+/* =========================
+   DUCK ANIMATIONS
+========================= */
+
 @keyframes duckSleep {
-  0%, 100% {
+
+  0%,
+  100% {
     scale: 1;
   }
 
@@ -188,23 +209,8 @@ body {
   }
 }
 
-@keyframes duckSleepZ {
-  0% {
-    opacity: 0;
-    transform: translate(0, 4px) scale(0.8);
-  }
-
-  45% {
-    opacity: 0.75;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate(8px, -12px) scale(1.15);
-  }
-}
-
 @keyframes duckScared {
+
   0% {
     translate: 0 0;
   }
@@ -223,6 +229,7 @@ body {
 }
 
 @keyframes duckRun {
+
   from {
     margin-top: 0;
     rotate: -0.4deg;
@@ -235,7 +242,9 @@ body {
 }
 
 @keyframes duckIdle {
-  0%, 100% {
+
+  0%,
+  100% {
     scale: 1;
   }
 
@@ -245,7 +254,9 @@ body {
 }
 
 @keyframes duckCurious {
-  0%, 100% {
+
+  0%,
+  100% {
     scale: 1;
     rotate: 0deg;
   }
@@ -261,7 +272,9 @@ body {
 }
 
 @keyframes duckGrooming {
-  0%, 100% {
+
+  0%,
+  100% {
     rotate: 0deg;
     scale: 1;
   }
@@ -295,7 +308,8 @@ body {
   justify-content: center;
 
   background:
-    radial-gradient(circle at center,
+    radial-gradient(
+      circle at center,
       #DCE3EA 0%,
       #AEB8C4 35%,
       #16202B 100%
@@ -310,25 +324,176 @@ body {
     filter 1.4s ease;
 }
 
+/* grain */
+
+.intro-grain {
+  position: absolute;
+  inset: -100%;
+
+  opacity: 0.045;
+
+  background-image:
+    radial-gradient(#ffffff 0.6px, transparent 0.6px);
+
+  background-size: 6px 6px;
+
+  animation:
+    grainMove 8s linear infinite;
+
+  pointer-events: none;
+}
+
+@keyframes grainMove {
+
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-2%, 1%);
+  }
+
+  50% {
+    transform: translate(1%, -2%);
+  }
+
+  75% {
+    transform: translate(-1%, 2%);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* intro content */
+
 .intro-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: center;
 }
 
 .intro-content h1 {
-  font-size: clamp(70px, 14vw, 180px);
+
+  font-size:
+    clamp(70px, 14vw, 180px);
+
   font-weight: 800;
+
   letter-spacing: -8px;
+
   color: #16202B;
+
+  animation:
+    logoBreathing 4s infinite ease-in-out;
 }
 
 .intro-content p {
+
   margin-top: 14px;
-  font-size: 14px;
-  letter-spacing: 5px;
+
+  font-size: 12px;
+
+  letter-spacing: 6px;
+
   text-transform: uppercase;
+
   color: #4F5B67;
+
+  opacity: 0.9;
+}
+
+@keyframes logoBreathing {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.015);
+  }
+}
+
+/* =========================
+   INTRO DUCK FAMILY
+========================= */
+
+.intro-duck-family {
+
+  position: absolute;
+
+  bottom: 70px;
+
+  left: -260px;
+
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+
+  z-index: 2;
+
+  animation:
+    introDuckWalk 18s linear infinite;
+}
+
+.intro-duck {
+  position: relative;
+  image-rendering: pixelated;
+}
+
+.mother-duck {
+  width: 56px;
+  height: 48px;
+}
+
+.baby-duck {
+  width: 34px;
+  height: 28px;
+  opacity: 0.95;
+}
+
+.baby-one {
+  animation:
+    babyBounce 0.8s infinite ease-in-out;
+}
+
+.baby-two {
+  animation:
+    babyBounce 0.8s 0.25s infinite ease-in-out;
+}
+
+.baby-duck .intro-duck-pixel {
+  transform: scale(0.62);
+  transform-origin: top left;
+}
+
+@keyframes introDuckWalk {
+
+  0% {
+    transform:
+      translateX(0);
+  }
+
+  100% {
+    transform:
+      translateX(calc(100vw + 420px));
+  }
+}
+
+@keyframes babyBounce {
+
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-4px);
+  }
 }
 
 .intro-screen.hide-intro {
@@ -376,12 +541,19 @@ body {
 .results,
 .save-panel,
 .history-panel {
-  background: rgba(220, 227, 234, 0.92);
+  background:
+    rgba(220, 227, 234, 0.92);
+
   backdrop-filter: blur(8px);
+
   border-radius: 26px;
+
   padding: 22px;
+
   margin-bottom: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.12);
 }
 
 .protocol h2,
@@ -402,9 +574,13 @@ body {
 }
 
 .video-section {
-  background: rgba(220, 227, 234, 0.92);
+  background:
+    rgba(220, 227, 234, 0.92);
+
   border-radius: 30px;
+
   overflow: hidden;
+
   margin-bottom: 20px;
 }
 
@@ -419,6 +595,10 @@ video {
   background: black;
 }
 
+/* =========================
+   VIDEO OVERLAY
+========================= */
+
 .video-overlay {
   position: absolute;
   inset: 0;
@@ -427,11 +607,16 @@ video {
 
 .video-marker {
   position: absolute;
+
   width: 18px;
   height: 18px;
+
   border-radius: 999px;
 
-  transform: translate(-50%, -50%) scale(0);
+  transform:
+    translate(-50%, -50%)
+    scale(0);
+
   opacity: 0;
 
   transition:
@@ -443,27 +628,40 @@ video {
 
 .video-marker.visible {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+
+  transform:
+    translate(-50%, -50%)
+    scale(1);
 }
 
 .takeoff-marker {
+
   background: #EF4444;
+
   box-shadow:
     0 0 0 4px rgba(239, 68, 68, 0.18),
     0 0 18px rgba(239, 68, 68, 0.55);
-  animation: markerPulse 1.6s infinite ease-in-out;
+
+  animation:
+    markerPulse 1.6s infinite ease-in-out;
 }
 
 .landing-marker {
+
   background: #3B82F6;
+
   box-shadow:
     0 0 0 4px rgba(59, 130, 246, 0.18),
     0 0 18px rgba(59, 130, 246, 0.55);
-  animation: markerPulse 1.6s infinite ease-in-out;
+
+  animation:
+    markerPulse 1.6s infinite ease-in-out;
 }
 
 @keyframes markerPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     scale: 1;
   }
 
@@ -482,26 +680,40 @@ video {
 
 .time-row {
   margin-top: 10px;
+
   display: flex;
   justify-content: space-between;
+
   color: #64748B;
+
   font-size: 13px;
 }
 
 .controls {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(120px, 1fr));
+
   gap: 12px;
+
   margin-bottom: 20px;
 }
 
 button {
+
   padding: 14px;
+
   border: none;
+
   border-radius: 18px;
+
   background: #C53030;
+
   color: #F8FAFC;
+
   cursor: pointer;
+
   transition: 0.2s;
 }
 
@@ -522,8 +734,11 @@ button:hover {
 }
 
 .marker-card {
-  background: rgba(201, 210, 219, 0.8);
+  background:
+    rgba(201, 210, 219, 0.8);
+
   border-radius: 22px;
+
   padding: 18px;
 }
 
@@ -534,13 +749,18 @@ button:hover {
 
 .result-main {
   text-align: center;
+
   padding: 42px 20px;
+
   margin-bottom: 18px;
 }
 
 .result-main strong {
+
   display: block;
+
   font-size: 76px;
+
   color: #111827;
 }
 
@@ -551,8 +771,12 @@ button:hover {
 }
 
 .result-grid p {
-  background: rgba(201, 210, 219, 0.8);
+
+  background:
+    rgba(201, 210, 219, 0.8);
+
   border-radius: 18px;
+
   padding: 16px;
 }
 
@@ -563,8 +787,11 @@ button:hover {
 }
 
 .save-row input {
+
   padding: 14px;
+
   border: none;
+
   border-radius: 16px;
 }
 
@@ -590,8 +817,12 @@ button:hover {
 }
 
 .history-card {
-  background: rgba(201, 210, 219, 0.8);
+
+  background:
+    rgba(201, 210, 219, 0.8);
+
   border-radius: 18px;
+
   padding: 16px;
 }
 
@@ -609,10 +840,12 @@ button:hover {
 }
 
 @media (max-width: 700px) {
+
   .marker-area,
   .result-grid,
   .save-row,
   .history-card-grid {
+
     grid-template-columns: 1fr;
   }
 
