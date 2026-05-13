@@ -13,7 +13,7 @@ body {
 }
 
 /* =========================
-   FISTIK PIXEL CHARACTER
+   CSS PIXEL-ART FISTIK
 ========================= */
 
 .background-cat-layer {
@@ -26,10 +26,8 @@ body {
 
 .fistik-cat {
   position: absolute;
-  width: 54px;
-  height: auto;
-  image-rendering: pixelated;
-  opacity: 0.82;
+  width: 72px;
+  height: 58px;
 
   transform: translate(40px, 120px);
 
@@ -38,22 +36,161 @@ body {
     opacity 0.8s ease,
     filter 0.6s ease;
 
+  opacity: 0.82;
   will-change: transform, opacity;
+  image-rendering: pixelated;
 
   filter:
     drop-shadow(0 8px 12px rgba(0,0,0,0.22));
 }
 
+.fistik-pixel {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+
+  width: 6px;
+  height: 6px;
+
+  background: transparent;
+
+  box-shadow:
+    /* ears */
+    18px 0 #111827,
+    24px 0 #111827,
+    42px 0 #D97706,
+    48px 0 #111827,
+
+    12px 6px #111827,
+    18px 6px #111827,
+    24px 6px #F3EBDD,
+    30px 6px #F3EBDD,
+    36px 6px #F3EBDD,
+    42px 6px #D97706,
+    48px 6px #111827,
+
+    /* head top */
+    6px 12px #111827,
+    12px 12px #F3EBDD,
+    18px 12px #111827,
+    24px 12px #F3EBDD,
+    30px 12px #F3EBDD,
+    36px 12px #D97706,
+    42px 12px #D97706,
+    48px 12px #111827,
+
+    0 18px #111827,
+    6px 18px #F3EBDD,
+    12px 18px #F3EBDD,
+    18px 18px #111827,
+    24px 18px #F3EBDD,
+    30px 18px #F3EBDD,
+    36px 18px #D97706,
+    42px 18px #111827,
+    48px 18px #111827,
+    54px 18px #111827,
+
+    /* eyes and face */
+    0 24px #111827,
+    6px 24px #F3EBDD,
+    12px 24px #D4A017,
+    18px 24px #111827,
+    24px 24px #F3EBDD,
+    30px 24px #D4A017,
+    36px 24px #D97706,
+    42px 24px #F3EBDD,
+    48px 24px #111827,
+    54px 24px #111827,
+
+    0 30px #111827,
+    6px 30px #F3EBDD,
+    12px 30px #F3EBDD,
+    18px 30px #F3EBDD,
+    24px 30px #F87171,
+    30px 30px #F3EBDD,
+    36px 30px #F3EBDD,
+    42px 30px #F3EBDD,
+    48px 30px #111827,
+
+    /* body */
+    6px 36px #111827,
+    12px 36px #F3EBDD,
+    18px 36px #F3EBDD,
+    24px 36px #F3EBDD,
+    30px 36px #111827,
+    36px 36px #111827,
+    42px 36px #D97706,
+    48px 36px #D97706,
+    54px 36px #111827,
+
+    0 42px #111827,
+    6px 42px #111827,
+    12px 42px #F3EBDD,
+    18px 42px #F3EBDD,
+    24px 42px #F3EBDD,
+    30px 42px #111827,
+    36px 42px #D97706,
+    42px 42px #D97706,
+    48px 42px #111827,
+    54px 42px #111827,
+
+    /* legs */
+    12px 48px #111827,
+    18px 48px #F3EBDD,
+    24px 48px #111827,
+    36px 48px #111827,
+    42px 48px #D97706,
+    48px 48px #111827;
+}
+
+/* tail */
+.fistik-pixel::before {
+  content: "";
+  position: absolute;
+
+  width: 6px;
+  height: 6px;
+
+  left: -12px;
+  top: 30px;
+
+  background: #111827;
+
+  box-shadow:
+    -6px -6px #111827,
+    -12px -12px #D97706,
+    -12px -18px #111827;
+}
+
+/* sleep z */
+.fistik-pixel::after {
+  content: "Z";
+  position: absolute;
+  right: -58px;
+  top: -10px;
+
+  color: #DCE3EA;
+  font-size: 12px;
+  font-weight: bold;
+
+  opacity: 0;
+}
+
+/* states */
 .fistik-cat.sleeping {
   animation: fistikSleep 2.4s infinite ease-in-out;
 }
 
+.fistik-cat.sleeping .fistik-pixel::after {
+  animation: fistikSleepZ 2.6s infinite ease-in-out;
+}
+
 .fistik-cat.scared {
-  animation: fistikScared 0.22s ease-in-out;
+  animation: fistikScared 0.25s ease-in-out;
 }
 
 .fistik-cat.panicRunning {
-  animation: fistikRun 0.32s infinite alternate ease-in-out;
+  animation: fistikRun 0.34s infinite alternate ease-in-out;
 }
 
 .fistik-cat.idle {
@@ -82,6 +219,22 @@ body {
 
   50% {
     scale: 1.02 0.985;
+  }
+}
+
+@keyframes fistikSleepZ {
+  0% {
+    opacity: 0;
+    transform: translate(0, 4px) scale(0.8);
+  }
+
+  45% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(8px, -12px) scale(1.15);
   }
 }
 
