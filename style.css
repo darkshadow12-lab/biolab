@@ -27,8 +27,8 @@ body {
 .pixel-duck {
   position: absolute;
 
-  width: 56px;
-  height: 48px;
+  width: 48px;
+  height: 40px;
 
   transform: translate(40px, 120px);
 
