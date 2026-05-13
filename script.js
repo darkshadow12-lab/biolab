@@ -1,3 +1,13 @@
+const introScreen = document.getElementById("introScreen");
+
+introScreen.addEventListener("click", function () {
+  introScreen.classList.add("hide-intro");
+
+  setTimeout(function () {
+    introScreen.style.display = "none";
+  }, 1000);
+});
+
 const videoInput = document.getElementById("videoInput");
 const video = document.getElementById("video");
 
