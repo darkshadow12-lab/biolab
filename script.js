@@ -1,93 +1,134 @@
-const introScreen = document.getElementById("introScreen");
+const introScreen =
+  document.getElementById("introScreen");
 
 introScreen.addEventListener("click", function () {
+
   introScreen.classList.add("hide-intro");
 
   setTimeout(function () {
     introScreen.style.display = "none";
   }, 1000);
+
 });
 
-const fistikCat = document.getElementById("fistikCat");
+const pixelDuck =
+  document.getElementById("pixelDuck");
 
-// =========================
-// FISTIK STATE MACHINE
-// =========================
+/* =========================
+   DUCK STATE MACHINE
+========================= */
 
-let catState = "sleeping";
-let catScareCount = 0;
-let catReturnTimeout = null;
-let catPanicTimeouts = [];
+let duckState = "sleeping";
 
-let catPosition = {
+let duckScareCount = 0;
+
+let duckReturnTimeout = null;
+
+let duckPanicTimeouts = [];
+
+let duckPosition = {
   x: 40,
   y: 120
 };
 
-const CAT_DANGER_DISTANCE = 90;
-const CAT_ESCAPE_LIMIT = 5;
-const CAT_HIDE_TIME = 90000;
+const DUCK_DANGER_DISTANCE = 90;
+
+const DUCK_ESCAPE_LIMIT = 5;
+
+const DUCK_HIDE_TIME = 90000;
+
+/* safe spots */
 
 function getSafeSpots() {
+
   return [
-    { x: 40, y: 120 },
 
     {
-      x: window.innerWidth - 140,
-      y: 140
-    },
-
-    {
-      x: 50,
-      y: window.innerHeight - 160
+      x: 40,
+      y: 120
     },
 
     {
       x: window.innerWidth - 150,
+      y: 150
+    },
+
+    {
+      x: 50,
       y: window.innerHeight - 170
     },
 
     {
+      x: window.innerWidth - 160,
+      y: window.innerHeight - 180
+    },
+
+    {
       x: window.innerWidth * 0.2,
-      y: window.innerHeight - 200
+      y: window.innerHeight - 220
     },
 
     {
       x: window.innerWidth * 0.82,
-      y: 200
+      y: 210
     }
+
   ];
+
 }
 
-function clampInsideScreen(position) {
+/* keep inside screen */
+
+function clampInside(position) {
+
   const padding = 24;
 
   return {
+
     x: Math.max(
       padding,
-      Math.min(window.innerWidth - 120, position.x)
+      Math.min(
+        window.innerWidth - 120,
+        position.x
+      )
     ),
 
     y: Math.max(
       padding,
-      Math.min(window.innerHeight - 120, position.y)
+      Math.min(
+        window.innerHeight - 120,
+        position.y
+      )
     )
+
   };
+
 }
 
-function setCatPosition(position, allowOutside = false) {
-  catPosition = allowOutside
-    ? position
-    : clampInsideScreen(position);
+/* move duck */
 
-  fistikCat.style.transform =
-    `translate(${catPosition.x}px, ${catPosition.y}px)`;
+function setDuckPosition(
+  position,
+  allowOutside = false
+) {
+
+  duckPosition =
+    allowOutside
+      ? position
+      : clampInside(position);
+
+  pixelDuck.style.transform =
+    `translate(${duckPosition.x}px, ${duckPosition.y}px)`;
+
 }
 
-function setCatState(newState) {
-  catState = newState;
+/* state */
 
-  fistikCat.classList.remove(
+function setDuckState(newState) {
+
+  duckState = newState;
+
+  pixelDuck.classList.remove(
     "sleeping",
     "scared",
     "panicRunning",
@@ -96,223 +137,368 @@ function setCatState(newState) {
     "returning"
   );
 
-  fistikCat.classList.add(newState);
+  pixelDuck.classList.add(newState);
+
 }
+
+/* clear timeouts */
 
 function clearPanicTimeouts() {
-  catPanicTimeouts.forEach(function (timeoutId) {
-    clearTimeout(timeoutId);
+
+  duckPanicTimeouts.forEach(function (id) {
+    clearTimeout(id);
   });
 
-  catPanicTimeouts = [];
+  duckPanicTimeouts = [];
+
 }
 
-function getCatCenter() {
-  const rect = fistikCat.getBoundingClientRect();
+/* center */
+
+function getDuckCenter() {
+
+  const rect =
+    pixelDuck.getBoundingClientRect();
 
   return {
-    x: rect.left + rect.width / 2,
-    y: rect.top + rect.height / 2
+
+    x:
+      rect.left + rect.width / 2,
+
+    y:
+      rect.top + rect.height / 2
+
   };
+
 }
 
-function getDistance(pointA, pointB) {
-  const dx = pointA.x - pointB.x;
-  const dy = pointA.y - pointB.y;
+/* distance */
+
+function getDistance(a, b) {
+
+  const dx = a.x - b.x;
+
+  const dy = a.y - b.y;
 
   return Math.sqrt(dx * dx + dy * dy);
+
 }
 
-function getFarthestSpot(mousePosition) {
+/* farthest spot */
+
+function getFarthestSpot(mouse) {
+
   const spots = getSafeSpots();
 
-  let farthestSpot = spots[0];
+  let farthest = spots[0];
+
   let farthestDistance = 0;
 
   spots.forEach(function (spot) {
+
     const distance =
-      getDistance(spot, mousePosition);
+      getDistance(spot, mouse);
 
     if (distance > farthestDistance) {
+
       farthestDistance = distance;
-      farthestSpot = spot;
+
+      farthest = spot;
+
     }
+
   });
 
-  return farthestSpot;
+  return farthest;
+
 }
 
+/* natural movement */
+
 function getNaturalMove() {
-  const moveXOptions = [-32, -24, 24, 32];
-  const moveYOptions = [-12, -8, 8, 12];
+
+  const moveXOptions = [
+    -30,
+    -22,
+    22,
+    30
+  ];
+
+  const moveYOptions = [
+    -10,
+    -6,
+    6,
+    10
+  ];
 
   const moveX =
     moveXOptions[
-      Math.floor(Math.random() * moveXOptions.length)
+      Math.floor(
+        Math.random() *
+        moveXOptions.length
+      )
     ];
 
   const moveY =
     moveYOptions[
-      Math.floor(Math.random() * moveYOptions.length)
+      Math.floor(
+        Math.random() *
+        moveYOptions.length
+      )
     ];
 
   return {
-    x: catPosition.x + moveX,
-    y: catPosition.y + moveY
+
+    x: duckPosition.x + moveX,
+
+    y: duckPosition.y + moveY
+
   };
+
 }
 
+/* panic movement */
+
 function startPanicMovement() {
+
   clearPanicTimeouts();
 
-  setCatState("panicRunning");
+  setDuckState("panicRunning");
 
   const steps = 5;
+
   const delay = 340;
 
   for (let i = 0; i < steps; i++) {
-    const timeoutId = setTimeout(function () {
-      setCatPosition(getNaturalMove());
-    }, i * delay);
 
-    catPanicTimeouts.push(timeoutId);
+    const timeoutId =
+      setTimeout(function () {
+
+        setDuckPosition(
+          getNaturalMove()
+        );
+
+      }, i * delay);
+
+    duckPanicTimeouts.push(timeoutId);
+
   }
 
-  const finishTimeout = setTimeout(function () {
-    setCatState("idle");
+  const finishTimeout =
+    setTimeout(function () {
 
-    const sleepTimeout = setTimeout(function () {
-      if (catState === "idle") {
-        setCatState("sleeping");
-      }
-    }, 1200);
+      setDuckState("idle");
 
-    catPanicTimeouts.push(sleepTimeout);
+      const sleepTimeout =
+        setTimeout(function () {
 
-  }, steps * delay + 220);
+          if (duckState === "idle") {
 
-  catPanicTimeouts.push(finishTimeout);
+            setDuckState("sleeping");
+
+          }
+
+        }, 1200);
+
+      duckPanicTimeouts.push(sleepTimeout);
+
+    }, steps * delay + 220);
+
+  duckPanicTimeouts.push(finishTimeout);
+
 }
 
-function hideCat() {
+/* hide duck */
+
+function hideDuck() {
+
   clearPanicTimeouts();
 
-  setCatState("hidden");
+  setDuckState("hidden");
 
-  const exitLeft = Math.random() > 0.5;
+  const exitLeft =
+    Math.random() > 0.5;
 
   const exitPosition = {
-    x: exitLeft
-      ? -220
-      : window.innerWidth + 220,
 
-    y: catPosition.y
+    x:
+      exitLeft
+        ? -220
+        : window.innerWidth + 220,
+
+    y: duckPosition.y
+
   };
 
-  setCatPosition(exitPosition, true);
+  setDuckPosition(
+    exitPosition,
+    true
+  );
 
-  clearTimeout(catReturnTimeout);
+  clearTimeout(duckReturnTimeout);
 
-  catReturnTimeout = setTimeout(function () {
-
-    const safeSpots = getSafeSpots();
-
-    const returnSpot =
-      safeSpots[
-        Math.floor(Math.random() * safeSpots.length)
-      ];
-
-    const spawnLeft =
-      returnSpot.x < window.innerWidth / 2;
-
-    const outsidePosition = {
-      x: spawnLeft
-        ? -180
-        : window.innerWidth + 180,
-
-      y: returnSpot.y
-    };
-
-    catScareCount = 0;
-
-    setCatPosition(outsidePosition, true);
-
-    setCatState("returning");
-
+  duckReturnTimeout =
     setTimeout(function () {
-      setCatPosition(returnSpot);
-    }, 120);
 
-    setTimeout(function () {
-      setCatState("sleeping");
-    }, 1600);
+      const spots =
+        getSafeSpots();
 
-  }, CAT_HIDE_TIME);
+      const returnSpot =
+        spots[
+          Math.floor(
+            Math.random() *
+            spots.length
+          )
+        ];
+
+      const spawnLeft =
+        returnSpot.x <
+        window.innerWidth / 2;
+
+      const outsidePosition = {
+
+        x:
+          spawnLeft
+            ? -180
+            : window.innerWidth + 180,
+
+        y: returnSpot.y
+
+      };
+
+      duckScareCount = 0;
+
+      setDuckPosition(
+        outsidePosition,
+        true
+      );
+
+      setDuckState("returning");
+
+      setTimeout(function () {
+
+        setDuckPosition(returnSpot);
+
+      }, 120);
+
+      setTimeout(function () {
+
+        setDuckState("sleeping");
+
+      }, 1600);
+
+    }, DUCK_HIDE_TIME);
+
 }
 
-function scareCat(mousePosition) {
+/* scare */
+
+function scareDuck(mousePosition) {
 
   if (
-    catState === "scared" ||
-    catState === "panicRunning" ||
-    catState === "hidden" ||
-    catState === "returning"
+
+    duckState === "scared" ||
+
+    duckState === "panicRunning" ||
+
+    duckState === "hidden" ||
+
+    duckState === "returning"
+
   ) {
+
     return;
+
   }
 
-  catScareCount++;
+  duckScareCount++;
 
-  setCatState("scared");
+  setDuckState("scared");
 
   setTimeout(function () {
 
-    if (catScareCount >= CAT_ESCAPE_LIMIT) {
-      hideCat();
+    if (
+      duckScareCount >=
+      DUCK_ESCAPE_LIMIT
+    ) {
+
+      hideDuck();
+
       return;
+
     }
 
     const farthestSpot =
       getFarthestSpot(mousePosition);
 
-    setCatPosition(farthestSpot);
+    setDuckPosition(farthestSpot);
 
     startPanicMovement();
 
   }, 240);
+
 }
+
+/* mouse detection */
 
 function handleMouseMove(event) {
 
   if (
-    catState === "scared" ||
-    catState === "panicRunning" ||
-    catState === "hidden" ||
-    catState === "returning"
+
+    duckState === "scared" ||
+
+    duckState === "panicRunning" ||
+
+    duckState === "hidden" ||
+
+    duckState === "returning"
+
   ) {
+
     return;
+
   }
 
   const mousePosition = {
+
     x: event.clientX,
+
     y: event.clientY
+
   };
 
-  const catCenter = getCatCenter();
+  const duckCenter =
+    getDuckCenter();
 
   const distance =
-    getDistance(mousePosition, catCenter);
+    getDistance(
+      mousePosition,
+      duckCenter
+    );
 
-  if (distance < CAT_DANGER_DISTANCE) {
-    scareCat(mousePosition);
+  if (
+    distance <
+    DUCK_DANGER_DISTANCE
+  ) {
+
+    scareDuck(mousePosition);
+
   }
+
 }
 
-function refreshCatPosition() {
-  const spots = getSafeSpots();
+/* resize */
 
-  setCatPosition(spots[0]);
+function refreshDuckPosition() {
+
+  const spots =
+    getSafeSpots();
+
+  setDuckPosition(spots[0]);
+
 }
+
+/* listeners */
 
 window.addEventListener(
   "mousemove",
@@ -321,25 +507,11 @@ window.addEventListener(
 
 window.addEventListener(
   "resize",
-  refreshCatPosition
+  refreshDuckPosition
 );
 
-refreshCatPosition();
+/* init */
 
-setCatState("sleeping");
+refreshDuckPosition();
 
-// =========================
-// INTRO ANIMATION
-// =========================
-
-const intro = document.getElementById("introScreen");
-
-intro.addEventListener("click", function () {
-
-  intro.classList.add("hide-intro");
-
-  setTimeout(function () {
-    intro.style.display = "none";
-  }, 1000);
-
-});
+setDuckState("sleeping");
