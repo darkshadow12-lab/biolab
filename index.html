@@ -1,46 +1,272 @@
-<section class="protocol">
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <h2>Test Protokolü</h2>
+  <title>BioLab | CMJ Analiz Sistemi</title>
 
-  <p>
-    1. 60 FPS videonuzu sisteme yükleyin.
-  </p>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-  <p>
-    2. Kare kare ilerlemek için
-    <strong>← Kare</strong>
-    ve
-    <strong>Kare →</strong>
-    butonlarını kullanın.
-  </p>
+<body>
 
-  <p>
-    3. İlk seçim için:
-    <strong>Shift</strong>
-    tuşuna basılı tutarak,
-    sporcunun ayaklarının yerle temasının tamamen kesildiği ilk kareye tıklayın.
+  <main class="app">
 
-    Bu seçim
-    <strong>Take-off</strong>
-    olarak kaydedilecektir.
-  </p>
+    <header class="header">
 
-  <p>
-    4. İkinci seçim için:
+      <h1>BioLab</h1>
 
-    tekrar
-    <strong>Shift</strong>
-    tuşuna basılı tutarak,
+      <p>Countermovement Jump Analiz Sistemi</p>
 
-    sporcunun ayaklarının yere ilk tekrar temas ettiği kareye tıklayın.
+    </header>
 
-    Bu seçim
-    <strong>Landing</strong>
-    olarak kaydedilecektir.
-  </p>
+    <section class="protocol">
 
-  <p>
-    5. Sistem uçuş süresi üzerinden sıçrama yüksekliğini otomatik olarak hesaplayacaktır.
-  </p>
+      <h2>Test Protokolü</h2>
 
-</section>
+      <p>
+        1. 60 FPS videonuzu sisteme yükleyin.
+      </p>
+
+      <p>
+        2. Kare kare ilerlemek için
+        <strong>← Kare</strong>
+        ve
+        <strong>Kare →</strong>
+        butonlarını kullanın.
+      </p>
+
+      <p>
+        3. İlk seçim için:
+        <strong>Shift</strong>
+        tuşuna basılı tutarak,
+        sporcunun ayaklarının yerle temasının tamamen kesildiği ilk kareye tıklayın.
+
+        Bu seçim
+        <strong>Take-off</strong>
+        olarak kaydedilecektir.
+      </p>
+
+      <p>
+        4. İkinci seçim için:
+
+        tekrar
+        <strong>Shift</strong>
+        tuşuna basılı tutarak,
+
+        sporcunun ayaklarının yere ilk tekrar temas ettiği kareye tıklayın.
+
+        Bu seçim
+        <strong>Landing</strong>
+        olarak kaydedilecektir.
+      </p>
+
+      <p>
+        5. Sistem uçuş süresi üzerinden sıçrama yüksekliğini otomatik olarak hesaplayacaktır.
+      </p>
+
+    </section>
+
+    <section class="upload-area">
+
+      <input
+        type="file"
+        id="videoInput"
+        accept="video/*"
+      />
+
+    </section>
+
+    <section class="video-section">
+
+      <video id="video"></video>
+
+      <div class="timeline-area">
+
+        <input
+          type="range"
+          id="timeline"
+          value="0"
+          min="0"
+          max="1000"
+          step="1"
+        />
+
+        <div class="time-row">
+
+          <span id="currentTimeDisplay">
+            0.00 sn
+          </span>
+
+          <span id="durationDisplay">
+            0.00 sn
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="controls">
+
+      <button id="playPauseBtn">
+        Oynat / Durdur
+      </button>
+
+      <button id="slowSpeedBtn">
+        0.25x
+      </button>
+
+      <button id="normalSpeedBtn">
+        1x
+      </button>
+
+      <button id="prevFrameBtn">
+        ← Kare
+      </button>
+
+      <button id="nextFrameBtn">
+        Kare →
+      </button>
+
+    </section>
+
+    <section class="selection-panel">
+
+      <div class="selection-status">
+
+        <span>Seçim:</span>
+
+        <strong id="lockInfo">
+          Take-off seç
+        </strong>
+
+      </div>
+
+      <div class="marker-area">
+
+        <div class="marker-card">
+
+          <h3>Take-off</h3>
+
+          <p>
+            Koordinat:
+            <span id="takeOffPoint">
+              0, 0
+            </span>
+          </p>
+
+          <p>
+            Frame:
+            <span id="takeOffFrameInfo">
+              -
+            </span>
+          </p>
+
+        </div>
+
+        <div class="marker-card">
+
+          <h3>Landing</h3>
+
+          <p>
+            Koordinat:
+            <span id="landingPoint">
+              0, 0
+            </span>
+          </p>
+
+          <p>
+            Frame:
+            <span id="landingFrameInfo">
+              -
+            </span>
+          </p>
+
+        </div>
+
+      </div>
+
+      <button
+        id="unlockBtn"
+        class="reset-btn"
+      >
+        Seçimleri Sıfırla
+      </button>
+
+    </section>
+
+    <section class="results">
+
+      <div class="result-main">
+
+        <span>Sıçrama Yüksekliği</span>
+
+        <strong id="jumpHeightInfo">
+          -
+        </strong>
+
+        <small>cm</small>
+
+      </div>
+
+      <div class="result-grid">
+
+        <p>
+          Frame:
+          <strong id="currentFrameInfo">
+            0
+          </strong>
+        </p>
+
+        <p>
+          Frame Farkı:
+          <strong id="frameDifferenceInfo">
+            -
+          </strong>
+        </p>
+
+        <p>
+          Uçuş Süresi:
+          <strong id="flightTimeInfo">
+            -
+          </strong>
+          sn
+        </p>
+
+        <p>
+          Hata Aralığı:
+          <strong id="errorRangeInfo">
+            -
+          </strong>
+        </p>
+
+      </div>
+
+      <div class="method-note">
+
+        <p>
+          Yöntem: h = g × t² / 8
+        </p>
+
+        <p>
+          FPS sabit: 60 FPS
+        </p>
+
+        <p>
+          Bu sistem force plate değildir;
+          60 FPS video tabanlı saha tahmini üretir.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
