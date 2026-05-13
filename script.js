@@ -43,6 +43,8 @@ const historyList = document.getElementById("historyList");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 const downloadCsvBtn = document.getElementById("downloadCsvBtn");
 
+const pixelDog = document.getElementById("pixelDog");
+
 const FPS = 60;
 const GRAVITY = 9.81;
 const STORAGE_KEY = "biolab_cmj_tests";
@@ -54,6 +56,110 @@ let takeOffFrame = null;
 let landingFrame = null;
 
 let lastCMJResult = null;
+
+// =========================
+// PIXEL DOG STATE MACHINE
+// =========================
+
+const dogSafeSpots = [
+  { x: 32, y: 130 },
+  { x: window.innerWidth - 110, y: 150 },
+  { x: 40, y: window.innerHeight - 110 },
+  { x: window.innerWidth - 120, y: window.innerHeight - 120 }
+];
+
+let dogState = "sleeping";
+let dogSpotIndex = 0;
+let dogPosition = dogSafeSpots[0];
+
+function updateDogPosition() {
+  if (!pixelDog) return;
+
+  pixelDog.style.transform =
+    `translate(${dogPosition.x}px, ${dogPosition.y}px)`;
+}
+
+function setDogState(newState) {
+  if (!pixelDog) return;
+
+  dogState = newState;
+
+  pixelDog.classList.remove("sleeping", "scared", "moving", "idle");
+  pixelDog.classList.add(newState);
+}
+
+function moveDogToNextSafeSpot() {
+  if (!pixelDog) return;
+
+  setDogState("moving");
+
+  dogSpotIndex += 1;
+
+  if (dogSpotIndex >= dogSafeSpots.length) {
+    dogSpotIndex = 0;
+  }
+
+  dogPosition = dogSafeSpots[dogSpotIndex];
+
+  updateDogPosition();
+
+  setTimeout(function () {
+    setDogState("sleeping");
+  }, 850);
+}
+
+function scareDog() {
+  if (dogState === "moving" || dogState === "scared") {
+    return;
+  }
+
+  setDogState("scared");
+
+  setTimeout(function () {
+    moveDogToNextSafeSpot();
+  }, 250);
+}
+
+function handleDogMouseMove(event) {
+  if (!pixelDog) return;
+
+  if (dogState === "moving" || dogState === "scared") {
+    return;
+  }
+
+  const rect = pixelDog.getBoundingClientRect();
+
+  const dogCenterX = rect.left + rect.width / 2;
+  const dogCenterY = rect.top + rect.height / 2;
+
+  const dx = event.clientX - dogCenterX;
+  const dy = event.clientY - dogCenterY;
+
+  const distance = Math.sqrt(dx * dx + dy * dy);
+
+  if (distance < 90) {
+    scareDog();
+  }
+}
+
+function refreshDogSafeSpots() {
+  dogSafeSpots[0] = { x: 32, y: 130 };
+  dogSafeSpots[1] = { x: window.innerWidth - 110, y: 150 };
+  dogSafeSpots[2] = { x: 40, y: window.innerHeight - 110 };
+  dogSafeSpots[3] = { x: window.innerWidth - 120, y: window.innerHeight - 120 };
+
+  dogPosition = dogSafeSpots[dogSpotIndex];
+  updateDogPosition();
+}
+
+window.addEventListener("mousemove", handleDogMouseMove);
+window.addEventListener("resize", refreshDogSafeSpots);
+
+updateDogPosition();
+
+// =========================
+// CMJ ANALYSIS
+// =========================
 
 function getFrameTime() {
   return 1 / FPS;
@@ -179,6 +285,10 @@ function resetSelections() {
   saveMessage.textContent = "";
 }
 
+// =========================
+// LOCAL STORAGE
+// =========================
+
 function getSavedTests() {
   const rawData = localStorage.getItem(STORAGE_KEY);
 
@@ -263,6 +373,10 @@ function saveCurrentTest() {
   renderHistory();
 }
 
+// =========================
+// CSV EXPORT
+// =========================
+
 function escapeCSV(value) {
   if (value === null || value === undefined) {
     return "";
@@ -327,6 +441,10 @@ function downloadCSV() {
 
   saveMessage.textContent = "CSV dosyası indirildi.";
 }
+
+// =========================
+// EVENT LISTENERS
+// =========================
 
 videoInput.addEventListener("change", function () {
   const file = videoInput.files[0];

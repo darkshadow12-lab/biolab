@@ -9,6 +9,148 @@ body {
   color: #111827;
   font-family: Arial, sans-serif;
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND DOG LAYER
+========================= */
+
+.background-dog-layer {
+  position: fixed;
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+.pixel-dog {
+  position: absolute;
+
+  width: 36px;
+  height: 24px;
+
+  transition:
+    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  image-rendering: pixelated;
+
+  opacity: 0.72;
+
+  will-change: transform;
+}
+
+.dog-body {
+  position: relative;
+
+  width: 36px;
+  height: 20px;
+
+  background: #B08968;
+
+  border-radius: 3px;
+
+  box-shadow:
+    inset -4px -3px 0 #7F5539;
+}
+
+.dog-ear {
+  position: absolute;
+
+  width: 8px;
+  height: 10px;
+
+  background: #7F5539;
+
+  top: -6px;
+  left: 5px;
+}
+
+.dog-face {
+  position: absolute;
+
+  width: 12px;
+  height: 12px;
+
+  background: #A47148;
+
+  right: -5px;
+  top: 4px;
+
+  border-radius: 2px;
+}
+
+.dog-tail {
+  position: absolute;
+
+  width: 10px;
+  height: 4px;
+
+  background: #7F5539;
+
+  left: -8px;
+  top: 6px;
+}
+
+.pixel-dog.sleeping {
+  animation: sleepBreath 1.6s infinite ease-in-out;
+}
+
+.pixel-dog.scared {
+  animation: scareShake 0.22s linear;
+}
+
+.pixel-dog.moving {
+  animation: runBounce 0.18s infinite alternate;
+}
+
+@keyframes sleepBreath {
+
+  0%,
+  100% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.04 0.96;
+  }
+}
+
+@keyframes scareShake {
+
+  0% {
+    translate: 0 0;
+  }
+
+  25% {
+    translate: -3px 0;
+  }
+
+  50% {
+    translate: 3px 0;
+  }
+
+  75% {
+    translate: -2px 0;
+  }
+
+  100% {
+    translate: 0 0;
+  }
+}
+
+@keyframes runBounce {
+
+  from {
+    margin-top: 0;
+  }
+
+  to {
+    margin-top: -4px;
+  }
 }
 
 /* =========================
@@ -18,6 +160,7 @@ body {
 .intro-screen {
   position: fixed;
   inset: 0;
+
   z-index: 9999;
 
   display: flex;
@@ -165,9 +308,15 @@ body {
 ========================= */
 
 .app {
+  position: relative;
+
+  z-index: 2;
+
   width: 92%;
   max-width: 920px;
+
   margin: auto;
+
   padding: 40px 0 60px;
 }
 
@@ -195,9 +344,11 @@ body {
 .results,
 .save-panel,
 .history-panel {
-  background: #DCE3EA;
+  background: rgba(220, 227, 234, 0.92);
 
-  border: 1px solid #B8C2CC;
+  backdrop-filter: blur(8px);
+
+  border: 1px solid rgba(184, 194, 204, 0.55);
 
   border-radius: 26px;
 
@@ -231,9 +382,11 @@ input[type="file"] {
 }
 
 .video-section {
-  background: #DCE3EA;
+  background: rgba(220, 227, 234, 0.92);
 
-  border: 1px solid #B8C2CC;
+  backdrop-filter: blur(8px);
+
+  border: 1px solid rgba(184, 194, 204, 0.55);
 
   border-radius: 30px;
 
@@ -254,7 +407,6 @@ video {
 
 .timeline-area {
   padding: 16px 18px;
-  background: #DCE3EA;
 }
 
 #timeline {
@@ -265,9 +417,12 @@ video {
 
 .time-row {
   margin-top: 10px;
+
   display: flex;
   justify-content: space-between;
+
   color: #64748B;
+
   font-size: 13px;
 }
 
@@ -315,9 +470,9 @@ button:hover {
 
   align-items: center;
 
-  background: #C9D2DB;
+  background: rgba(201, 210, 219, 0.8);
 
-  border: 1px solid #B8C2CC;
+  border: 1px solid rgba(184, 194, 204, 0.4);
 
   padding: 14px 16px;
 
@@ -341,9 +496,9 @@ button:hover {
 }
 
 .marker-card {
-  background: #C9D2DB;
+  background: rgba(201, 210, 219, 0.8);
 
-  border: 1px solid #B8C2CC;
+  border: 1px solid rgba(184, 194, 204, 0.4);
 
   border-radius: 22px;
 
@@ -367,13 +522,14 @@ button:hover {
 }
 
 .result-main {
-  background: linear-gradient(
-    145deg,
-    #DCE3EA,
-    #C9D2DB
-  );
+  background:
+    linear-gradient(
+      145deg,
+      rgba(220, 227, 234, 0.92),
+      rgba(201, 210, 219, 0.88)
+    );
 
-  border: 1px solid #B8C2CC;
+  border: 1px solid rgba(184, 194, 204, 0.4);
 
   border-radius: 30px;
 
@@ -417,9 +573,9 @@ button:hover {
 }
 
 .result-grid p {
-  background: #C9D2DB;
+  background: rgba(201, 210, 219, 0.8);
 
-  border: 1px solid #B8C2CC;
+  border: 1px solid rgba(184, 194, 204, 0.4);
 
   border-radius: 18px;
 
@@ -441,11 +597,11 @@ button:hover {
 .save-row input {
   padding: 14px;
 
-  border: 1px solid #B8C2CC;
+  border: 1px solid rgba(184, 194, 204, 0.4);
 
   border-radius: 16px;
 
-  background: #C9D2DB;
+  background: rgba(201, 210, 219, 0.8);
 
   color: #111827;
 
@@ -483,9 +639,9 @@ button:hover {
 }
 
 .history-card {
-  background: #C9D2DB;
+  background: rgba(201, 210, 219, 0.8);
 
-  border: 1px solid #B8C2CC;
+  border: 1px solid rgba(184, 194, 204, 0.4);
 
   border-radius: 18px;
 
