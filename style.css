@@ -24,45 +24,35 @@ body {
   overflow: hidden;
 }
 
-.pixel-duck {
+.pixel-duck,
+.rare-duck {
   position: absolute;
-
   width: 48px;
   height: 40px;
+  image-rendering: pixelated;
+  opacity: 0.88;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.22));
+}
 
+.pixel-duck {
   transform: translate(40px, 120px);
-
   transition:
     transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1),
     opacity 0.8s ease,
     filter 0.6s ease;
-
-  opacity: 0.88;
-
-  image-rendering: pixelated;
-
-  will-change:
-    transform,
-    opacity;
-
-  filter:
-    drop-shadow(0 8px 12px rgba(0,0,0,0.22));
 }
 
-.duck-pixel {
+.duck-pixel,
+.rare-duck-pixel {
   position: absolute;
-
   width: 6px;
   height: 6px;
-
   left: 10px;
   top: 12px;
-
   background: transparent;
 
   box-shadow:
-
-    /* head */
     18px 0 #FACC15,
     24px 0 #FACC15,
     30px 0 #FACC15,
@@ -73,21 +63,17 @@ body {
     30px 6px #FACC15,
     36px 6px #FACC15,
 
-    /* eyes */
     18px 12px #111827,
     30px 12px #111827,
 
-    /* face */
     12px 12px #FACC15,
     24px 12px #FDE68A,
     36px 12px #FACC15,
 
-    /* beak */
     18px 18px #FB923C,
     24px 18px #FB923C,
     30px 18px #FB923C,
 
-    /* body */
     6px 24px #FACC15,
     12px 24px #FACC15,
     18px 24px #FACC15,
@@ -99,9 +85,9 @@ body {
     0 30px #FACC15,
     6px 30px #FACC15,
     12px 30px #FACC15,
-    18px 30px #FACC15,
-    24px 30px #FDE68A,
-    30px 30px #FACC15,
+    18px 30px #EAB308,
+    24px 30px #EAB308,
+    30px 30px #EAB308,
     36px 30px #FACC15,
     42px 30px #FACC15,
     48px 30px #FACC15,
@@ -114,67 +100,55 @@ body {
     36px 36px #FACC15,
     42px 36px #FACC15,
 
-    /* wing */
-    18px 30px #EAB308,
-    24px 30px #EAB308,
-    30px 30px #EAB308,
-
-    /* feet */
     12px 42px #FB923C,
     18px 42px #FB923C,
-
     30px 42px #FB923C,
     36px 42px #FB923C;
 }
 
-/* sleeping z */
-
 .duck-pixel::after {
   content: "Z";
-
   position: absolute;
-
   right: -50px;
   top: -12px;
-
   color: #DCE3EA;
-
   font-size: 12px;
   font-weight: bold;
-
   opacity: 0;
 }
 
-/* states */
+/* duck states */
 
 .pixel-duck.sleeping {
-  animation:
-    duckSleep 2.4s infinite ease-in-out;
+  animation: duckSleep 2.4s infinite ease-in-out;
 }
 
 .pixel-duck.sleeping .duck-pixel::after {
-  animation:
-    duckSleepZ 2.6s infinite ease-in-out;
+  animation: duckSleepZ 2.6s infinite ease-in-out;
 }
 
 .pixel-duck.scared {
-  animation:
-    duckScared 0.25s ease-in-out;
+  animation: duckScared 0.25s ease-in-out;
 }
 
 .pixel-duck.panicRunning {
-  animation:
-    duckRun 0.34s infinite alternate ease-in-out;
+  animation: duckRun 0.34s infinite alternate ease-in-out;
 }
 
 .pixel-duck.idle {
-  animation:
-    duckIdle 1.2s ease-in-out;
+  animation: duckIdle 1.2s ease-in-out;
+}
+
+.pixel-duck.curious {
+  animation: duckCurious 1s ease-in-out;
+}
+
+.pixel-duck.grooming {
+  animation: duckGrooming 1.4s ease-in-out;
 }
 
 .pixel-duck.hidden {
   opacity: 0;
-
   filter:
     blur(3px)
     drop-shadow(0 8px 12px rgba(0,0,0,0.1));
@@ -182,18 +156,36 @@ body {
 
 .pixel-duck.returning {
   opacity: 0.55;
-
   filter:
     blur(1px)
     drop-shadow(0 8px 12px rgba(0,0,0,0.18));
 }
 
+/* rare duck */
+
+.rare-duck {
+  width: 38px;
+  height: 32px;
+  opacity: 0;
+  transform: translate(-80px, 75vh) scale(0.82);
+  transition:
+    transform 1.2s ease,
+    opacity 0.7s ease;
+}
+
+.rare-duck.visible {
+  opacity: 0.72;
+}
+
+.rare-duck .rare-duck-pixel {
+  transform: scale(0.82);
+  transform-origin: top left;
+}
+
 /* animations */
 
 @keyframes duckSleep {
-
-  0%,
-  100% {
+  0%, 100% {
     scale: 1;
   }
 
@@ -203,12 +195,9 @@ body {
 }
 
 @keyframes duckSleepZ {
-
   0% {
     opacity: 0;
-    transform:
-      translate(0, 4px)
-      scale(0.8);
+    transform: translate(0, 4px) scale(0.8);
   }
 
   45% {
@@ -217,14 +206,11 @@ body {
 
   100% {
     opacity: 0;
-    transform:
-      translate(8px, -12px)
-      scale(1.15);
+    transform: translate(8px, -12px) scale(1.15);
   }
 }
 
 @keyframes duckScared {
-
   0% {
     translate: 0 0;
   }
@@ -243,7 +229,6 @@ body {
 }
 
 @keyframes duckRun {
-
   from {
     margin-top: 0;
     rotate: -0.4deg;
@@ -256,17 +241,49 @@ body {
 }
 
 @keyframes duckIdle {
-
-  0% {
+  0%, 100% {
     scale: 1;
   }
 
   50% {
     scale: 1.015;
   }
+}
 
-  100% {
+@keyframes duckCurious {
+  0%, 100% {
     scale: 1;
+    rotate: 0deg;
+  }
+
+  35% {
+    scale: 1.025;
+    rotate: -3deg;
+  }
+
+  70% {
+    rotate: 3deg;
+  }
+}
+
+@keyframes duckGrooming {
+  0%, 100% {
+    rotate: 0deg;
+    scale: 1;
+  }
+
+  25% {
+    rotate: 4deg;
+    scale: 0.98 1.02;
+  }
+
+  50% {
+    rotate: -3deg;
+    scale: 1.02 0.98;
+  }
+
+  75% {
+    rotate: 3deg;
   }
 }
 
@@ -339,7 +356,6 @@ body {
   max-width: 920px;
 
   margin: auto;
-
   padding: 40px 0 60px;
 }
 
@@ -367,17 +383,18 @@ body {
 .save-panel,
 .history-panel {
   background: rgba(220, 227, 234, 0.92);
-
   backdrop-filter: blur(8px);
-
   border-radius: 26px;
-
   padding: 22px;
-
   margin-bottom: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
 
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.12);
+.protocol h2,
+.save-panel h2,
+.history-panel h2 {
+  font-size: 18px;
+  margin-bottom: 14px;
 }
 
 .protocol p {
@@ -392,11 +409,8 @@ body {
 
 .video-section {
   background: rgba(220, 227, 234, 0.92);
-
   border-radius: 30px;
-
   overflow: hidden;
-
   margin-bottom: 20px;
 }
 
@@ -416,36 +430,26 @@ video {
 
 .time-row {
   margin-top: 10px;
-
   display: flex;
   justify-content: space-between;
-
   color: #64748B;
   font-size: 13px;
 }
 
 .controls {
   display: grid;
-
-  grid-template-columns:
-    repeat(auto-fit, minmax(120px, 1fr));
-
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 12px;
-
   margin-bottom: 20px;
 }
 
 button {
   padding: 14px;
-
   border: none;
   border-radius: 18px;
-
   background: #C53030;
   color: #F8FAFC;
-
   cursor: pointer;
-
   transition: 0.2s;
 }
 
@@ -456,23 +460,18 @@ button:hover {
 .selection-status {
   display: flex;
   justify-content: space-between;
-
   margin-bottom: 16px;
 }
 
 .marker-area {
   display: grid;
-
   grid-template-columns: 1fr 1fr;
-
   gap: 14px;
 }
 
 .marker-card {
   background: rgba(201, 210, 219, 0.8);
-
   border-radius: 22px;
-
   padding: 18px;
 }
 
@@ -483,49 +482,54 @@ button:hover {
 
 .result-main {
   text-align: center;
-
   padding: 42px 20px;
-
   margin-bottom: 18px;
 }
 
 .result-main strong {
   display: block;
-
   font-size: 76px;
-
   color: #111827;
 }
 
 .result-grid {
   display: grid;
-
   grid-template-columns: 1fr 1fr;
-
   gap: 12px;
 }
 
 .result-grid p {
   background: rgba(201, 210, 219, 0.8);
-
   border-radius: 18px;
-
   padding: 16px;
 }
 
 .save-row {
   display: grid;
-
   grid-template-columns: 1fr auto;
-
   gap: 12px;
 }
 
 .save-row input {
   padding: 14px;
-
   border: none;
   border-radius: 16px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.history-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.csv-btn {
+  background: #16202B;
 }
 
 .history-list {
@@ -533,11 +537,40 @@ button:hover {
   gap: 12px;
 }
 
-@media (max-width: 700px) {
+.history-card {
+  background: rgba(201, 210, 219, 0.8);
+  border-radius: 18px;
+  padding: 16px;
+}
 
+.history-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.history-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+@media (max-width: 700px) {
   .marker-area,
   .result-grid,
-  .save-row {
+  .save-row,
+  .history-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .history-actions {
+    display: grid;
     grid-template-columns: 1fr;
   }
 
