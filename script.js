@@ -43,7 +43,7 @@ const historyList = document.getElementById("historyList");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 const downloadCsvBtn = document.getElementById("downloadCsvBtn");
 
-const pixelDog = document.getElementById("pixelDog");
+const fistikCat = document.getElementById("fistikCat");
 
 const FPS = 60;
 const GRAVITY = 9.81;
@@ -57,14 +57,14 @@ let landingFrame = null;
 let lastCMJResult = null;
 
 // =========================
-// FISTIK STATE MACHINE
+// FISTIK AMBIENT CHARACTER
 // =========================
 
 let catState = "sleeping";
 let catScareCount = 0;
-let catPanicInterval = null;
+let catPanicTimeouts = [];
 let catReturnTimeout = null;
-let catPosition = { x: 32, y: 130 };
+let catPosition = { x: 40, y: 120 };
 
 const CAT_DANGER_DISTANCE = 90;
 const CAT_ESCAPE_LIMIT = 5;
@@ -73,7 +73,7 @@ const CAT_HIDE_TIME = 90000; // 1.5 dakika
 function getCatSafeSpots() {
   return [
     { x: 34, y: 120 },
-    { x: window.innerWidth - 120, y: 145 },
+    { x: window.innerWidth - 120, y: 140 },
     { x: 42, y: window.innerHeight - 125 },
     { x: window.innerWidth - 135, y: window.innerHeight - 130 },
     { x: window.innerWidth * 0.12, y: window.innerHeight - 165 },
@@ -81,15 +81,14 @@ function getCatSafeSpots() {
   ];
 }
 
-function clampCatPosition(position) {
-  const padding = 26;
+function clampCatInsideScreen(position) {
+  const padding = 24;
 
   return {
     x: Math.max(
       padding,
       Math.min(window.innerWidth - 100, position.x)
     ),
-
     y: Math.max(
       padding,
       Math.min(window.innerHeight - 100, position.y)
@@ -97,35 +96,44 @@ function clampCatPosition(position) {
   };
 }
 
-function setCatPosition(position) {
-  if (!pixelDog) return;
+function setCatPosition(position, allowOutside = false) {
+  if (!fistikCat) return;
 
-  catPosition = clampCatPosition(position);
+  catPosition = allowOutside
+    ? position
+    : clampCatInsideScreen(position);
 
-  pixelDog.style.transform =
+  fistikCat.style.transform =
     `translate(${catPosition.x}px, ${catPosition.y}px)`;
 }
 
 function setCatState(newState) {
-  if (!pixelDog) return;
+  if (!fistikCat) return;
 
   catState = newState;
 
-  pixelDog.classList.remove(
+  fistikCat.classList.remove(
     "sleeping",
     "scared",
-    "moving",
     "panicRunning",
     "idle",
     "hidden",
     "returning"
   );
 
-  pixelDog.classList.add(newState);
+  fistikCat.classList.add(newState);
+}
+
+function clearCatPanicTimeouts() {
+  catPanicTimeouts.forEach(function (timeoutId) {
+    clearTimeout(timeoutId);
+  });
+
+  catPanicTimeouts = [];
 }
 
 function getCatCenter() {
-  const rect = pixelDog.getBoundingClientRect();
+  const rect = fistikCat.getBoundingClientRect();
 
   return {
     x: rect.left + rect.width / 2,
@@ -158,85 +166,99 @@ function getFarthestSafeSpotFromMouse(mousePosition) {
   return farthestSpot;
 }
 
-function getGentlePanicMove() {
-  const moveAmountX = Math.random() > 0.5 ? 46 : -46;
-  const moveAmountY = Math.random() > 0.5 ? 22 : -22;
+function getSmallNaturalMove() {
+  const moveXOptions = [-34, -22, 22, 34];
+  const moveYOptions = [-14, -8, 8, 14];
 
-  return clampCatPosition({
-    x: catPosition.x + moveAmountX,
-    y: catPosition.y + moveAmountY
-  });
+  const moveX =
+    moveXOptions[Math.floor(Math.random() * moveXOptions.length)];
+
+  const moveY =
+    moveYOptions[Math.floor(Math.random() * moveYOptions.length)];
+
+  return {
+    x: catPosition.x + moveX,
+    y: catPosition.y + moveY
+  };
 }
 
-function startGentlePanicRunning() {
-  if (!pixelDog) return;
+function startNaturalPanic() {
+  clearCatPanicTimeouts();
 
   setCatState("panicRunning");
 
-  let panicStep = 0;
-  const maxPanicSteps = 6;
+  const steps = 5;
+  const stepDelay = 380;
 
-  clearInterval(catPanicInterval);
+  for (let i = 0; i < steps; i++) {
+    const timeoutId = setTimeout(function () {
+      setCatPosition(getSmallNaturalMove());
+    }, i * stepDelay);
 
-  catPanicInterval = setInterval(function () {
-    panicStep++;
+    catPanicTimeouts.push(timeoutId);
+  }
 
-    setCatPosition(getGentlePanicMove());
+  const finishTimeout = setTimeout(function () {
+    setCatState("idle");
 
-    if (panicStep >= maxPanicSteps) {
-      clearInterval(catPanicInterval);
-      catPanicInterval = null;
+    const sleepTimeout = setTimeout(function () {
+      if (catState === "idle") {
+        setCatState("sleeping");
+      }
+    }, 1200);
 
-      setCatState("idle");
+    catPanicTimeouts.push(sleepTimeout);
+  }, steps * stepDelay + 250);
 
-      setTimeout(function () {
-        if (catState === "idle") {
-          setCatState("sleeping");
-        }
-      }, 1200);
-    }
-  }, 360);
+  catPanicTimeouts.push(finishTimeout);
 }
 
 function hideCatAndReturnLater() {
-  if (!pixelDog) return;
-
-  clearInterval(catPanicInterval);
-  catPanicInterval = null;
+  clearCatPanicTimeouts();
 
   setCatState("hidden");
 
   const exitLeft = Math.random() > 0.5;
 
-  const exitX = exitLeft
-    ? -180
-    : window.innerWidth + 180;
-
-  setCatPosition({
-    x: exitX,
+  const exitPosition = {
+    x: exitLeft ? -180 : window.innerWidth + 180,
     y: catPosition.y
-  });
+  };
+
+  setCatPosition(exitPosition, true);
 
   clearTimeout(catReturnTimeout);
 
   catReturnTimeout = setTimeout(function () {
     const safeSpots = getCatSafeSpots();
+
     const returnSpot =
       safeSpots[Math.floor(Math.random() * safeSpots.length)];
 
+    const spawnFromLeft = returnSpot.x < window.innerWidth / 2;
+
+    const outsideStart = {
+      x: spawnFromLeft ? -140 : window.innerWidth + 140,
+      y: returnSpot.y
+    };
+
     catScareCount = 0;
 
+    setCatPosition(outsideStart, true);
     setCatState("returning");
-    setCatPosition(returnSpot);
+
+    setTimeout(function () {
+      setCatPosition(returnSpot);
+    }, 100);
 
     setTimeout(function () {
       setCatState("sleeping");
-    }, 1400);
+    }, 1500);
   }, CAT_HIDE_TIME);
 }
 
 function scareCat(mousePosition) {
-  if (!pixelDog) return;
+  if (!fistikCat) return;
 
   if (
     catState === "scared" ||
@@ -257,16 +279,17 @@ function scareCat(mousePosition) {
       return;
     }
 
-    const farthestSpot = getFarthestSafeSpotFromMouse(mousePosition);
+    const farthestSpot =
+      getFarthestSafeSpotFromMouse(mousePosition);
 
     setCatPosition(farthestSpot);
 
-    startGentlePanicRunning();
-  }, 280);
+    startNaturalPanic();
+  }, 260);
 }
 
 function handleCatMouseMove(event) {
-  if (!pixelDog) return;
+  if (!fistikCat) return;
 
   if (
     catState === "scared" ||

@@ -13,10 +13,10 @@ body {
 }
 
 /* =========================
-   BACKGROUND CAT LAYER
+   FISTIK PIXEL CHARACTER
 ========================= */
 
-.background-dog-layer {
+.background-cat-layer {
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -24,230 +24,78 @@ body {
   overflow: hidden;
 }
 
-.pixel-dog {
+.fistik-cat {
   position: absolute;
   width: 54px;
-  height: 42px;
+  height: auto;
+  image-rendering: pixelated;
+  opacity: 0.82;
+
+  transform: translate(40px, 120px);
 
   transition:
     transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1),
     opacity 0.8s ease,
     filter 0.6s ease;
 
-  image-rendering: pixelated;
-  opacity: 0.78;
   will-change: transform, opacity;
+
+  filter:
+    drop-shadow(0 8px 12px rgba(0,0,0,0.22));
 }
 
-/* gizlenme / geri dönme */
-.pixel-dog.hidden {
+.fistik-cat.sleeping {
+  animation: fistikSleep 2.4s infinite ease-in-out;
+}
+
+.fistik-cat.scared {
+  animation: fistikScared 0.22s ease-in-out;
+}
+
+.fistik-cat.panicRunning {
+  animation: fistikRun 0.32s infinite alternate ease-in-out;
+}
+
+.fistik-cat.idle {
+  animation: fistikIdle 1.2s ease-in-out;
+}
+
+.fistik-cat.hidden {
   opacity: 0;
-  filter: blur(3px);
+  filter:
+    blur(3px)
+    drop-shadow(0 8px 12px rgba(0,0,0,0.1));
 }
 
-.pixel-dog.returning {
-  opacity: 0.45;
-  filter: blur(1px);
+.fistik-cat.returning {
+  opacity: 0.55;
+  filter:
+    blur(1px)
+    drop-shadow(0 8px 12px rgba(0,0,0,0.18));
 }
 
-/* gövde */
-.dog-body {
-  position: relative;
-  width: 36px;
-  height: 22px;
-  top: 14px;
-  left: 9px;
-
-  background: #F3EBDD;
-  border: 3px solid #111827;
-  border-radius: 3px;
-
-  box-shadow:
-    8px -2px 0 #D97706,
-    12px 2px 0 #111827,
-    -4px 3px 0 #111827,
-    4px 10px 0 #F3EBDD,
-    18px 10px 0 #111827;
-}
-
-/* kafa */
-.dog-body::before {
-  content: "";
-  position: absolute;
-  width: 23px;
-  height: 21px;
-  right: -16px;
-  top: -10px;
-
-  background: #F3EBDD;
-  border: 3px solid #111827;
-  border-radius: 3px;
-
-  box-shadow:
-    -8px 0 0 #111827,
-    6px 0 0 #D97706;
-}
-
-/* gözler + burun */
-.dog-body::after {
-  content: "";
-  position: absolute;
-  width: 4px;
-  height: 6px;
-  right: -5px;
-  top: -4px;
-
-  background: #D4A017;
-
-  box-shadow:
-    10px 0 0 #D4A017,
-    5px 8px 0 #F87171;
-}
-
-/* kulak 1 */
-.dog-ear {
-  position: absolute;
-  width: 9px;
-  height: 13px;
-  right: -12px;
-  top: -22px;
-
-  background: #111827;
-  border: 2px solid #111827;
-  transform: rotate(-6deg);
-}
-
-/* kulak 2 */
-.dog-face {
-  position: absolute;
-  width: 9px;
-  height: 13px;
-  right: 6px;
-  top: -22px;
-
-  background: #D97706;
-  border: 2px solid #111827;
-  transform: rotate(6deg);
-}
-
-/* kuyruk */
-.dog-tail {
-  position: absolute;
-  width: 10px;
-  height: 21px;
-  left: -12px;
-  top: -8px;
-
-  background: #111827;
-  border-radius: 8px 8px 0 0;
-  transform: rotate(-22deg);
-  transform-origin: bottom center;
-
-  box-shadow:
-    3px 6px 0 #D97706;
-}
-
-/* patiler */
-.pixel-dog::before {
-  content: "";
-  position: absolute;
-  width: 6px;
-  height: 8px;
-  left: 18px;
-  top: 35px;
-
-  background: #111827;
-
-  box-shadow:
-    16px 0 0 #111827,
-    3px 5px 0 #F3EBDD,
-    19px 5px 0 #F3EBDD;
-}
-
-/* uyku Z */
-.pixel-dog::after {
-  content: "Z";
-  position: absolute;
-  right: -8px;
-  top: -12px;
-
-  color: #DCE3EA;
-  font-size: 11px;
-  font-weight: bold;
-  opacity: 0;
-}
-
-/* durum animasyonları */
-.pixel-dog.sleeping {
-  animation: catSleepBreath 2.2s infinite ease-in-out;
-}
-
-.pixel-dog.sleeping::after {
-  animation: catSleepZ 2.4s infinite ease-in-out;
-}
-
-.pixel-dog.scared {
-  animation: catScaredSoft 0.3s ease-in-out;
-}
-
-.pixel-dog.scared .dog-tail {
-  transform: rotate(22deg);
-}
-
-.pixel-dog.panicRunning {
-  animation: catSoftRun 0.32s infinite alternate ease-in-out;
-}
-
-.pixel-dog.panicRunning .dog-tail {
-  animation: catTailSoft 0.28s infinite alternate ease-in-out;
-}
-
-.pixel-dog.idle {
-  animation: catIdleLook 1.2s ease-in-out;
-}
-
-.pixel-dog.moving {
-  animation: catSoftRun 0.32s infinite alternate ease-in-out;
-}
-
-@keyframes catSleepBreath {
+@keyframes fistikSleep {
   0%,
   100% {
     scale: 1;
   }
 
   50% {
-    scale: 1.025 0.985;
+    scale: 1.02 0.985;
   }
 }
 
-@keyframes catSleepZ {
-  0% {
-    opacity: 0;
-    transform: translate(0, 4px) scale(0.8);
-  }
-
-  45% {
-    opacity: 0.75;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate(7px, -12px) scale(1.15);
-  }
-}
-
-@keyframes catScaredSoft {
+@keyframes fistikScared {
   0% {
     translate: 0 0;
   }
 
   30% {
-    translate: -3px 0;
+    translate: -2px 0;
   }
 
   60% {
-    translate: 3px 0;
+    translate: 2px 0;
   }
 
   100% {
@@ -255,35 +103,25 @@ body {
   }
 }
 
-@keyframes catSoftRun {
+@keyframes fistikRun {
   from {
     margin-top: 0;
-    rotate: -0.5deg;
+    rotate: -0.4deg;
   }
 
   to {
     margin-top: -3px;
-    rotate: 1deg;
+    rotate: 0.8deg;
   }
 }
 
-@keyframes catTailSoft {
-  from {
-    transform: rotate(-28deg);
-  }
-
-  to {
-    transform: rotate(14deg);
-  }
-}
-
-@keyframes catIdleLook {
+@keyframes fistikIdle {
   0% {
     scale: 1;
   }
 
   50% {
-    scale: 1.025;
+    scale: 1.015;
   }
 
   100% {
@@ -589,7 +427,6 @@ button:hover {
       rgba(220, 227, 234, 0.92),
       rgba(201, 210, 219, 0.88)
     );
-
   border: 1px solid rgba(184, 194, 204, 0.4);
   border-radius: 30px;
   padding: 42px 20px;
@@ -721,7 +558,6 @@ button:hover {
 }
 
 @media (max-width: 700px) {
-
   .marker-area,
   .result-grid,
   .history-card-grid,
