@@ -54,26 +54,53 @@ let isSelectionLocked = false;
 
 let takeOffFrame = null;
 let landingFrame = null;
-
 let lastCMJResult = null;
 
 // =========================
 // PIXEL DOG STATE MACHINE
 // =========================
 
-const dogSafeSpots = [
-  { x: 32, y: 130 },
-  { x: window.innerWidth - 110, y: 150 },
-  { x: 40, y: window.innerHeight - 110 },
-  { x: window.innerWidth - 120, y: window.innerHeight - 120 }
-];
-
 let dogState = "sleeping";
-let dogSpotIndex = 0;
-let dogPosition = dogSafeSpots[0];
+let dogScareCount = 0;
+let dogPanicInterval = null;
+let dogReturnTimeout = null;
+let dogPosition = { x: 32, y: 130 };
 
-function updateDogPosition() {
+const DOG_DANGER_DISTANCE = 95;
+const DOG_ESCAPE_LIMIT = 5;
+const DOG_HIDE_TIME = 18000;
+
+function getDogSafeSpots() {
+  return [
+    { x: 32, y: 120 },
+    { x: window.innerWidth - 110, y: 140 },
+    { x: 38, y: window.innerHeight - 110 },
+    { x: window.innerWidth - 125, y: window.innerHeight - 120 },
+    { x: window.innerWidth * 0.12, y: window.innerHeight - 150 },
+    { x: window.innerWidth * 0.82, y: 190 }
+  ];
+}
+
+function clampDogPosition(position) {
+  const padding = 24;
+
+  return {
+    x: Math.max(
+      padding,
+      Math.min(window.innerWidth - 90, position.x)
+    ),
+
+    y: Math.max(
+      padding,
+      Math.min(window.innerHeight - 90, position.y)
+    )
+  };
+}
+
+function setDogPosition(position) {
   if (!pixelDog) return;
+
+  dogPosition = clampDogPosition(position);
 
   pixelDog.style.transform =
     `translate(${dogPosition.x}px, ${dogPosition.y}px)`;
@@ -84,78 +111,192 @@ function setDogState(newState) {
 
   dogState = newState;
 
-  pixelDog.classList.remove("sleeping", "scared", "moving", "idle");
+  pixelDog.classList.remove(
+    "sleeping",
+    "scared",
+    "moving",
+    "panicRunning",
+    "idle",
+    "hidden",
+    "returning"
+  );
+
   pixelDog.classList.add(newState);
 }
 
-function moveDogToNextSafeSpot() {
-  if (!pixelDog) return;
+function getDogCenter() {
+  const rect = pixelDog.getBoundingClientRect();
 
-  setDogState("moving");
-
-  dogSpotIndex += 1;
-
-  if (dogSpotIndex >= dogSafeSpots.length) {
-    dogSpotIndex = 0;
-  }
-
-  dogPosition = dogSafeSpots[dogSpotIndex];
-
-  updateDogPosition();
-
-  setTimeout(function () {
-    setDogState("sleeping");
-  }, 850);
+  return {
+    x: rect.left + rect.width / 2,
+    y: rect.top + rect.height / 2
+  };
 }
 
-function scareDog() {
-  if (dogState === "moving" || dogState === "scared") {
+function getDistance(pointA, pointB) {
+  const dx = pointA.x - pointB.x;
+  const dy = pointA.y - pointB.y;
+
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+function getFarthestSafeSpotFromMouse(mousePosition) {
+  const safeSpots = getDogSafeSpots();
+
+  let farthestSpot = safeSpots[0];
+  let farthestDistance = 0;
+
+  safeSpots.forEach(function (spot) {
+    const distance = getDistance(spot, mousePosition);
+
+    if (distance > farthestDistance) {
+      farthestDistance = distance;
+      farthestSpot = spot;
+    }
+  });
+
+  return farthestSpot;
+}
+
+function getSmallPanicMove() {
+  const moveAmountX = Math.random() > 0.5 ? 80 : -80;
+  const moveAmountY = Math.random() > 0.5 ? 38 : -38;
+
+  return clampDogPosition({
+    x: dogPosition.x + moveAmountX,
+    y: dogPosition.y + moveAmountY
+  });
+}
+
+function startPanicRunning() {
+  if (!pixelDog) return;
+
+  setDogState("panicRunning");
+
+  let panicStep = 0;
+  const maxPanicSteps = 9;
+
+  clearInterval(dogPanicInterval);
+
+  dogPanicInterval = setInterval(function () {
+    panicStep++;
+
+    setDogPosition(getSmallPanicMove());
+
+    if (panicStep >= maxPanicSteps) {
+      clearInterval(dogPanicInterval);
+      dogPanicInterval = null;
+
+      setDogState("idle");
+
+      setTimeout(function () {
+        if (dogState === "idle") {
+          setDogState("sleeping");
+        }
+      }, 900);
+    }
+  }, 260);
+}
+
+function hideDogAndReturnLater() {
+  if (!pixelDog) return;
+
+  clearInterval(dogPanicInterval);
+  dogPanicInterval = null;
+
+  setDogState("hidden");
+
+  const exitDirection = Math.random() > 0.5 ? -160 : window.innerWidth + 160;
+
+  setDogPosition({
+    x: exitDirection,
+    y: dogPosition.y
+  });
+
+  clearTimeout(dogReturnTimeout);
+
+  dogReturnTimeout = setTimeout(function () {
+    const safeSpots = getDogSafeSpots();
+    const returnSpot =
+      safeSpots[Math.floor(Math.random() * safeSpots.length)];
+
+    dogScareCount = 0;
+
+    setDogState("returning");
+    setDogPosition(returnSpot);
+
+    setTimeout(function () {
+      setDogState("sleeping");
+    }, 1200);
+  }, DOG_HIDE_TIME);
+}
+
+function scareDog(mousePosition) {
+  if (!pixelDog) return;
+
+  if (
+    dogState === "scared" ||
+    dogState === "panicRunning" ||
+    dogState === "hidden" ||
+    dogState === "returning"
+  ) {
     return;
   }
+
+  dogScareCount++;
 
   setDogState("scared");
 
   setTimeout(function () {
-    moveDogToNextSafeSpot();
-  }, 250);
+    if (dogScareCount >= DOG_ESCAPE_LIMIT) {
+      hideDogAndReturnLater();
+      return;
+    }
+
+    const farthestSpot = getFarthestSafeSpotFromMouse(mousePosition);
+
+    setDogPosition(farthestSpot);
+
+    startPanicRunning();
+  }, 240);
 }
 
 function handleDogMouseMove(event) {
   if (!pixelDog) return;
 
-  if (dogState === "moving" || dogState === "scared") {
+  if (
+    dogState === "scared" ||
+    dogState === "panicRunning" ||
+    dogState === "hidden" ||
+    dogState === "returning"
+  ) {
     return;
   }
 
-  const rect = pixelDog.getBoundingClientRect();
+  const mousePosition = {
+    x: event.clientX,
+    y: event.clientY
+  };
 
-  const dogCenterX = rect.left + rect.width / 2;
-  const dogCenterY = rect.top + rect.height / 2;
+  const dogCenter = getDogCenter();
+  const distance = getDistance(mousePosition, dogCenter);
 
-  const dx = event.clientX - dogCenterX;
-  const dy = event.clientY - dogCenterY;
-
-  const distance = Math.sqrt(dx * dx + dy * dy);
-
-  if (distance < 90) {
-    scareDog();
+  if (distance < DOG_DANGER_DISTANCE) {
+    scareDog(mousePosition);
   }
 }
 
-function refreshDogSafeSpots() {
-  dogSafeSpots[0] = { x: 32, y: 130 };
-  dogSafeSpots[1] = { x: window.innerWidth - 110, y: 150 };
-  dogSafeSpots[2] = { x: 40, y: window.innerHeight - 110 };
-  dogSafeSpots[3] = { x: window.innerWidth - 120, y: window.innerHeight - 120 };
+function refreshDogPosition() {
+  const safeSpots = getDogSafeSpots();
 
-  dogPosition = dogSafeSpots[dogSpotIndex];
-  updateDogPosition();
+  setDogPosition(safeSpots[0]);
 }
 
 window.addEventListener("mousemove", handleDogMouseMove);
-window.addEventListener("resize", refreshDogSafeSpots);
+window.addEventListener("resize", refreshDogPosition);
 
-updateDogPosition();
+refreshDogPosition();
+setDogState("sleeping");
 
 // =========================
 // CMJ ANALYSIS
