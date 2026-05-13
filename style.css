@@ -418,6 +418,101 @@ video {
   width: 100%;
   display: block;
   background: black;
+  /* =========================
+   VIDEO OVERLAY
+========================= */
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.video-marker {
+  position: absolute;
+
+  width: 18px;
+  height: 18px;
+
+  border-radius: 999px;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0);
+
+  opacity: 0;
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+
+  z-index: 10;
+}
+
+.video-marker.visible {
+  opacity: 1;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1);
+}
+
+/* TAKE OFF */
+
+.takeoff-marker {
+  background: #EF4444;
+
+  box-shadow:
+    0 0 0 4px rgba(239, 68, 68, 0.18),
+    0 0 18px rgba(239, 68, 68, 0.55);
+
+  animation:
+    markerPulseRed 1.6s infinite ease-in-out;
+}
+
+/* LANDING */
+
+.landing-marker {
+  background: #3B82F6;
+
+  box-shadow:
+    0 0 0 4px rgba(59, 130, 246, 0.18),
+    0 0 18px rgba(59, 130, 246, 0.55);
+
+  animation:
+    markerPulseBlue 1.6s infinite ease-in-out;
+}
+
+/* ANIMATIONS */
+
+@keyframes markerPulseRed {
+
+  0%,
+  100% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.14;
+  }
+}
+
+@keyframes markerPulseBlue {
+
+  0%,
+  100% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.14;
+  }
+}
 }
 
 .timeline-area {

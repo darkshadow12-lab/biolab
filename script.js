@@ -410,6 +410,11 @@ scheduleRareDuck();
 
 const videoInput = document.getElementById("videoInput");
 const video = document.getElementById("video");
+const takeOffMarker =
+  document.getElementById("takeOffMarker");
+
+const landingMarker =
+  document.getElementById("landingMarker");
 
 const timeline = document.getElementById("timeline");
 const currentTimeDisplay = document.getElementById("currentTimeDisplay");
@@ -489,6 +494,22 @@ function updateTimeline() {
 }
 
 function getVideoCoordinates(event) {
+
+  const rect =
+    video.getBoundingClientRect();
+
+  const x =
+    event.clientX - rect.left;
+
+  const y =
+    event.clientY - rect.top;
+
+  return {
+    x,
+    y
+  };
+
+}
   const rect = video.getBoundingClientRect();
 
   const x = Math.round(
@@ -556,6 +577,10 @@ function calculateCMJ() {
 }
 
 function resetSelections() {
+  saveMessage.textContent = "";
+  takeOffMarker.classList.remove("visible");
+
+landingMarker.classList.remove("visible");
   selectionStep = 0;
   isSelectionLocked = false;
 
@@ -813,6 +838,12 @@ video.addEventListener("click", function (event) {
 
   if (selectionStep === 0) {
     takeOffPoint.textContent = coordinateText;
+    takeOffMarker.style.left = `${coordinates.x}px`;
+
+takeOffMarker.style.top = `${coordinates.y}px`;
+
+takeOffMarker.classList.add("visible");
+    takeOffPoint.textContent = coordinateText;
     takeOffFrame = currentFrame;
     takeOffFrameInfo.textContent = takeOffFrame;
 
@@ -823,6 +854,12 @@ video.addEventListener("click", function (event) {
   }
 
   if (selectionStep === 1) {
+    landingPoint.textContent = coordinateText;
+    landingMarker.style.left = `${coordinates.x}px`;
+
+landingMarker.style.top = `${coordinates.y}px`;
+
+landingMarker.classList.add("visible");
     landingPoint.textContent = coordinateText;
     landingFrame = currentFrame;
     landingFrameInfo.textContent = landingFrame;

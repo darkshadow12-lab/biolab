@@ -72,7 +72,26 @@
     </section>
 
     <section class="video-section">
-      <video id="video"></video>
+
+      <div class="video-wrapper">
+
+        <video id="video"></video>
+
+        <div id="videoOverlay" class="video-overlay">
+
+          <div
+            id="takeOffMarker"
+            class="video-marker takeoff-marker"
+          ></div>
+
+          <div
+            id="landingMarker"
+            class="video-marker landing-marker"
+          ></div>
+
+        </div>
+
+      </div>
 
       <div class="timeline-area">
         <input
@@ -89,6 +108,7 @@
           <span id="durationDisplay">0.00 sn</span>
         </div>
       </div>
+
     </section>
 
     <section class="controls">
