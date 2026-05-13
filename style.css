@@ -11,6 +11,10 @@ body {
   min-height: 100vh;
 }
 
+/* =========================
+   INTRO SCREEN
+========================= */
+
 .intro-screen {
   position: fixed;
   inset: 0;
@@ -21,72 +25,142 @@ body {
   justify-content: center;
 
   background:
-    radial-gradient(circle at center, #DCE3EA 0%, #C9D2DB 45%, #16202B 100%);
+    radial-gradient(circle at center,
+      #DCE3EA 0%,
+      #AEB8C4 35%,
+      #16202B 100%
+    );
+
+  overflow: hidden;
 
   cursor: pointer;
 
   transition:
-    opacity 1s ease,
-    filter 1s ease,
-    transform 1s ease;
-
-  overflow: hidden;
+    opacity 1.4s ease,
+    transform 1.4s ease,
+    filter 1.4s ease;
 }
 
 .intro-screen::before {
   content: "";
+
   position: absolute;
-  inset: -20%;
+  inset: -30%;
 
   background:
-    radial-gradient(circle at center, transparent 0%, transparent 45%, rgba(22, 32, 43, 0.55) 100%);
+    radial-gradient(circle at center,
+      transparent 0%,
+      transparent 35%,
+      rgba(197, 48, 48, 0.08) 55%,
+      rgba(22, 32, 43, 0.92) 100%
+    );
+
+  transform: scale(1);
+
+  transition:
+    opacity 1.3s ease,
+    transform 1.3s ease;
 
   opacity: 0;
-  transition: opacity 0.8s ease;
+}
+
+.intro-screen::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(255,255,255,0.015) 3px,
+      transparent 4px
+    );
+
+  mix-blend-mode: overlay;
+
+  opacity: 0.6;
+
+  pointer-events: none;
 }
 
 .intro-content {
   position: relative;
   z-index: 2;
+
   text-align: center;
 
   transition:
-    opacity 0.8s ease,
-    transform 0.8s ease,
-    letter-spacing 0.8s ease;
+    opacity 1.2s ease,
+    transform 1.2s ease,
+    letter-spacing 1.2s ease,
+    filter 1.2s ease;
 }
 
 .intro-content h1 {
-  font-size: clamp(64px, 12vw, 140px);
-  color: #16202B;
-  letter-spacing: -5px;
+  font-size: clamp(70px, 14vw, 180px);
+
   font-weight: 800;
+
+  letter-spacing: -8px;
+
+  color: #16202B;
+
+  text-shadow:
+    0 0 40px rgba(255,255,255,0.12);
 }
 
 .intro-content p {
-  margin-top: 12px;
-  color: #4F5B67;
-  font-size: 15px;
-  letter-spacing: 2px;
+  margin-top: 14px;
+
+  font-size: 14px;
+
+  letter-spacing: 5px;
+
   text-transform: uppercase;
+
+  color: #4F5B67;
 }
 
 .intro-screen.hide-intro {
   opacity: 0;
-  filter: blur(14px);
-  transform: scale(1.04) translateY(-12px);
-  pointer-events: none;
+
+  transform:
+    scale(1.08)
+    rotate(-1deg);
+
+  filter:
+    blur(18px)
+    brightness(1.2);
 }
 
 .intro-screen.hide-intro::before {
   opacity: 1;
+
+  transform:
+    scale(1.45)
+    rotate(6deg);
 }
 
 .intro-screen.hide-intro .intro-content {
   opacity: 0;
-  transform: translateY(-30px) scale(0.96);
-  letter-spacing: 8px;
+
+  transform:
+    translateY(-80px)
+    scale(0.86)
+    rotate(-2deg);
+
+  letter-spacing: 18px;
+
+  filter:
+    blur(10px);
 }
+
+/* =========================
+   MAIN APP
+========================= */
 
 .app {
   width: 92%;
@@ -118,11 +192,17 @@ body {
 .selection-panel,
 .results {
   background: #DCE3EA;
+
   border: 1px solid #B8C2CC;
+
   border-radius: 26px;
+
   padding: 22px;
+
   margin-bottom: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.12);
 }
 
 .protocol h2 {
@@ -146,11 +226,17 @@ input[type="file"] {
 
 .video-section {
   background: #DCE3EA;
+
   border: 1px solid #B8C2CC;
+
   border-radius: 30px;
+
   overflow: hidden;
+
   margin-bottom: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.12);
 }
 
 video {
@@ -181,21 +267,34 @@ video {
 
 .controls {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(120px, 1fr));
+
   gap: 12px;
+
   margin-bottom: 20px;
 }
 
 button {
   padding: 14px;
+
   border: none;
+
   border-radius: 18px;
+
   background: #C53030;
+
   color: #F8FAFC;
+
   font-size: 14px;
+
   cursor: pointer;
+
   transition: 0.2s;
-  box-shadow: 0 4px 14px rgba(197,48,48,0.18);
+
+  box-shadow:
+    0 4px 14px rgba(197,48,48,0.18);
 }
 
 button:hover {
@@ -205,12 +304,19 @@ button:hover {
 
 .selection-status {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
   background: #C9D2DB;
+
   border: 1px solid #B8C2CC;
+
   padding: 14px 16px;
+
   border-radius: 18px;
+
   margin-bottom: 16px;
 }
 
@@ -230,8 +336,11 @@ button:hover {
 
 .marker-card {
   background: #C9D2DB;
+
   border: 1px solid #B8C2CC;
+
   border-radius: 22px;
+
   padding: 18px;
 }
 
@@ -257,12 +366,19 @@ button:hover {
     #DCE3EA,
     #C9D2DB
   );
+
   border: 1px solid #B8C2CC;
+
   border-radius: 30px;
+
   padding: 42px 20px;
+
   text-align: center;
+
   margin-bottom: 18px;
-  box-shadow: 0 12px 34px rgba(0,0,0,0.10);
+
+  box-shadow:
+    0 12px 34px rgba(0,0,0,0.10);
 }
 
 .result-main span {
@@ -273,9 +389,13 @@ button:hover {
 
 .result-main strong {
   display: block;
+
   font-size: 76px;
+
   font-weight: 700;
+
   letter-spacing: -4px;
+
   color: #111827;
 }
 
@@ -292,9 +412,13 @@ button:hover {
 
 .result-grid p {
   background: #C9D2DB;
+
   border: 1px solid #B8C2CC;
+
   border-radius: 18px;
+
   padding: 16px;
+
   color: #5B6773;
 }
 
@@ -304,16 +428,24 @@ button:hover {
 
 .method-note {
   margin-top: 18px;
+
   background: #C9D2DB;
+
   border: 1px solid #B8C2CC;
+
   border-radius: 22px;
+
   padding: 18px;
+
   color: #4F5B67;
+
   line-height: 1.7;
+
   font-size: 14px;
 }
 
 @media (max-width: 700px) {
+
   .header h1 {
     font-size: 34px;
   }
