@@ -41,6 +41,7 @@ const saveTestBtn = document.getElementById("saveTestBtn");
 const saveMessage = document.getElementById("saveMessage");
 const historyList = document.getElementById("historyList");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+const downloadCsvBtn = document.getElementById("downloadCsvBtn");
 
 const FPS = 60;
 const GRAVITY = 9.81;
@@ -262,6 +263,71 @@ function saveCurrentTest() {
   renderHistory();
 }
 
+function escapeCSV(value) {
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  const stringValue = String(value).replace(/"/g, '""');
+
+  return `"${stringValue}"`;
+}
+
+function downloadCSV() {
+  const tests = getSavedTests();
+
+  if (tests.length === 0) {
+    saveMessage.textContent = "İndirilecek kayıt bulunamadı.";
+    return;
+  }
+
+  const headers = [
+    "Tarih",
+    "Sporcu Adı",
+    "Sıçrama Yüksekliği cm",
+    "Uçuş Süresi sn",
+    "Take-off Frame",
+    "Landing Frame",
+    "Frame Farkı",
+    "Hata Aralığı",
+    "FPS"
+  ];
+
+  const rows = tests.map(function (test) {
+    return [
+      test.createdAt,
+      test.athleteName,
+      test.jumpHeightCm,
+      test.flightTimeS,
+      test.takeOffFrame,
+      test.landingFrame,
+      test.frameDifference,
+      test.errorRange,
+      test.fps
+    ].map(escapeCSV).join(",");
+  });
+
+  const csvContent = [
+    headers.map(escapeCSV).join(","),
+    ...rows
+  ].join("\n");
+
+  const blob = new Blob(["\uFEFF" + csvContent], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "biolab_cmj_testleri.csv";
+  link.click();
+
+  URL.revokeObjectURL(url);
+
+  saveMessage.textContent = "CSV dosyası indirildi.";
+}
+
 videoInput.addEventListener("change", function () {
   const file = videoInput.files[0];
 
@@ -376,6 +442,10 @@ unlockBtn.addEventListener("click", function () {
 
 saveTestBtn.addEventListener("click", function () {
   saveCurrentTest();
+});
+
+downloadCsvBtn.addEventListener("click", function () {
+  downloadCSV();
 });
 
 clearHistoryBtn.addEventListener("click", function () {

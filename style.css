@@ -32,6 +32,7 @@ body {
     );
 
   overflow: hidden;
+
   cursor: pointer;
 
   transition:
@@ -42,6 +43,7 @@ body {
 
 .intro-screen::before {
   content: "";
+
   position: absolute;
   inset: -30%;
 
@@ -64,6 +66,7 @@ body {
 
 .intro-screen::after {
   content: "";
+
   position: absolute;
   inset: 0;
 
@@ -77,13 +80,16 @@ body {
     );
 
   mix-blend-mode: overlay;
+
   opacity: 0.6;
+
   pointer-events: none;
 }
 
 .intro-content {
   position: relative;
   z-index: 2;
+
   text-align: center;
 
   transition:
@@ -95,17 +101,26 @@ body {
 
 .intro-content h1 {
   font-size: clamp(70px, 14vw, 180px);
+
   font-weight: 800;
+
   letter-spacing: -8px;
+
   color: #16202B;
-  text-shadow: 0 0 40px rgba(255,255,255,0.12);
+
+  text-shadow:
+    0 0 40px rgba(255,255,255,0.12);
 }
 
 .intro-content p {
   margin-top: 14px;
+
   font-size: 14px;
+
   letter-spacing: 5px;
+
   text-transform: uppercase;
+
   color: #4F5B67;
 }
 
@@ -140,7 +155,9 @@ body {
     rotate(-2deg);
 
   letter-spacing: 18px;
-  filter: blur(10px);
+
+  filter:
+    blur(10px);
 }
 
 /* =========================
@@ -179,11 +196,17 @@ body {
 .save-panel,
 .history-panel {
   background: #DCE3EA;
+
   border: 1px solid #B8C2CC;
+
   border-radius: 26px;
+
   padding: 22px;
+
   margin-bottom: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.12);
 }
 
 .protocol h2,
@@ -209,11 +232,17 @@ input[type="file"] {
 
 .video-section {
   background: #DCE3EA;
+
   border: 1px solid #B8C2CC;
+
   border-radius: 30px;
+
   overflow: hidden;
+
   margin-bottom: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.12);
 }
 
 video {
@@ -244,21 +273,34 @@ video {
 
 .controls {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(120px, 1fr));
+
   gap: 12px;
+
   margin-bottom: 20px;
 }
 
 button {
   padding: 14px;
+
   border: none;
+
   border-radius: 18px;
+
   background: #C53030;
+
   color: #F8FAFC;
+
   font-size: 14px;
+
   cursor: pointer;
+
   transition: 0.2s;
-  box-shadow: 0 4px 14px rgba(197,48,48,0.18);
+
+  box-shadow:
+    0 4px 14px rgba(197,48,48,0.18);
 }
 
 button:hover {
@@ -268,12 +310,19 @@ button:hover {
 
 .selection-status {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
   background: #C9D2DB;
+
   border: 1px solid #B8C2CC;
+
   padding: 14px 16px;
+
   border-radius: 18px;
+
   margin-bottom: 16px;
 }
 
@@ -293,8 +342,11 @@ button:hover {
 
 .marker-card {
   background: #C9D2DB;
+
   border: 1px solid #B8C2CC;
+
   border-radius: 22px;
+
   padding: 18px;
 }
 
@@ -322,11 +374,17 @@ button:hover {
   );
 
   border: 1px solid #B8C2CC;
+
   border-radius: 30px;
+
   padding: 42px 20px;
+
   text-align: center;
+
   margin-bottom: 18px;
-  box-shadow: 0 12px 34px rgba(0,0,0,0.10);
+
+  box-shadow:
+    0 12px 34px rgba(0,0,0,0.10);
 }
 
 .result-main span {
@@ -337,9 +395,13 @@ button:hover {
 
 .result-main strong {
   display: block;
+
   font-size: 76px;
+
   font-weight: 700;
+
   letter-spacing: -4px;
+
   color: #111827;
 }
 
@@ -356,30 +418,19 @@ button:hover {
 
 .result-grid p {
   background: #C9D2DB;
+
   border: 1px solid #B8C2CC;
+
   border-radius: 18px;
+
   padding: 16px;
+
   color: #5B6773;
 }
 
 .result-grid strong {
   color: #111827;
 }
-
-.method-note {
-  margin-top: 18px;
-  background: #C9D2DB;
-  border: 1px solid #B8C2CC;
-  border-radius: 22px;
-  padding: 18px;
-  color: #4F5B67;
-  line-height: 1.7;
-  font-size: 14px;
-}
-
-/* =========================
-   LOCAL STORAGE PANELS
-========================= */
 
 .save-row {
   display: grid;
@@ -389,21 +440,21 @@ button:hover {
 
 .save-row input {
   padding: 14px;
-  border: 1px solid #B8C2CC;
-  border-radius: 16px;
-  background: #C9D2DB;
-  color: #111827;
-  font-size: 14px;
-}
 
-.save-row input::placeholder {
-  color: #5B6773;
+  border: 1px solid #B8C2CC;
+
+  border-radius: 16px;
+
+  background: #C9D2DB;
+
+  color: #111827;
+
+  font-size: 14px;
 }
 
 .save-message {
   margin-top: 12px;
   color: #4F5B67;
-  font-size: 14px;
 }
 
 .history-header {
@@ -413,10 +464,17 @@ button:hover {
   gap: 12px;
 }
 
-.clear-btn {
-  padding: 10px 14px;
-  border-radius: 14px;
-  font-size: 13px;
+.history-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.csv-btn {
+  background: #16202B;
+}
+
+.csv-btn:hover {
+  background: #243447;
 }
 
 .history-list {
@@ -426,8 +484,11 @@ button:hover {
 
 .history-card {
   background: #C9D2DB;
+
   border: 1px solid #B8C2CC;
+
   border-radius: 18px;
+
   padding: 16px;
 }
 
@@ -439,7 +500,6 @@ button:hover {
 }
 
 .history-card h3 {
-  font-size: 16px;
   color: #111827;
 }
 
@@ -455,7 +515,6 @@ button:hover {
 
 .history-card-grid p {
   color: #4F5B67;
-  font-size: 14px;
 }
 
 .history-card-grid strong {
@@ -468,10 +527,6 @@ button:hover {
 
 @media (max-width: 700px) {
 
-  .header h1 {
-    font-size: 34px;
-  }
-
   .marker-area,
   .result-grid,
   .history-card-grid,
@@ -482,6 +537,11 @@ button:hover {
   .history-header {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .history-actions {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   .result-main strong {
