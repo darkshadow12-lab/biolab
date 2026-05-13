@@ -13,7 +13,7 @@ body {
 }
 
 /* =========================
-   BACKGROUND DOG LAYER
+   BACKGROUND CAT LAYER
 ========================= */
 
 .background-dog-layer {
@@ -26,217 +26,228 @@ body {
 
 .pixel-dog {
   position: absolute;
-  width: 48px;
-  height: 34px;
+  width: 54px;
+  height: 42px;
 
   transition:
-    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.6s ease,
-    filter 0.4s ease;
+    transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 0.8s ease,
+    filter 0.6s ease;
 
   image-rendering: pixelated;
   opacity: 0.78;
   will-change: transform, opacity;
 }
 
+/* gizlenme / geri dönme */
 .pixel-dog.hidden {
   opacity: 0;
-  filter: blur(4px);
-  pointer-events: none;
+  filter: blur(3px);
 }
 
 .pixel-dog.returning {
-  opacity: 0.6;
+  opacity: 0.45;
   filter: blur(1px);
 }
 
+/* gövde */
 .dog-body {
   position: relative;
-  width: 34px;
-  height: 20px;
-  background: #C99A6B;
-  border-radius: 4px;
-  top: 10px;
-  left: 8px;
+  width: 36px;
+  height: 22px;
+  top: 14px;
+  left: 9px;
+
+  background: #F3EBDD;
+  border: 3px solid #111827;
+  border-radius: 3px;
 
   box-shadow:
-    inset -5px -4px 0 #8A5A3C,
-    0 2px 0 rgba(0,0,0,0.15);
+    8px -2px 0 #D97706,
+    12px 2px 0 #111827,
+    -4px 3px 0 #111827,
+    4px 10px 0 #F3EBDD,
+    18px 10px 0 #111827;
 }
 
+/* kafa */
 .dog-body::before {
   content: "";
   position: absolute;
-  width: 14px;
-  height: 16px;
-  background: #D8B08A;
-  right: -10px;
-  top: -4px;
-  border-radius: 4px;
+  width: 23px;
+  height: 21px;
+  right: -16px;
+  top: -10px;
+
+  background: #F3EBDD;
+  border: 3px solid #111827;
+  border-radius: 3px;
 
   box-shadow:
-    inset -3px -2px 0 #9B6A49;
+    -8px 0 0 #111827,
+    6px 0 0 #D97706;
 }
 
+/* gözler + burun */
 .dog-body::after {
   content: "";
   position: absolute;
   width: 4px;
-  height: 4px;
-  background: #1F2933;
-  right: -6px;
-  top: 1px;
+  height: 6px;
+  right: -5px;
+  top: -4px;
+
+  background: #D4A017;
 
   box-shadow:
-    5px 7px 0 #1F2933;
+    10px 0 0 #D4A017,
+    5px 8px 0 #F87171;
 }
 
+/* kulak 1 */
 .dog-ear {
   position: absolute;
-  width: 8px;
-  height: 12px;
-  background: #6F432A;
-  right: -4px;
-  top: -10px;
-  border-radius: 2px;
+  width: 9px;
+  height: 13px;
+  right: -12px;
+  top: -22px;
+
+  background: #111827;
+  border: 2px solid #111827;
+  transform: rotate(-6deg);
 }
 
+/* kulak 2 */
 .dog-face {
   position: absolute;
-  width: 10px;
-  height: 6px;
-  background: #F1E0C8;
-  right: -15px;
-  top: 5px;
-  border-radius: 2px;
+  width: 9px;
+  height: 13px;
+  right: 6px;
+  top: -22px;
+
+  background: #D97706;
+  border: 2px solid #111827;
+  transform: rotate(6deg);
 }
 
-.dog-face::after {
-  content: "";
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: #111827;
-  right: -2px;
-  top: 1px;
-}
-
+/* kuyruk */
 .dog-tail {
   position: absolute;
-  width: 14px;
-  height: 6px;
-  background: #8A5A3C;
-  left: -11px;
-  top: 2px;
-  border-radius: 4px 0 0 4px;
-  transform: rotate(-25deg);
-  transform-origin: right center;
+  width: 10px;
+  height: 21px;
+  left: -12px;
+  top: -8px;
+
+  background: #111827;
+  border-radius: 8px 8px 0 0;
+  transform: rotate(-22deg);
+  transform-origin: bottom center;
+
+  box-shadow:
+    3px 6px 0 #D97706;
 }
 
+/* patiler */
 .pixel-dog::before {
   content: "";
   position: absolute;
-  width: 5px;
-  height: 10px;
-  background: #7F5539;
-  left: 17px;
-  top: 27px;
+  width: 6px;
+  height: 8px;
+  left: 18px;
+  top: 35px;
+
+  background: #111827;
 
   box-shadow:
-    18px 0 0 #7F5539,
-    3px 5px 0 #5C3B28,
-    21px 5px 0 #5C3B28;
+    16px 0 0 #111827,
+    3px 5px 0 #F3EBDD,
+    19px 5px 0 #F3EBDD;
 }
 
+/* uyku Z */
 .pixel-dog::after {
   content: "Z";
   position: absolute;
   right: -8px;
-  top: -10px;
+  top: -12px;
+
   color: #DCE3EA;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
   opacity: 0;
 }
 
+/* durum animasyonları */
 .pixel-dog.sleeping {
-  animation: sleepBreath 1.6s infinite ease-in-out;
+  animation: catSleepBreath 2.2s infinite ease-in-out;
 }
 
 .pixel-dog.sleeping::after {
-  animation: sleepZ 1.8s infinite ease-in-out;
+  animation: catSleepZ 2.4s infinite ease-in-out;
 }
 
 .pixel-dog.scared {
-  animation: scareShake 0.22s linear;
+  animation: catScaredSoft 0.3s ease-in-out;
 }
 
 .pixel-dog.scared .dog-tail {
-  transform: rotate(35deg);
+  transform: rotate(22deg);
 }
 
 .pixel-dog.panicRunning {
-  animation: panicBounce 0.13s infinite alternate;
+  animation: catSoftRun 0.32s infinite alternate ease-in-out;
 }
 
 .pixel-dog.panicRunning .dog-tail {
-  animation: tailWag 0.12s infinite alternate;
+  animation: catTailSoft 0.28s infinite alternate ease-in-out;
 }
 
 .pixel-dog.idle {
-  animation: idleLook 1s ease-in-out;
+  animation: catIdleLook 1.2s ease-in-out;
 }
 
 .pixel-dog.moving {
-  animation: runBounce 0.18s infinite alternate;
+  animation: catSoftRun 0.32s infinite alternate ease-in-out;
 }
 
-.pixel-dog.moving .dog-tail {
-  animation: tailWag 0.16s infinite alternate;
-}
-
-@keyframes sleepBreath {
+@keyframes catSleepBreath {
   0%,
   100% {
     scale: 1;
   }
 
   50% {
-    scale: 1.04 0.96;
+    scale: 1.025 0.985;
   }
 }
 
-@keyframes sleepZ {
+@keyframes catSleepZ {
   0% {
     opacity: 0;
     transform: translate(0, 4px) scale(0.8);
   }
 
-  40% {
-    opacity: 0.8;
+  45% {
+    opacity: 0.75;
   }
 
   100% {
     opacity: 0;
-    transform: translate(8px, -12px) scale(1.2);
+    transform: translate(7px, -12px) scale(1.15);
   }
 }
 
-@keyframes scareShake {
+@keyframes catScaredSoft {
   0% {
     translate: 0 0;
   }
 
-  25% {
-    translate: -4px 0;
-  }
-
-  50% {
-    translate: 4px 0;
-  }
-
-  75% {
+  30% {
     translate: -3px 0;
+  }
+
+  60% {
+    translate: 3px 0;
   }
 
   100% {
@@ -244,45 +255,35 @@ body {
   }
 }
 
-@keyframes runBounce {
+@keyframes catSoftRun {
   from {
     margin-top: 0;
+    rotate: -0.5deg;
   }
 
   to {
-    margin-top: -4px;
+    margin-top: -3px;
+    rotate: 1deg;
   }
 }
 
-@keyframes panicBounce {
+@keyframes catTailSoft {
   from {
-    margin-top: 0;
-    rotate: -1deg;
+    transform: rotate(-28deg);
   }
 
   to {
-    margin-top: -6px;
-    rotate: 2deg;
+    transform: rotate(14deg);
   }
 }
 
-@keyframes tailWag {
-  from {
-    transform: rotate(-35deg);
-  }
-
-  to {
-    transform: rotate(20deg);
-  }
-}
-
-@keyframes idleLook {
+@keyframes catIdleLook {
   0% {
     scale: 1;
   }
 
   50% {
-    scale: 1.03;
+    scale: 1.025;
   }
 
   100% {
@@ -377,9 +378,7 @@ body {
   font-weight: 800;
   letter-spacing: -8px;
   color: #16202B;
-
-  text-shadow:
-    0 0 40px rgba(255,255,255,0.12);
+  text-shadow: 0 0 40px rgba(255,255,255,0.12);
 }
 
 .intro-content p {
@@ -392,34 +391,19 @@ body {
 
 .intro-screen.hide-intro {
   opacity: 0;
-
-  transform:
-    scale(1.08)
-    rotate(-1deg);
-
-  filter:
-    blur(18px)
-    brightness(1.2);
-
+  transform: scale(1.08) rotate(-1deg);
+  filter: blur(18px) brightness(1.2);
   pointer-events: none;
 }
 
 .intro-screen.hide-intro::before {
   opacity: 1;
-
-  transform:
-    scale(1.45)
-    rotate(6deg);
+  transform: scale(1.45) rotate(6deg);
 }
 
 .intro-screen.hide-intro .intro-content {
   opacity: 0;
-
-  transform:
-    translateY(-80px)
-    scale(0.86)
-    rotate(-2deg);
-
+  transform: translateY(-80px) scale(0.86) rotate(-2deg);
   letter-spacing: 18px;
   filter: blur(10px);
 }
@@ -467,9 +451,7 @@ body {
   border-radius: 26px;
   padding: 22px;
   margin-bottom: 18px;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
 .protocol h2,
@@ -500,9 +482,7 @@ input[type="file"] {
   border-radius: 30px;
   overflow: hidden;
   margin-bottom: 20px;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
 video {
@@ -532,10 +512,7 @@ video {
 
 .controls {
   display: grid;
-
-  grid-template-columns:
-    repeat(auto-fit, minmax(120px, 1fr));
-
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 12px;
   margin-bottom: 20px;
 }
@@ -549,9 +526,7 @@ button {
   font-size: 14px;
   cursor: pointer;
   transition: 0.2s;
-
-  box-shadow:
-    0 4px 14px rgba(197,48,48,0.18);
+  box-shadow: 0 4px 14px rgba(197,48,48,0.18);
 }
 
 button:hover {
@@ -620,9 +595,7 @@ button:hover {
   padding: 42px 20px;
   text-align: center;
   margin-bottom: 18px;
-
-  box-shadow:
-    0 12px 34px rgba(0,0,0,0.10);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.10);
 }
 
 .result-main span {

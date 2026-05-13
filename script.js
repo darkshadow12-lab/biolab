@@ -57,59 +57,59 @@ let landingFrame = null;
 let lastCMJResult = null;
 
 // =========================
-// PIXEL DOG STATE MACHINE
+// FISTIK STATE MACHINE
 // =========================
 
-let dogState = "sleeping";
-let dogScareCount = 0;
-let dogPanicInterval = null;
-let dogReturnTimeout = null;
-let dogPosition = { x: 32, y: 130 };
+let catState = "sleeping";
+let catScareCount = 0;
+let catPanicInterval = null;
+let catReturnTimeout = null;
+let catPosition = { x: 32, y: 130 };
 
-const DOG_DANGER_DISTANCE = 95;
-const DOG_ESCAPE_LIMIT = 5;
-const DOG_HIDE_TIME = 18000;
+const CAT_DANGER_DISTANCE = 90;
+const CAT_ESCAPE_LIMIT = 5;
+const CAT_HIDE_TIME = 90000; // 1.5 dakika
 
-function getDogSafeSpots() {
+function getCatSafeSpots() {
   return [
-    { x: 32, y: 120 },
-    { x: window.innerWidth - 110, y: 140 },
-    { x: 38, y: window.innerHeight - 110 },
-    { x: window.innerWidth - 125, y: window.innerHeight - 120 },
-    { x: window.innerWidth * 0.12, y: window.innerHeight - 150 },
+    { x: 34, y: 120 },
+    { x: window.innerWidth - 120, y: 145 },
+    { x: 42, y: window.innerHeight - 125 },
+    { x: window.innerWidth - 135, y: window.innerHeight - 130 },
+    { x: window.innerWidth * 0.12, y: window.innerHeight - 165 },
     { x: window.innerWidth * 0.82, y: 190 }
   ];
 }
 
-function clampDogPosition(position) {
-  const padding = 24;
+function clampCatPosition(position) {
+  const padding = 26;
 
   return {
     x: Math.max(
       padding,
-      Math.min(window.innerWidth - 90, position.x)
+      Math.min(window.innerWidth - 100, position.x)
     ),
 
     y: Math.max(
       padding,
-      Math.min(window.innerHeight - 90, position.y)
+      Math.min(window.innerHeight - 100, position.y)
     )
   };
 }
 
-function setDogPosition(position) {
+function setCatPosition(position) {
   if (!pixelDog) return;
 
-  dogPosition = clampDogPosition(position);
+  catPosition = clampCatPosition(position);
 
   pixelDog.style.transform =
-    `translate(${dogPosition.x}px, ${dogPosition.y}px)`;
+    `translate(${catPosition.x}px, ${catPosition.y}px)`;
 }
 
-function setDogState(newState) {
+function setCatState(newState) {
   if (!pixelDog) return;
 
-  dogState = newState;
+  catState = newState;
 
   pixelDog.classList.remove(
     "sleeping",
@@ -124,7 +124,7 @@ function setDogState(newState) {
   pixelDog.classList.add(newState);
 }
 
-function getDogCenter() {
+function getCatCenter() {
   const rect = pixelDog.getBoundingClientRect();
 
   return {
@@ -141,7 +141,7 @@ function getDistance(pointA, pointB) {
 }
 
 function getFarthestSafeSpotFromMouse(mousePosition) {
-  const safeSpots = getDogSafeSpots();
+  const safeSpots = getCatSafeSpots();
 
   let farthestSpot = safeSpots[0];
   let farthestDistance = 0;
@@ -158,117 +158,121 @@ function getFarthestSafeSpotFromMouse(mousePosition) {
   return farthestSpot;
 }
 
-function getSmallPanicMove() {
-  const moveAmountX = Math.random() > 0.5 ? 80 : -80;
-  const moveAmountY = Math.random() > 0.5 ? 38 : -38;
+function getGentlePanicMove() {
+  const moveAmountX = Math.random() > 0.5 ? 46 : -46;
+  const moveAmountY = Math.random() > 0.5 ? 22 : -22;
 
-  return clampDogPosition({
-    x: dogPosition.x + moveAmountX,
-    y: dogPosition.y + moveAmountY
+  return clampCatPosition({
+    x: catPosition.x + moveAmountX,
+    y: catPosition.y + moveAmountY
   });
 }
 
-function startPanicRunning() {
+function startGentlePanicRunning() {
   if (!pixelDog) return;
 
-  setDogState("panicRunning");
+  setCatState("panicRunning");
 
   let panicStep = 0;
-  const maxPanicSteps = 9;
+  const maxPanicSteps = 6;
 
-  clearInterval(dogPanicInterval);
+  clearInterval(catPanicInterval);
 
-  dogPanicInterval = setInterval(function () {
+  catPanicInterval = setInterval(function () {
     panicStep++;
 
-    setDogPosition(getSmallPanicMove());
+    setCatPosition(getGentlePanicMove());
 
     if (panicStep >= maxPanicSteps) {
-      clearInterval(dogPanicInterval);
-      dogPanicInterval = null;
+      clearInterval(catPanicInterval);
+      catPanicInterval = null;
 
-      setDogState("idle");
+      setCatState("idle");
 
       setTimeout(function () {
-        if (dogState === "idle") {
-          setDogState("sleeping");
+        if (catState === "idle") {
+          setCatState("sleeping");
         }
-      }, 900);
+      }, 1200);
     }
-  }, 260);
+  }, 360);
 }
 
-function hideDogAndReturnLater() {
+function hideCatAndReturnLater() {
   if (!pixelDog) return;
 
-  clearInterval(dogPanicInterval);
-  dogPanicInterval = null;
+  clearInterval(catPanicInterval);
+  catPanicInterval = null;
 
-  setDogState("hidden");
+  setCatState("hidden");
 
-  const exitDirection = Math.random() > 0.5 ? -160 : window.innerWidth + 160;
+  const exitLeft = Math.random() > 0.5;
 
-  setDogPosition({
-    x: exitDirection,
-    y: dogPosition.y
+  const exitX = exitLeft
+    ? -180
+    : window.innerWidth + 180;
+
+  setCatPosition({
+    x: exitX,
+    y: catPosition.y
   });
 
-  clearTimeout(dogReturnTimeout);
+  clearTimeout(catReturnTimeout);
 
-  dogReturnTimeout = setTimeout(function () {
-    const safeSpots = getDogSafeSpots();
+  catReturnTimeout = setTimeout(function () {
+    const safeSpots = getCatSafeSpots();
     const returnSpot =
       safeSpots[Math.floor(Math.random() * safeSpots.length)];
 
-    dogScareCount = 0;
+    catScareCount = 0;
 
-    setDogState("returning");
-    setDogPosition(returnSpot);
+    setCatState("returning");
+    setCatPosition(returnSpot);
 
     setTimeout(function () {
-      setDogState("sleeping");
-    }, 1200);
-  }, DOG_HIDE_TIME);
+      setCatState("sleeping");
+    }, 1400);
+  }, CAT_HIDE_TIME);
 }
 
-function scareDog(mousePosition) {
+function scareCat(mousePosition) {
   if (!pixelDog) return;
 
   if (
-    dogState === "scared" ||
-    dogState === "panicRunning" ||
-    dogState === "hidden" ||
-    dogState === "returning"
+    catState === "scared" ||
+    catState === "panicRunning" ||
+    catState === "hidden" ||
+    catState === "returning"
   ) {
     return;
   }
 
-  dogScareCount++;
+  catScareCount++;
 
-  setDogState("scared");
+  setCatState("scared");
 
   setTimeout(function () {
-    if (dogScareCount >= DOG_ESCAPE_LIMIT) {
-      hideDogAndReturnLater();
+    if (catScareCount >= CAT_ESCAPE_LIMIT) {
+      hideCatAndReturnLater();
       return;
     }
 
     const farthestSpot = getFarthestSafeSpotFromMouse(mousePosition);
 
-    setDogPosition(farthestSpot);
+    setCatPosition(farthestSpot);
 
-    startPanicRunning();
-  }, 240);
+    startGentlePanicRunning();
+  }, 280);
 }
 
-function handleDogMouseMove(event) {
+function handleCatMouseMove(event) {
   if (!pixelDog) return;
 
   if (
-    dogState === "scared" ||
-    dogState === "panicRunning" ||
-    dogState === "hidden" ||
-    dogState === "returning"
+    catState === "scared" ||
+    catState === "panicRunning" ||
+    catState === "hidden" ||
+    catState === "returning"
   ) {
     return;
   }
@@ -278,25 +282,25 @@ function handleDogMouseMove(event) {
     y: event.clientY
   };
 
-  const dogCenter = getDogCenter();
-  const distance = getDistance(mousePosition, dogCenter);
+  const catCenter = getCatCenter();
+  const distance = getDistance(mousePosition, catCenter);
 
-  if (distance < DOG_DANGER_DISTANCE) {
-    scareDog(mousePosition);
+  if (distance < CAT_DANGER_DISTANCE) {
+    scareCat(mousePosition);
   }
 }
 
-function refreshDogPosition() {
-  const safeSpots = getDogSafeSpots();
+function refreshCatPosition() {
+  const safeSpots = getCatSafeSpots();
 
-  setDogPosition(safeSpots[0]);
+  setCatPosition(safeSpots[0]);
 }
 
-window.addEventListener("mousemove", handleDogMouseMove);
-window.addEventListener("resize", refreshDogPosition);
+window.addEventListener("mousemove", handleCatMouseMove);
+window.addEventListener("resize", refreshCatPosition);
 
-refreshDogPosition();
-setDogState("sleeping");
+refreshCatPosition();
+setCatState("sleeping");
 
 // =========================
 // CMJ ANALYSIS
