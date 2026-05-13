@@ -32,7 +32,6 @@ body {
     );
 
   overflow: hidden;
-
   cursor: pointer;
 
   transition:
@@ -43,7 +42,6 @@ body {
 
 .intro-screen::before {
   content: "";
-
   position: absolute;
   inset: -30%;
 
@@ -66,7 +64,6 @@ body {
 
 .intro-screen::after {
   content: "";
-
   position: absolute;
   inset: 0;
 
@@ -80,16 +77,13 @@ body {
     );
 
   mix-blend-mode: overlay;
-
   opacity: 0.6;
-
   pointer-events: none;
 }
 
 .intro-content {
   position: relative;
   z-index: 2;
-
   text-align: center;
 
   transition:
@@ -101,26 +95,17 @@ body {
 
 .intro-content h1 {
   font-size: clamp(70px, 14vw, 180px);
-
   font-weight: 800;
-
   letter-spacing: -8px;
-
   color: #16202B;
-
-  text-shadow:
-    0 0 40px rgba(255,255,255,0.12);
+  text-shadow: 0 0 40px rgba(255,255,255,0.12);
 }
 
 .intro-content p {
   margin-top: 14px;
-
   font-size: 14px;
-
   letter-spacing: 5px;
-
   text-transform: uppercase;
-
   color: #4F5B67;
 }
 
@@ -134,6 +119,8 @@ body {
   filter:
     blur(18px)
     brightness(1.2);
+
+  pointer-events: none;
 }
 
 .intro-screen.hide-intro::before {
@@ -153,9 +140,7 @@ body {
     rotate(-2deg);
 
   letter-spacing: 18px;
-
-  filter:
-    blur(10px);
+  filter: blur(10px);
 }
 
 /* =========================
@@ -190,22 +175,20 @@ body {
 .protocol,
 .upload-area,
 .selection-panel,
-.results {
+.results,
+.save-panel,
+.history-panel {
   background: #DCE3EA;
-
   border: 1px solid #B8C2CC;
-
   border-radius: 26px;
-
   padding: 22px;
-
   margin-bottom: 18px;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
-.protocol h2 {
+.protocol h2,
+.save-panel h2,
+.history-panel h2 {
   font-size: 18px;
   margin-bottom: 14px;
 }
@@ -226,17 +209,11 @@ input[type="file"] {
 
 .video-section {
   background: #DCE3EA;
-
   border: 1px solid #B8C2CC;
-
   border-radius: 30px;
-
   overflow: hidden;
-
   margin-bottom: 20px;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
 video {
@@ -267,34 +244,21 @@ video {
 
 .controls {
   display: grid;
-
-  grid-template-columns:
-    repeat(auto-fit, minmax(120px, 1fr));
-
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 12px;
-
   margin-bottom: 20px;
 }
 
 button {
   padding: 14px;
-
   border: none;
-
   border-radius: 18px;
-
   background: #C53030;
-
   color: #F8FAFC;
-
   font-size: 14px;
-
   cursor: pointer;
-
   transition: 0.2s;
-
-  box-shadow:
-    0 4px 14px rgba(197,48,48,0.18);
+  box-shadow: 0 4px 14px rgba(197,48,48,0.18);
 }
 
 button:hover {
@@ -304,19 +268,12 @@ button:hover {
 
 .selection-status {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   background: #C9D2DB;
-
   border: 1px solid #B8C2CC;
-
   padding: 14px 16px;
-
   border-radius: 18px;
-
   margin-bottom: 16px;
 }
 
@@ -336,11 +293,8 @@ button:hover {
 
 .marker-card {
   background: #C9D2DB;
-
   border: 1px solid #B8C2CC;
-
   border-radius: 22px;
-
   padding: 18px;
 }
 
@@ -368,17 +322,11 @@ button:hover {
   );
 
   border: 1px solid #B8C2CC;
-
   border-radius: 30px;
-
   padding: 42px 20px;
-
   text-align: center;
-
   margin-bottom: 18px;
-
-  box-shadow:
-    0 12px 34px rgba(0,0,0,0.10);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.10);
 }
 
 .result-main span {
@@ -389,13 +337,9 @@ button:hover {
 
 .result-main strong {
   display: block;
-
   font-size: 76px;
-
   font-weight: 700;
-
   letter-spacing: -4px;
-
   color: #111827;
 }
 
@@ -412,13 +356,9 @@ button:hover {
 
 .result-grid p {
   background: #C9D2DB;
-
   border: 1px solid #B8C2CC;
-
   border-radius: 18px;
-
   padding: 16px;
-
   color: #5B6773;
 }
 
@@ -428,20 +368,102 @@ button:hover {
 
 .method-note {
   margin-top: 18px;
-
   background: #C9D2DB;
-
   border: 1px solid #B8C2CC;
-
   border-radius: 22px;
-
   padding: 18px;
-
   color: #4F5B67;
-
   line-height: 1.7;
-
   font-size: 14px;
+}
+
+/* =========================
+   LOCAL STORAGE PANELS
+========================= */
+
+.save-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+.save-row input {
+  padding: 14px;
+  border: 1px solid #B8C2CC;
+  border-radius: 16px;
+  background: #C9D2DB;
+  color: #111827;
+  font-size: 14px;
+}
+
+.save-row input::placeholder {
+  color: #5B6773;
+}
+
+.save-message {
+  margin-top: 12px;
+  color: #4F5B67;
+  font-size: 14px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.clear-btn {
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+}
+
+.history-list {
+  display: grid;
+  gap: 12px;
+}
+
+.history-card {
+  background: #C9D2DB;
+  border: 1px solid #B8C2CC;
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.history-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.history-card h3 {
+  font-size: 16px;
+  color: #111827;
+}
+
+.history-card small {
+  color: #5B6773;
+}
+
+.history-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.history-card-grid p {
+  color: #4F5B67;
+  font-size: 14px;
+}
+
+.history-card-grid strong {
+  color: #111827;
+}
+
+.empty-history {
+  color: #4F5B67;
 }
 
 @media (max-width: 700px) {
@@ -451,8 +473,15 @@ button:hover {
   }
 
   .marker-area,
-  .result-grid {
+  .result-grid,
+  .history-card-grid,
+  .save-row {
     grid-template-columns: 1fr;
+  }
+
+  .history-header {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .result-main strong {

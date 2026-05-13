@@ -36,14 +36,23 @@ const errorRangeInfo = document.getElementById("errorRangeInfo");
 const unlockBtn = document.getElementById("unlockBtn");
 const lockInfo = document.getElementById("lockInfo");
 
+const athleteNameInput = document.getElementById("athleteNameInput");
+const saveTestBtn = document.getElementById("saveTestBtn");
+const saveMessage = document.getElementById("saveMessage");
+const historyList = document.getElementById("historyList");
+const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+
 const FPS = 60;
 const GRAVITY = 9.81;
+const STORAGE_KEY = "biolab_cmj_tests";
 
 let selectionStep = 0;
 let isSelectionLocked = false;
 
 let takeOffFrame = null;
 let landingFrame = null;
+
+let lastCMJResult = null;
 
 function getFrameTime() {
   return 1 / FPS;
@@ -111,6 +120,7 @@ function calculateCMJ() {
     flightTimeInfo.textContent = "-";
     jumpHeightInfo.textContent = "-";
     errorRangeInfo.textContent = "-";
+    lastCMJResult = null;
     return;
   }
 
@@ -126,12 +136,23 @@ function calculateCMJ() {
   const minJumpHeightCm = calculateJumpHeightCm(minFlightTime);
   const maxJumpHeightCm = calculateJumpHeightCm(maxFlightTime);
 
+  const errorRangeText =
+    `${minJumpHeightCm.toFixed(2)} - ${maxJumpHeightCm.toFixed(2)} cm`;
+
   frameDifferenceInfo.textContent = frameDifference;
   flightTimeInfo.textContent = flightTime.toFixed(3);
   jumpHeightInfo.textContent = jumpHeightCm.toFixed(2);
+  errorRangeInfo.textContent = errorRangeText;
 
-  errorRangeInfo.textContent =
-    `${minJumpHeightCm.toFixed(2)} - ${maxJumpHeightCm.toFixed(2)} cm`;
+  lastCMJResult = {
+    jumpHeightCm: jumpHeightCm.toFixed(2),
+    flightTimeS: flightTime.toFixed(3),
+    takeOffFrame,
+    landingFrame,
+    frameDifference,
+    errorRange: errorRangeText,
+    fps: FPS
+  };
 }
 
 function resetSelections() {
@@ -140,6 +161,7 @@ function resetSelections() {
 
   takeOffFrame = null;
   landingFrame = null;
+  lastCMJResult = null;
 
   takeOffPoint.textContent = "0, 0";
   landingPoint.textContent = "0, 0";
@@ -153,6 +175,91 @@ function resetSelections() {
   errorRangeInfo.textContent = "-";
 
   lockInfo.textContent = "Take-off seç";
+  saveMessage.textContent = "";
+}
+
+function getSavedTests() {
+  const rawData = localStorage.getItem(STORAGE_KEY);
+
+  if (!rawData) {
+    return [];
+  }
+
+  try {
+    return JSON.parse(rawData);
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveTests(tests) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tests));
+}
+
+function renderHistory() {
+  const tests = getSavedTests();
+
+  historyList.innerHTML = "";
+
+  if (tests.length === 0) {
+    historyList.innerHTML = `<p class="empty-history">Henüz kayıt yok.</p>`;
+    return;
+  }
+
+  tests
+    .slice()
+    .reverse()
+    .forEach(function (test) {
+      const card = document.createElement("div");
+      card.className = "history-card";
+
+      card.innerHTML = `
+        <div class="history-card-header">
+          <h3>${test.athleteName}</h3>
+          <small>${test.createdAt}</small>
+        </div>
+
+        <div class="history-card-grid">
+          <p>Sıçrama: <strong>${test.jumpHeightCm} cm</strong></p>
+          <p>Uçuş: <strong>${test.flightTimeS} sn</strong></p>
+          <p>Frame Farkı: <strong>${test.frameDifference}</strong></p>
+          <p>Hata: <strong>${test.errorRange}</strong></p>
+        </div>
+      `;
+
+      historyList.appendChild(card);
+    });
+}
+
+function saveCurrentTest() {
+  if (!lastCMJResult) {
+    saveMessage.textContent = "Önce take-off ve landing seçimi yapmalısın.";
+    return;
+  }
+
+  const athleteName = athleteNameInput.value.trim();
+
+  if (!athleteName) {
+    saveMessage.textContent = "Sporcu adı girmelisin.";
+    return;
+  }
+
+  const tests = getSavedTests();
+
+  const newTest = {
+    id: Date.now(),
+    athleteName,
+    createdAt: new Date().toLocaleString("tr-TR"),
+    ...lastCMJResult
+  };
+
+  tests.push(newTest);
+  saveTests(tests);
+
+  saveMessage.textContent = "Test kaydedildi.";
+  athleteNameInput.value = "";
+
+  renderHistory();
 }
 
 videoInput.addEventListener("change", function () {
@@ -266,3 +373,20 @@ video.addEventListener("click", function (event) {
 unlockBtn.addEventListener("click", function () {
   resetSelections();
 });
+
+saveTestBtn.addEventListener("click", function () {
+  saveCurrentTest();
+});
+
+clearHistoryBtn.addEventListener("click", function () {
+  const confirmed = confirm("Tüm kayıtları silmek istediğine emin misin?");
+
+  if (!confirmed) {
+    return;
+  }
+
+  localStorage.removeItem(STORAGE_KEY);
+  renderHistory();
+});
+
+renderHistory();
