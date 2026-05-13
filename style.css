@@ -27,29 +27,16 @@ body {
 .pixel-duck,
 .rare-duck {
   position: absolute;
-
   width: 48px;
   height: 40px;
-
   image-rendering: pixelated;
-
   opacity: 0.88;
-
-  will-change:
-    transform,
-    opacity;
-
-  filter:
-    drop-shadow(
-      0 8px 12px rgba(0,0,0,0.22)
-    );
+  will-change: transform, opacity;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.22));
 }
 
 .pixel-duck {
-
-  transform:
-    translate(40px, 120px);
-
+  transform: translate(40px, 120px);
   transition:
     transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1),
     opacity 0.8s ease,
@@ -59,19 +46,14 @@ body {
 .duck-pixel,
 .rare-duck-pixel,
 .intro-duck-pixel {
-
   position: absolute;
-
   width: 6px;
   height: 6px;
-
   left: 10px;
   top: 12px;
-
   background: transparent;
 
   box-shadow:
-
     18px 0 #FACC15,
     24px 0 #FACC15,
     30px 0 #FACC15,
@@ -117,68 +99,48 @@ body {
 ========================= */
 
 .pixel-duck.sleeping {
-  animation:
-    duckSleep 2.4s infinite ease-in-out;
+  animation: duckSleep 2.4s infinite ease-in-out;
 }
 
 .pixel-duck.scared {
-  animation:
-    duckScared 0.25s ease-in-out;
+  animation: duckScared 0.25s ease-in-out;
 }
 
 .pixel-duck.panicRunning {
-  animation:
-    duckRun 0.34s infinite alternate ease-in-out;
+  animation: duckRun 0.34s infinite alternate ease-in-out;
 }
 
 .pixel-duck.idle {
-  animation:
-    duckIdle 1.2s ease-in-out;
+  animation: duckIdle 1.2s ease-in-out;
 }
 
 .pixel-duck.curious {
-  animation:
-    duckCurious 1s ease-in-out;
+  animation: duckCurious 1s ease-in-out;
 }
 
 .pixel-duck.grooming {
-  animation:
-    duckGrooming 1.4s ease-in-out;
+  animation: duckGrooming 1.4s ease-in-out;
 }
 
 .pixel-duck.hidden {
   opacity: 0;
-
   filter:
     blur(3px)
-    drop-shadow(
-      0 8px 12px rgba(0,0,0,0.1)
-    );
+    drop-shadow(0 8px 12px rgba(0,0,0,0.1));
 }
 
 .pixel-duck.returning {
   opacity: 0.55;
-
   filter:
     blur(1px)
-    drop-shadow(
-      0 8px 12px rgba(0,0,0,0.18)
-    );
+    drop-shadow(0 8px 12px rgba(0,0,0,0.18));
 }
 
-/* rare duck */
-
 .rare-duck {
-
   width: 38px;
   height: 32px;
-
   opacity: 0;
-
-  transform:
-    translate(-80px, 75vh)
-    scale(0.82);
-
+  transform: translate(-80px, 75vh) scale(0.82);
   transition:
     transform 1.2s ease,
     opacity 0.7s ease;
@@ -193,14 +155,8 @@ body {
   transform-origin: top left;
 }
 
-/* =========================
-   DUCK ANIMATIONS
-========================= */
-
 @keyframes duckSleep {
-
-  0%,
-  100% {
+  0%, 100% {
     scale: 1;
   }
 
@@ -210,7 +166,6 @@ body {
 }
 
 @keyframes duckScared {
-
   0% {
     translate: 0 0;
   }
@@ -229,7 +184,6 @@ body {
 }
 
 @keyframes duckRun {
-
   from {
     margin-top: 0;
     rotate: -0.4deg;
@@ -242,9 +196,7 @@ body {
 }
 
 @keyframes duckIdle {
-
-  0%,
-  100% {
+  0%, 100% {
     scale: 1;
   }
 
@@ -254,9 +206,7 @@ body {
 }
 
 @keyframes duckCurious {
-
-  0%,
-  100% {
+  0%, 100% {
     scale: 1;
     rotate: 0deg;
   }
@@ -272,9 +222,7 @@ body {
 }
 
 @keyframes duckGrooming {
-
-  0%,
-  100% {
+  0%, 100% {
     rotate: 0deg;
     scale: 1;
   }
@@ -324,27 +272,18 @@ body {
     filter 1.4s ease;
 }
 
-/* grain */
-
 .intro-grain {
   position: absolute;
   inset: -100%;
-
   opacity: 0.045;
-
   background-image:
     radial-gradient(#ffffff 0.6px, transparent 0.6px);
-
   background-size: 6px 6px;
-
-  animation:
-    grainMove 8s linear infinite;
-
+  animation: grainMove 8s linear infinite;
   pointer-events: none;
 }
 
 @keyframes grainMove {
-
   0% {
     transform: translate(0, 0);
   }
@@ -366,8 +305,6 @@ body {
   }
 }
 
-/* intro content */
-
 .intro-content {
   position: relative;
   z-index: 3;
@@ -375,39 +312,24 @@ body {
 }
 
 .intro-content h1 {
-
-  font-size:
-    clamp(70px, 14vw, 180px);
-
+  font-size: clamp(70px, 14vw, 180px);
   font-weight: 800;
-
   letter-spacing: -8px;
-
   color: #16202B;
-
-  animation:
-    logoBreathing 4s infinite ease-in-out;
+  animation: logoBreathing 4s infinite ease-in-out;
 }
 
 .intro-content p {
-
   margin-top: 14px;
-
   font-size: 12px;
-
   letter-spacing: 6px;
-
   text-transform: uppercase;
-
   color: #4F5B67;
-
   opacity: 0.9;
 }
 
 @keyframes logoBreathing {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
   }
 
@@ -421,21 +343,25 @@ body {
 ========================= */
 
 .intro-duck-family {
-
   position: absolute;
-
-  bottom: 70px;
-
-  left: -260px;
-
-  display: flex;
-  align-items: flex-end;
-  gap: 18px;
-
+  right: -190px;
+  bottom: 72px;
   z-index: 2;
 
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  gap: 16px;
+
+  opacity: 0.88;
+
   animation:
-    introDuckWalk 18s linear infinite;
+    introFamilyPeek 7.2s ease-in-out forwards;
+}
+
+.intro-duck-family.intro-family-exit {
+  animation:
+    introFamilyExit 1.05s ease-in forwards;
 }
 
 .intro-duck {
@@ -446,22 +372,24 @@ body {
 .mother-duck {
   width: 56px;
   height: 48px;
+  animation:
+    motherNaturalWalk 1.2s infinite ease-in-out;
 }
 
 .baby-duck {
   width: 34px;
   height: 28px;
-  opacity: 0.95;
+  opacity: 0.94;
 }
 
 .baby-one {
   animation:
-    babyBounce 0.8s infinite ease-in-out;
+    babyNaturalFollow 0.95s 0.12s infinite ease-in-out;
 }
 
 .baby-two {
   animation:
-    babyBounce 0.8s 0.25s infinite ease-in-out;
+    babyNaturalFollow 1.05s 0.34s infinite ease-in-out;
 }
 
 .baby-duck .intro-duck-pixel {
@@ -469,30 +397,91 @@ body {
   transform-origin: top left;
 }
 
-@keyframes introDuckWalk {
-
+@keyframes introFamilyPeek {
   0% {
     transform:
-      translateX(0);
-  }
-
-  100% {
-    transform:
-      translateX(calc(100vw + 420px));
-  }
-}
-
-@keyframes babyBounce {
-
-  0%,
-  100% {
-    transform:
+      translateX(0)
       translateY(0);
   }
 
-  50% {
+  28% {
     transform:
-      translateY(-4px);
+      translateX(-220px)
+      translateY(1px);
+  }
+
+  48% {
+    transform:
+      translateX(-245px)
+      translateY(-2px);
+  }
+
+  64% {
+    transform:
+      translateX(-230px)
+      translateY(1px);
+  }
+
+  100% {
+    transform:
+      translateX(0)
+      translateY(0);
+  }
+}
+
+@keyframes introFamilyExit {
+  0% {
+    transform:
+      translateX(-230px)
+      translateY(0);
+    opacity: 0.88;
+  }
+
+  100% {
+    transform:
+      translateX(260px)
+      translateY(-2px);
+    opacity: 0;
+  }
+}
+
+@keyframes motherNaturalWalk {
+  0%, 100% {
+    transform:
+      translateY(0)
+      rotate(0deg);
+  }
+
+  35% {
+    transform:
+      translateY(-2px)
+      rotate(-1deg);
+  }
+
+  70% {
+    transform:
+      translateY(1px)
+      rotate(1deg);
+  }
+}
+
+@keyframes babyNaturalFollow {
+  0%, 100% {
+    transform:
+      translateY(0)
+      rotate(0deg);
+  }
+
+  45% {
+    transform:
+      translateY(-3px)
+      rotate(-2deg);
+  }
+
+  75% {
+    transform:
+      translateY(1px)
+      rotate(1deg);
   }
 }
 
@@ -510,10 +499,8 @@ body {
 .app {
   position: relative;
   z-index: 2;
-
   width: 92%;
   max-width: 920px;
-
   margin: auto;
   padding: 40px 0 60px;
 }
@@ -541,19 +528,12 @@ body {
 .results,
 .save-panel,
 .history-panel {
-  background:
-    rgba(220, 227, 234, 0.92);
-
+  background: rgba(220, 227, 234, 0.92);
   backdrop-filter: blur(8px);
-
   border-radius: 26px;
-
   padding: 22px;
-
   margin-bottom: 18px;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
 .protocol h2,
@@ -574,13 +554,9 @@ body {
 }
 
 .video-section {
-  background:
-    rgba(220, 227, 234, 0.92);
-
+  background: rgba(220, 227, 234, 0.92);
   border-radius: 30px;
-
   overflow: hidden;
-
   margin-bottom: 20px;
 }
 
@@ -607,10 +583,8 @@ video {
 
 .video-marker {
   position: absolute;
-
   width: 18px;
   height: 18px;
-
   border-radius: 999px;
 
   transform:
@@ -635,7 +609,6 @@ video {
 }
 
 .takeoff-marker {
-
   background: #EF4444;
 
   box-shadow:
@@ -647,7 +620,6 @@ video {
 }
 
 .landing-marker {
-
   background: #3B82F6;
 
   box-shadow:
@@ -659,9 +631,7 @@ video {
 }
 
 @keyframes markerPulse {
-
-  0%,
-  100% {
+  0%, 100% {
     scale: 1;
   }
 
@@ -680,40 +650,27 @@ video {
 
 .time-row {
   margin-top: 10px;
-
   display: flex;
   justify-content: space-between;
-
   color: #64748B;
-
   font-size: 13px;
 }
 
 .controls {
   display: grid;
-
   grid-template-columns:
     repeat(auto-fit, minmax(120px, 1fr));
-
   gap: 12px;
-
   margin-bottom: 20px;
 }
 
 button {
-
   padding: 14px;
-
   border: none;
-
   border-radius: 18px;
-
   background: #C53030;
-
   color: #F8FAFC;
-
   cursor: pointer;
-
   transition: 0.2s;
 }
 
@@ -734,11 +691,8 @@ button:hover {
 }
 
 .marker-card {
-  background:
-    rgba(201, 210, 219, 0.8);
-
+  background: rgba(201, 210, 219, 0.8);
   border-radius: 22px;
-
   padding: 18px;
 }
 
@@ -749,18 +703,13 @@ button:hover {
 
 .result-main {
   text-align: center;
-
   padding: 42px 20px;
-
   margin-bottom: 18px;
 }
 
 .result-main strong {
-
   display: block;
-
   font-size: 76px;
-
   color: #111827;
 }
 
@@ -771,12 +720,8 @@ button:hover {
 }
 
 .result-grid p {
-
-  background:
-    rgba(201, 210, 219, 0.8);
-
+  background: rgba(201, 210, 219, 0.8);
   border-radius: 18px;
-
   padding: 16px;
 }
 
@@ -787,11 +732,8 @@ button:hover {
 }
 
 .save-row input {
-
   padding: 14px;
-
   border: none;
-
   border-radius: 16px;
 }
 
@@ -817,12 +759,8 @@ button:hover {
 }
 
 .history-card {
-
-  background:
-    rgba(201, 210, 219, 0.8);
-
+  background: rgba(201, 210, 219, 0.8);
   border-radius: 18px;
-
   padding: 16px;
 }
 
@@ -840,12 +778,10 @@ button:hover {
 }
 
 @media (max-width: 700px) {
-
   .marker-area,
   .result-grid,
   .save-row,
   .history-card-grid {
-
     grid-template-columns: 1fr;
   }
 
@@ -861,5 +797,9 @@ button:hover {
 
   .result-main strong {
     font-size: 56px;
+  }
+
+  .intro-duck-family {
+    bottom: 54px;
   }
 }

@@ -16,48 +16,104 @@
 
 <body>
 
+  <!-- =========================
+       BACKGROUND DUCK
+  ========================== -->
+
   <div class="background-duck-layer">
-    <div id="pixelDuck" class="pixel-duck sleeping">
+
+    <div
+      id="pixelDuck"
+      class="pixel-duck sleeping"
+    >
       <div class="duck-pixel"></div>
     </div>
+
   </div>
 
-  <section id="introScreen" class="intro-screen">
+  <!-- =========================
+       INTRO SCREEN
+  ========================== -->
+
+  <section
+    id="introScreen"
+    class="intro-screen"
+  >
 
     <div class="intro-grain"></div>
 
     <div class="intro-content">
+
       <h1>BioLab</h1>
-      <p>motion analysis system</p>
+
+      <p>
+        motion analysis system
+      </p>
+
     </div>
 
-    <div id="introDuckFamily" class="intro-duck-family">
-      <div class="intro-duck mother-duck">
+    <!-- INTRO DUCK FAMILY -->
+
+    <div
+      id="introDuckFamily"
+      class="intro-duck-family"
+    >
+
+      <!-- mother -->
+
+      <div
+        class="intro-duck mother-duck"
+      >
         <div class="intro-duck-pixel"></div>
       </div>
 
-      <div class="intro-duck baby-duck baby-one">
+      <!-- baby 1 -->
+
+      <div
+        class="intro-duck baby-duck baby-one"
+      >
         <div class="intro-duck-pixel"></div>
       </div>
 
-      <div class="intro-duck baby-duck baby-two">
+      <!-- baby 2 -->
+
+      <div
+        class="intro-duck baby-duck baby-two"
+      >
         <div class="intro-duck-pixel"></div>
       </div>
+
     </div>
 
   </section>
 
+  <!-- =========================
+       MAIN APP
+  ========================== -->
+
   <main class="app">
 
+    <!-- HEADER -->
+
     <header class="header">
+
       <h1>BioLab</h1>
-      <p>Countermovement Jump Analiz Sistemi</p>
+
+      <p>
+        Countermovement Jump Analiz Sistemi
+      </p>
+
     </header>
 
+    <!-- PROTOCOL -->
+
     <section class="protocol">
+
       <h2>Test Protokolü</h2>
 
-      <p>1. 60 FPS videonuzu sisteme yükleyin.</p>
+      <p>
+        1. 60 FPS videonuzu sisteme yükleyin.
+      </p>
 
       <p>
         2. Kare kare ilerlemek için
@@ -76,18 +132,31 @@
 
       <p>
         4. İkinci seçim için:
-        tekrar <strong>Shift</strong> tuşuna basılı tutarak,
+        tekrar
+        <strong>Shift</strong>
+        tuşuna basılı tutarak,
         sporcunun ayaklarının yere ilk tekrar temas ettiği kareye tıklayın.
       </p>
 
       <p>
         5. Sistem uçuş süresi üzerinden sıçrama yüksekliğini otomatik olarak hesaplayacaktır.
       </p>
+
     </section>
 
+    <!-- VIDEO INPUT -->
+
     <section class="upload-area">
-      <input type="file" id="videoInput" accept="video/*" />
+
+      <input
+        type="file"
+        id="videoInput"
+        accept="video/*"
+      />
+
     </section>
+
+    <!-- VIDEO -->
 
     <section class="video-section">
 
@@ -95,7 +164,12 @@
 
         <video id="video"></video>
 
-        <div id="videoOverlay" class="video-overlay">
+        <!-- overlay -->
+
+        <div
+          id="videoOverlay"
+          class="video-overlay"
+        >
 
           <div
             id="takeOffMarker"
@@ -111,7 +185,10 @@
 
       </div>
 
+      <!-- timeline -->
+
       <div class="timeline-area">
+
         <input
           type="range"
           id="timeline"
@@ -122,65 +199,179 @@
         />
 
         <div class="time-row">
-          <span id="currentTimeDisplay">0.00 sn</span>
-          <span id="durationDisplay">0.00 sn</span>
+
+          <span id="currentTimeDisplay">
+            0.00 sn
+          </span>
+
+          <span id="durationDisplay">
+            0.00 sn
+          </span>
+
         </div>
+
       </div>
 
     </section>
 
+    <!-- CONTROLS -->
+
     <section class="controls">
-      <button id="playPauseBtn">Oynat / Durdur</button>
-      <button id="slowSpeedBtn">0.25x</button>
-      <button id="normalSpeedBtn">1x</button>
-      <button id="prevFrameBtn">← Kare</button>
-      <button id="nextFrameBtn">Kare →</button>
+
+      <button id="playPauseBtn">
+        Oynat / Durdur
+      </button>
+
+      <button id="slowSpeedBtn">
+        0.25x
+      </button>
+
+      <button id="normalSpeedBtn">
+        1x
+      </button>
+
+      <button id="prevFrameBtn">
+        ← Kare
+      </button>
+
+      <button id="nextFrameBtn">
+        Kare →
+      </button>
+
     </section>
 
+    <!-- SELECTION -->
+
     <section class="selection-panel">
+
       <div class="selection-status">
+
         <span>Seçim:</span>
-        <strong id="lockInfo">Take-off seç</strong>
+
+        <strong id="lockInfo">
+          Take-off seç
+        </strong>
+
       </div>
 
       <div class="marker-area">
-        <div class="marker-card">
-          <h3>Take-off</h3>
-          <p>Koordinat: <span id="takeOffPoint">0, 0</span></p>
-          <p>Frame: <span id="takeOffFrameInfo">-</span></p>
-        </div>
+
+        <!-- takeoff -->
 
         <div class="marker-card">
-          <h3>Landing</h3>
-          <p>Koordinat: <span id="landingPoint">0, 0</span></p>
-          <p>Frame: <span id="landingFrameInfo">-</span></p>
+
+          <h3>Take-off</h3>
+
+          <p>
+            Koordinat:
+            <span id="takeOffPoint">
+              0, 0
+            </span>
+          </p>
+
+          <p>
+            Frame:
+            <span id="takeOffFrameInfo">
+              -
+            </span>
+          </p>
+
         </div>
+
+        <!-- landing -->
+
+        <div class="marker-card">
+
+          <h3>Landing</h3>
+
+          <p>
+            Koordinat:
+            <span id="landingPoint">
+              0, 0
+            </span>
+          </p>
+
+          <p>
+            Frame:
+            <span id="landingFrameInfo">
+              -
+            </span>
+          </p>
+
+        </div>
+
       </div>
 
-      <button id="unlockBtn" class="reset-btn">
+      <button
+        id="unlockBtn"
+        class="reset-btn"
+      >
         Seçimleri Sıfırla
       </button>
+
     </section>
 
+    <!-- RESULTS -->
+
     <section class="results">
+
       <div class="result-main">
-        <span>Sıçrama Yüksekliği</span>
-        <strong id="jumpHeightInfo">-</strong>
+
+        <span>
+          Sıçrama Yüksekliği
+        </span>
+
+        <strong id="jumpHeightInfo">
+          -
+        </strong>
+
         <small>cm</small>
+
       </div>
 
       <div class="result-grid">
-        <p>Frame: <strong id="currentFrameInfo">0</strong></p>
-        <p>Frame Farkı: <strong id="frameDifferenceInfo">-</strong></p>
-        <p>Uçuş Süresi: <strong id="flightTimeInfo">-</strong> sn</p>
-        <p>Hata Aralığı: <strong id="errorRangeInfo">-</strong></p>
+
+        <p>
+          Frame:
+          <strong id="currentFrameInfo">
+            0
+          </strong>
+        </p>
+
+        <p>
+          Frame Farkı:
+          <strong id="frameDifferenceInfo">
+            -
+          </strong>
+        </p>
+
+        <p>
+          Uçuş Süresi:
+          <strong id="flightTimeInfo">
+            -
+          </strong>
+          sn
+        </p>
+
+        <p>
+          Hata Aralığı:
+          <strong id="errorRangeInfo">
+            -
+          </strong>
+        </p>
+
       </div>
+
     </section>
 
+    <!-- SAVE -->
+
     <section class="save-panel">
+
       <h2>Testi Kaydet</h2>
 
       <div class="save-row">
+
         <input
           type="text"
           id="athleteNameInput"
@@ -190,29 +381,55 @@
         <button id="saveTestBtn">
           Testi Kaydet
         </button>
+
       </div>
 
-      <p id="saveMessage" class="save-message"></p>
+      <p
+        id="saveMessage"
+        class="save-message"
+      ></p>
+
     </section>
 
+    <!-- HISTORY -->
+
     <section class="history-panel">
+
       <div class="history-header">
+
         <h2>Geçmiş Testler</h2>
 
         <div class="history-actions">
-          <button id="downloadCsvBtn" class="csv-btn">
+
+          <button
+            id="downloadCsvBtn"
+            class="csv-btn"
+          >
             CSV İndir
           </button>
 
-          <button id="clearHistoryBtn" class="clear-btn">
+          <button
+            id="clearHistoryBtn"
+            class="clear-btn"
+          >
             Kayıtları Sil
           </button>
+
         </div>
+
       </div>
 
-      <div id="historyList" class="history-list">
-        <p class="empty-history">Henüz kayıt yok.</p>
+      <div
+        id="historyList"
+        class="history-list"
+      >
+
+        <p class="empty-history">
+          Henüz kayıt yok.
+        </p>
+
       </div>
+
     </section>
 
   </main>
